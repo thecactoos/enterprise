@@ -1,0 +1,229 @@
+{
+  "project": {
+    "name": "SPS Enterprise CRM",
+    "description": "Comprehensive CRM system with microservices architecture",
+    "version": "1.0.0",
+    "architecture": "microservices",
+    "technologies": {
+      "backend": ["Node.js", "NestJS", "TypeORM", "PostgreSQL", "Redis"],
+      "frontend": ["React", "Material-UI", "JavaScript"],
+      "pdf_processing": ["Python", "FastAPI", "OCR"],
+      "containerization": ["Docker", "Docker Compose"],
+      "database": ["PostgreSQL 15", "Redis 7"]
+    }
+  },
+  "directory_structure": {
+    "root": "sps-enterprise/",
+    "services": {
+      "api-gateway": {
+        "path": "api-gateway/",
+        "technology": "NestJS",
+        "port": 3000,
+        "purpose": "Main entry point, JWT authentication, routing",
+        "dependencies": ["users-service", "clients-service", "notes-service", "products-service", "pdf-service"],
+        "files": {
+          "src/": {
+            "app.module.ts": "Main application module",
+            "main.ts": "Application bootstrap",
+            "auth/": "Authentication modules",
+            "clients/": "Client proxy modules",
+            "dashboard/": "Dashboard endpoints",
+            "notes/": "Notes proxy modules",
+            "pdf/": "PDF processing proxy",
+            "users/": "User proxy modules",
+            "common/": "Shared utilities and filters"
+          },
+          "Dockerfile": "Container configuration",
+          "package.json": "Dependencies and scripts",
+          "tsconfig.json": "TypeScript configuration"
+        }
+      },
+      "users-service": {
+        "path": "users-service/",
+        "technology": "NestJS",
+        "port": 3001,
+        "purpose": "User management and authentication",
+        "database_tables": ["users"],
+        "files": {
+          "src/": {
+            "app.module.ts": "Service main module",
+            "main.ts": "Service bootstrap",
+            "users/": {
+              "user.entity.ts": "User database entity",
+              "users.controller.ts": "User CRUD endpoints",
+              "users.service.ts": "User business logic",
+              "users.module.ts": "User module configuration"
+            },
+            "auth/": {
+              "auth.controller.ts": "Authentication endpoints",
+              "auth.service.ts": "Authentication logic",
+              "auth.module.ts": "Auth module",
+              "jwt.strategy.ts": "JWT strategy"
+            }
+          }
+        }
+      },
+      "clients-service": {
+        "path": "clients-service/",
+        "technology": "NestJS", 
+        "port": 3002,
+        "purpose": "Client/customer management",
+        "database_tables": ["clients"],
+        "files": {
+          "src/": {
+            "app.module.ts": "Service main module",
+            "main.ts": "Service bootstrap",
+            "clients/": {
+              "client.entity.ts": "Client database entity",
+              "clients.controller.ts": "Client CRUD endpoints",
+              "clients.service.ts": "Client business logic",
+              "clients.module.ts": "Client module configuration"
+            }
+          }
+        }
+      },
+      "notes-service": {
+        "path": "notes-service/",
+        "technology": "NestJS",
+        "port": 3003, 
+        "purpose": "Note-taking and client interaction tracking",
+        "database_tables": ["notes"],
+        "relationships": ["notes.clientId -> clients.id", "notes.userId -> users.id"],
+        "files": {
+          "src/": {
+            "app.module.ts": "Service main module",
+            "main.ts": "Service bootstrap",
+            "notes/": {
+              "note.entity.ts": "Note database entity",
+              "notes.controller.ts": "Notes CRUD endpoints",
+              "notes.service.ts": "Notes business logic",
+              "notes.module.ts": "Notes module configuration"
+            }
+          }
+        }
+      },
+      "products-service": {
+        "path": "products-service/",
+        "technology": "NestJS",
+        "port": 3004,
+        "purpose": "Product/service catalog management",
+        "database_tables": ["products"],
+        "status": "in_development",
+        "files": {
+          "src/": {
+            "products/": {
+              "product.entity.ts": "Product database entity (created)"
+            }
+          }
+        }
+      },
+      "pdf-service": {
+        "path": "pdf-service/",
+        "technology": "Python/FastAPI",
+        "port": 8000,
+        "purpose": "PDF analysis and OCR processing",
+        "files": {
+          "app/": {
+            "main.py": "FastAPI application",
+            "config.py": "Service configuration",
+            "routes/": "API endpoints",
+            "services/": "PDF processing logic",
+            "schemas/": "Data schemas",
+            "utils/": "Utility functions"
+          },
+          "requirements.txt": "Python dependencies",
+          "Dockerfile": "Container configuration"
+        }
+      }
+    },
+    "frontend": {
+      "path": "frontend/",
+      "technology": "React + Material-UI",
+      "port": 3001,
+      "purpose": "User interface and client interactions",
+      "features": ["Authentication", "Dashboard", "Client Management", "Notes", "PDF Analysis"],
+      "files": {
+        "src/": {
+          "components/": {
+            "Login.js": "Authentication component",
+            "Dashboard.js": "Main dashboard",
+            "Clients.js": "Client management",
+            "Notes.js": "Notes interface",
+            "PdfAnalyzer.js": "PDF upload and analysis",
+            "DevTools.js": "Development utilities"
+          },
+          "services/": {
+            "api.service.js": "API communication",
+            "mock-data.service.js": "Development mock data"
+          },
+          "contexts/": {
+            "AuthContext.js": "Authentication state management"
+          },
+          "config/": {
+            "environment.js": "Environment configuration"
+          }
+        }
+      }
+    },
+    "infrastructure": {
+      "database/": {
+        "init.sql": "Database schema initialization",
+        "README_DATABASE.md": "Database documentation"
+      },
+      "scripts/": {
+        "setup-database.js": "Database setup script",
+        "test-connection.js": "Connection testing",
+        "package.json": "Script dependencies"
+      },
+      "docs/": {
+        "schema/": "Architecture documentation (this directory)"
+      },
+      "docker-compose.yml": "Multi-container orchestration",
+      "README.md": "Project documentation",
+      "DEVELOPMENT_STRATEGY.md": "Development workflow guide"
+    }
+  },
+  "data_flow": {
+    "request_flow": [
+      "Frontend (React) -> API Gateway (3000)",
+      "API Gateway -> Microservice (users/clients/notes/products)",
+      "Microservice -> PostgreSQL Database",
+      "Response flows back through the same path"
+    ],
+    "authentication_flow": [
+      "User login -> API Gateway -> Users Service",
+      "JWT token generation -> API Gateway",
+      "Token validation on subsequent requests"
+    ],
+    "pdf_processing_flow": [
+      "File upload -> API Gateway -> PDF Service",
+      "OCR processing -> Data extraction",
+      "Results -> API Gateway -> Frontend"
+    ]
+  },
+  "development_environments": {
+    "development": {
+      "database": "PostgreSQL (Docker)",
+      "services": "All services running locally",
+      "frontend": "React dev server",
+      "data": "Mock data + sample database data"
+    },
+    "production": {
+      "database": "PostgreSQL (production instance)",
+      "services": "Containerized microservices",
+      "frontend": "Built React app",
+      "data": "Real production data"
+    }
+  },
+  "ports_and_networking": {
+    "external_ports": {
+      "3000": "API Gateway",
+      "3001": "Frontend React App", 
+      "5432": "PostgreSQL Database",
+      "6379": "Redis Cache",
+      "8000": "PDF Service"
+    },
+    "internal_network": "crm-network (Docker bridge)",
+    "service_discovery": "Docker Compose service names"
+  }
+}

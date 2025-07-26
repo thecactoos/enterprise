@@ -1,0 +1,203 @@
+{
+  "analysis": {
+    "data_source": "Polish building materials/flooring products",
+    "total_files": "2000+",
+    "data_language": "Polish",
+    "data_type": "Product catalog with pricing and specifications",
+    "file_formats": ["JSON batch results", "JSON merged data", "JSON extracted values"]
+  },
+  "identified_fields": {
+    "core_product_info": {
+      "kod_produktu": {
+        "type": "string",
+        "description": "Product code/ID",
+        "example": "54045",
+        "required": true,
+        "database_mapping": "sku"
+      },
+      "nazwa_produktu": {
+        "type": "string", 
+        "description": "Official product name",
+        "example": "[S] Tarkett Listwa Foliowana Biała",
+        "required": true,
+        "database_mapping": "name"
+      },
+      "nieoficjalna_nazwa_produktu": {
+        "type": "string",
+        "description": "Unofficial/extended product name",
+        "example": "Tarkett Listwa Foliowana Biała | 16x60x2400 | 8791740",
+        "required": false,
+        "database_mapping": "extended_name"
+      },
+      "jednostka_sprzedażowa": {
+        "type": "string",
+        "description": "Sales unit (mb, m², pcs)",
+        "example": "mb",
+        "required": true,
+        "database_mapping": "unit"
+      }
+    },
+    "material_specifications": {
+      "materiał": {
+        "type": "string",
+        "description": "Material type",
+        "example": "PVC",
+        "required": false,
+        "database_mapping": "material"
+      },
+      "kolor_/_barwa": {
+        "type": "string",
+        "description": "Color/shade",
+        "example": "Foliowana Biała",
+        "required": false,
+        "database_mapping": "color"
+      },
+      "rodzaj_wykończenia": {
+        "type": "string",
+        "description": "Finish type",
+        "example": "pvc",
+        "required": false,
+        "database_mapping": "finish_type"
+      },
+      "powierzchnia": {
+        "type": "string",
+        "description": "Surface type",
+        "example": "szczotkowana",
+        "required": false,
+        "database_mapping": "surface"
+      },
+      "fazowanie": {
+        "type": "string",
+        "description": "Edge treatment",
+        "example": "fazowanie czterostronne",
+        "required": false,
+        "database_mapping": "edge_treatment"
+      }
+    },
+    "dimensions": {
+      "grubość_[mm]": {
+        "type": "decimal",
+        "description": "Thickness in mm",
+        "example": "16",
+        "required": false,
+        "database_mapping": "thickness_mm"
+      },
+      "wysokość_[mm]": {
+        "type": "decimal",
+        "description": "Height in mm",
+        "example": "60",
+        "required": false,
+        "database_mapping": "height_mm"
+      },
+      "szerokość_[mm]": {
+        "type": "decimal",
+        "description": "Width in mm", 
+        "example": "209",
+        "required": false,
+        "database_mapping": "width_mm"
+      },
+      "długość_[mm]": {
+        "type": "decimal",
+        "description": "Length in mm",
+        "example": "2400",
+        "required": false,
+        "database_mapping": "length_mm"
+      },
+      "długość_sprzedażowa_[mb]": {
+        "type": "decimal",
+        "description": "Sales length in meters",
+        "example": "2,500",
+        "required": false,
+        "database_mapping": "sales_length_m"
+      },
+      "paczka_[m²]": {
+        "type": "decimal",
+        "description": "Package area in m²",
+        "example": "1,873",
+        "required": false,
+        "database_mapping": "package_area_m2"
+      }
+    },
+    "pricing": {
+      "cena_zakupu_netto_1mb_[zł]": {
+        "type": "decimal",
+        "description": "Purchase price per unit (PLN)",
+        "example": "14,26",
+        "required": false,
+        "database_mapping": "purchase_price"
+      },
+      "cena_sprzedaży_netto_1mb_[zł]": {
+        "type": "decimal",
+        "description": "Sale price per unit (PLN)",
+        "example": "23,00",
+        "required": false,
+        "database_mapping": "sale_price"
+      },
+      "cena_detaliczna_netto_1mb_[zł]": {
+        "type": "decimal",
+        "description": "Retail price per unit (PLN)",
+        "example": "28,75",
+        "required": false,
+        "database_mapping": "retail_price"
+      },
+      "potencjalny_zysk_1mb_[zł]": {
+        "type": "decimal",
+        "description": "Potential profit per unit (PLN)",
+        "example": "8,74",
+        "required": false,
+        "database_mapping": "profit_margin"
+      }
+    },
+    "inventory_management": {
+      "standardowy_zapas_[%]": {
+        "type": "decimal",
+        "description": "Standard stock percentage",
+        "example": "15,00",
+        "required": false,
+        "database_mapping": "standard_stock_percent"
+      }
+    },
+    "additional_info": {
+      "dodatkowy_opis_przedmiotu": {
+        "type": "text",
+        "description": "Additional product description",
+        "example": "panel ze zintegrowanym podkładem",
+        "required": false,
+        "database_mapping": "additional_description"
+      },
+      "result_value": {
+        "type": "text",
+        "description": "Full product identifier string",
+        "example": "ID: 54045 | [STANOWA] Tarkett Listwa Foliowana Biała",
+        "required": false,
+        "database_mapping": "full_identifier"
+      }
+    }
+  },
+  "data_patterns": {
+    "product_categories": [
+      "Flooring materials (vinyl, laminate)",
+      "Moldings and profiles", 
+      "Building accessories",
+      "Surface finishes"
+    ],
+    "units_of_measure": ["mb", "m²", "szt", "pcs"],
+    "materials": ["PVC", "wood", "composite", "metal"],
+    "currency": "PLN (Polish Złoty)",
+    "pricing_structure": "Multi-tier (purchase, sale, retail)",
+    "naming_convention": "[Status] Brand Model Details"
+  },
+  "data_quality_issues": {
+    "inconsistent_field_names": "Some fields have Polish characters and special symbols",
+    "mixed_decimal_formats": "Uses comma as decimal separator (Polish format)",
+    "empty_fields": "Many optional fields are empty strings",
+    "encoding_issues": "Polish characters need proper UTF-8 handling"
+  },
+  "recommended_database_schema": {
+    "table_name": "products",
+    "primary_key": "id (UUID)",
+    "indexes": ["sku", "name", "material", "category", "unit"],
+    "estimated_records": "50,000+",
+    "storage_requirements": "Large TEXT fields for descriptions"
+  }
+}

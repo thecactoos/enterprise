@@ -1,0 +1,18 @@
+{
+  "name": "sps-enterprise-scripts",
+  "version": "1.0.0",
+  "description": "Database setup and utility scripts for SPS Enterprise CRM",
+  "main": "setup-database.js",
+  "scripts": {
+    "setup-db": "node setup-database.js",
+    "test-connection": "node test-connection.js",
+    "import-products": "node import-products.js",
+    "import-complete": "node import-products-complete.js"
+  },
+  "dependencies": {
+    "pg": "^8.11.3"
+  },
+  "keywords": ["database", "postgresql", "crm", "setup"],
+  "author": "SPS Enterprise Team",
+  "license": "MIT"
+}

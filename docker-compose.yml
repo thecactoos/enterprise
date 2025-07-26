@@ -1,0 +1,150 @@
+version: '3.8'
+
+services:
+  # PostgreSQL Database
+  postgres:
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_DB: crm_db
+      POSTGRES_USER: crm_user
+      POSTGRES_PASSWORD: crm_password
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - crm-network
+
+  # Redis for caching and queues
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    networks:
+      - crm-network
+
+  # API Gateway
+  api-gateway:
+    build:
+      context: ./api-gateway
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      NODE_ENV: development
+      JWT_SECRET: your-super-secret-jwt-key
+      USERS_SERVICE_URL: http://users-service:3001
+      CLIENTS_SERVICE_URL: http://clients-service:3002
+      NOTES_SERVICE_URL: http://notes-service:3003
+      PRODUCTS_SERVICE_URL: http://products-service:3004
+      PDF_SERVICE_URL: http://pdf-service:8000
+      REDIS_URL: redis://redis:6379
+    depends_on:
+      - redis
+      - users-service
+      - clients-service
+      - notes-service
+      - products-service
+      - pdf-service
+    networks:
+      - crm-network
+
+  # Users Microservice
+  users-service:
+    build:
+      context: ./users-service
+      dockerfile: Dockerfile
+    environment:
+      NODE_ENV: development
+      DATABASE_URL: postgresql://crm_user:crm_password@postgres:5432/crm_db
+      JWT_SECRET: your-super-secret-jwt-key
+      REDIS_URL: redis://redis:6379
+    depends_on:
+      - postgres
+      - redis
+    networks:
+      - crm-network
+
+  # Clients Microservice
+  clients-service:
+    build:
+      context: ./clients-service
+      dockerfile: Dockerfile
+    environment:
+      NODE_ENV: development
+      DATABASE_URL: postgresql://crm_user:crm_password@postgres:5432/crm_db
+      REDIS_URL: redis://redis:6379
+    depends_on:
+      - postgres
+      - redis
+    networks:
+      - crm-network
+
+  # Notes Microservice
+  notes-service:
+    build:
+      context: ./notes-service
+      dockerfile: Dockerfile
+    environment:
+      NODE_ENV: development
+      DATABASE_URL: postgresql://crm_user:crm_password@postgres:5432/crm_db
+      REDIS_URL: redis://redis:6379
+    depends_on:
+      - postgres
+      - redis
+    networks:
+      - crm-network
+
+  # Products Microservice
+  products-service:
+    build:
+      context: ./products-service
+      dockerfile: Dockerfile
+    ports:
+      - "3004:3004"
+    environment:
+      NODE_ENV: development
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_USERNAME: crm_user
+      DB_PASSWORD: crm_password
+      DB_NAME: crm_db
+      PORT: 3004
+    depends_on:
+      - postgres
+    networks:
+      - crm-network
+
+  # PDF Service (Python/FastAPI)
+  pdf-service:
+    build:
+      context: ./pdf-service
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    environment:
+      PYTHONPATH: /app
+    networks:
+      - crm-network
+
+  # Frontend React App
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3001:3000"
+    environment:
+      REACT_APP_API_URL: http://localhost:3000
+    depends_on:
+      - api-gateway
+    networks:
+      - crm-network
+
+volumes:
+  postgres_data:
+
+networks:
+  crm-network:
+    driver: bridge 

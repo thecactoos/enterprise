@@ -1,0 +1,185 @@
+{
+  "improved_schema_analysis": {
+    "your_suggested_fields": [
+      "product_id (UUID)",
+      "product_name", 
+      "measure_unit",
+      "base_unit_for_pricing",
+      "selling_unit",
+      "measurement_units_per_selling_unit",
+      "unofficial_product_name",
+      "type_of_finish",
+      "surface", 
+      "bevel",
+      "thickness_mm",
+      "width_mm", 
+      "length_mm",
+      "package_m2",
+      "additional_item_description",
+      "retail_price_per_unit",
+      "selling_price_per_unit", 
+      "purchase_price_per_unit",
+      "potential_profit",
+      "installation_allowance"
+    ]
+  },
+  "field_mapping_analysis": {
+    "✅_available_in_scraped_data": {
+      "product_name": {
+        "scraped_field": "nazwa_produktu",
+        "example": "[S] Tarkett Listwa Foliowana Biała",
+        "quality": "excellent"
+      },
+      "selling_unit": {
+        "scraped_field": "jednostka_sprzedażowa", 
+        "example": "mb, m², szt",
+        "quality": "excellent"
+      },
+      "unofficial_product_name": {
+        "scraped_field": "nieoficjalna_nazwa_produktu",
+        "example": "Tarkett Listwa Foliowana Biała | 16x60x2400 | 8791740",
+        "quality": "good - sometimes empty"
+      },
+      "type_of_finish": {
+        "scraped_field": "rodzaj_wykończenia",
+        "example": "pvc",
+        "quality": "partial - not all products have this"
+      },
+      "surface": {
+        "scraped_field": "powierzchnia", 
+        "example": "szczotkowana",
+        "quality": "partial - mainly for flooring"
+      },
+      "bevel": {
+        "scraped_field": "fazowanie",
+        "example": "fazowanie czterostronne",
+        "quality": "partial - mainly for flooring"
+      },
+      "thickness_mm": {
+        "scraped_field": "grubość_[mm]",
+        "example": "16",
+        "quality": "good"
+      },
+      "width_mm": {
+        "scraped_field": "szerokość_[mm]", 
+        "example": "209",
+        "quality": "good"
+      },
+      "length_mm": {
+        "scraped_field": "długość_[mm]",
+        "example": "2400", 
+        "quality": "good"
+      },
+      "package_m2": {
+        "scraped_field": "paczka_[m²]",
+        "example": "1,873",
+        "quality": "good - when applicable"
+      },
+      "additional_item_description": {
+        "scraped_field": "dodatkowy_opis_przedmiotu",
+        "example": "panel ze zintegrowanym podkładem",
+        "quality": "fair - often empty"
+      },
+      "retail_price_per_unit": {
+        "scraped_field": "cena_detaliczna_netto_1mb_[zł]",
+        "example": "28,75",
+        "quality": "excellent"
+      },
+      "selling_price_per_unit": {
+        "scraped_field": "cena_sprzedaży_netto_1mb_[zł]",
+        "example": "23,00", 
+        "quality": "excellent"
+      },
+      "purchase_price_per_unit": {
+        "scraped_field": "cena_zakupu_netto_1mb_[zł]",
+        "example": "14,26",
+        "quality": "excellent"
+      },
+      "potential_profit": {
+        "scraped_field": "potencjalny_zysk_1mb_[zł]",
+        "example": "8,74",
+        "quality": "excellent"
+      }
+    },
+    "🤔_can_be_inferred": {
+      "product_id": {
+        "current_scraped": "kod_produktu",
+        "suggestion": "Use scraped code as external_code, generate UUID as primary key",
+        "example": "54045 -> UUID + external_code: '54045'"
+      },
+      "measure_unit": {
+        "current_scraped": "jednostka_sprzedażowa",
+        "suggestion": "Same as selling_unit for most products",
+        "example": "mb, m², szt"
+      },
+      "base_unit_for_pricing": {
+        "current_scraped": "derived from price field names",
+        "suggestion": "Extract from field names like 'cena_*_1mb_[zł]'",
+        "example": "mb from 'cena_sprzedaży_netto_1mb_[zł]'"
+      },
+      "measurement_units_per_selling_unit": {
+        "current_scraped": "długość_sprzedażowa_[mb], paczka_[m²]",
+        "suggestion": "Calculate ratio between package size and unit",
+        "example": "2.5mb per selling unit"
+      }
+    },
+    "❌_missing_from_scraped_data": {
+      "installation_allowance": {
+        "status": "not_available",
+        "suggestion": "Add as optional field, default to 0 or percentage",
+        "business_logic": "Could be calculated based on product type/category"
+      }
+    }
+  },
+  "data_quality_issues": {
+    "pricing_unit_inconsistency": {
+      "issue": "Price fields have unit in name (1mb, 1m²) but not standardized",
+      "examples": [
+        "cena_detaliczna_netto_1mb_[zł]",
+        "cena_detaliczna_netto_1m²_[zł]"
+      ],
+      "solution": "Parse unit from field name and store separately"
+    },
+    "decimal_format": {
+      "issue": "Polish decimal format with comma",
+      "examples": ["15,00", "28,75", "1,873"],
+      "solution": "Convert comma to dot during import"
+    },
+    "optional_fields": {
+      "issue": "Many fields are empty for certain product types",
+      "examples": ["fazowanie only for flooring", "powierzchnia not for moldings"],
+      "solution": "Make fields nullable based on product category"
+    }
+  },
+  "recommended_improvements": {
+    "use_uuid_primary_key": "✅ Excellent idea - much better than product codes",
+    "separate_units": "Split measure_unit and selling_unit for flexibility",
+    "unit_conversion": "Store conversion ratios for different units",  
+    "product_categories": "Add category field to handle different product types",
+    "external_code_field": "Keep original kod_produktu as external reference",
+    "installation_allowance": "Add as business rule, not from scraped data"
+  },
+  "suggested_entity_structure": {
+    "core_fields": [
+      "id (UUID primary key)",
+      "external_code (original kod_produktu)", 
+      "name",
+      "unofficial_name",
+      "category (enum: flooring, molding, accessory)"
+    ],
+    "unit_fields": [
+      "base_unit (mm, m, m²)",
+      "selling_unit (mb, m², szt)",
+      "pricing_unit (same as selling_unit usually)", 
+      "units_per_package (decimal)"
+    ],
+    "specification_fields": [
+      "thickness_mm", "width_mm", "length_mm",
+      "surface", "finish_type", "bevel"
+    ],
+    "pricing_fields": [
+      "purchase_price", "selling_price", "retail_price",
+      "profit_amount", "installation_allowance_percent"
+    ]
+  }
+}
