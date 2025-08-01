@@ -23,6 +23,9 @@ import {
   People as PeopleIcon,
   Note as NoteIcon,
   PictureAsPdf as PdfIcon,
+  Inventory as ProductsIcon,
+  ContactPhone as LeadsIcon,
+  RequestQuote as QuotesIcon,
   Logout as LogoutIcon,
   Menu as MenuIcon,
   Person as PersonIcon,
@@ -56,8 +59,11 @@ function Navbar() {
 
   const navItems = [
     { label: 'Dashboard', path: '/', icon: <DashboardIcon /> },
-    { label: 'Clients', path: '/clients', icon: <PeopleIcon /> },
-    { label: 'Notes', path: '/notes', icon: <NoteIcon /> },
+    { label: 'Leady', path: '/leads', icon: <LeadsIcon /> },
+    { label: 'Klienci', path: '/clients', icon: <PeopleIcon /> },
+    { label: 'Oferty', path: '/quotes', icon: <QuotesIcon /> },
+    { label: 'Produkty', path: '/products', icon: <ProductsIcon /> },
+    { label: 'Notatki', path: '/notes', icon: <NoteIcon /> },
     { label: 'PDF Analyzer', path: '/pdf-analyzer', icon: <PdfIcon /> },
   ];
 

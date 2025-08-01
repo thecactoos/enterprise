@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { User, UserRole } from './user.entity';
+import { User, UserRole, UserStatus } from './user.entity';
 import * as bcrypt from 'bcryptjs';
 
 @Injectable()
@@ -28,19 +28,28 @@ export class UsersService {
   }
 
   async create(userData: Partial<User>): Promise<User> {
-    const hashedPassword = await bcrypt.hash(userData.password, 10);
+    // Extract password from userData (registration sends 'password', not 'passwordHash')
+    const { password, ...userDataWithoutPassword } = userData as any;
+    
+    if (!password) {
+      throw new Error('Password is required');
+    }
+    
+    const hashedPassword = await bcrypt.hash(password, 10);
     const user = this.usersRepository.create({
-      ...userData,
-      password: hashedPassword,
+      ...userDataWithoutPassword,
+      passwordHash: hashedPassword,
+      status: userDataWithoutPassword.status || UserStatus.ACTIVE,
     });
-    return this.usersRepository.save(user);
+    const savedUsers = await this.usersRepository.save(user);
+    return Array.isArray(savedUsers) ? savedUsers[0] : savedUsers;
   }
 
   async update(id: string, userData: Partial<User>): Promise<User> {
     const user = await this.findOne(id);
     
-    if (userData.password) {
-      userData.password = await bcrypt.hash(userData.password, 10);
+    if (userData.passwordHash) {
+      userData.passwordHash = await bcrypt.hash(userData.passwordHash, 10);
     }
     
     Object.assign(user, userData);
@@ -53,6 +62,6 @@ export class UsersService {
   }
 
   async validatePassword(user: User, password: string): Promise<boolean> {
-    return bcrypt.compare(password, user.password);
+    return bcrypt.compare(password, user.passwordHash);
   }
 } 

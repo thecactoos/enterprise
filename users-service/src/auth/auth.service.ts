@@ -13,7 +13,7 @@ export class AuthService {
   async validateUser(email: string, password: string): Promise<any> {
     const user = await this.usersService.findByEmail(email);
     if (user && await this.usersService.validatePassword(user, password)) {
-      const { password, ...result } = user;
+      const { passwordHash, ...result } = user;
       return result;
     }
     return null;
@@ -26,7 +26,8 @@ export class AuthService {
       user: {
         id: user.id,
         email: user.email,
-        name: user.name,
+        firstName: user.firstName,
+        lastName: user.lastName,
         role: user.role,
       },
     };
@@ -39,7 +40,7 @@ export class AuthService {
     }
     
     const user = await this.usersService.create(userData);
-    const { password, ...result } = user;
+    const { passwordHash, ...result } = user;
     return result;
   }
 } 

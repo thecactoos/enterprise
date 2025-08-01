@@ -1,0 +1,377 @@
+# Claude Code Workspace - Ignore Patterns
+# Created: 2025-07-30
+# Purpose: Exclude files and patterns from Claude Code processing
+
+# Temporary Files
+*.tmp
+*.temp
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Cache Directories
+cache/temp/*
+cache/*/temp/*
+*.cache
+.cache/
+
+# Sensitive Data Patterns
+*.key
+*.pem
+*.p12
+*.pfx
+*.keystore
+*secret*
+*password*
+*token*
+*credential*
+.env
+.env.*
+config/secrets/
+data/sensitive/
+
+# Build Artifacts
+dist/
+build/
+target/
+out/
+bin/
+obj/
+*.o
+*.so
+*.dll
+*.exe
+*.app
+*.dSYM/
+
+# Dependency Directories
+node_modules/
+vendor/
+.venv/
+venv/
+env/
+.virtualenv/
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+.eggs/
+
+# IDE and Editor Files
+.vscode/
+.idea/
+*.sublime-*
+*.code-workspace
+.project
+.classpath
+.settings/
+*.iml
+*.ipr
+*.iws
+
+# System Files
+.git/
+.svn/
+.hg/
+.bzr/
+CVS/
+.gitignore
+.gitattributes
+.gitmodules
+
+# Log Files (Exclude Large Logs)
+*.log
+logs/*.log
+logs/sessions/*.log
+*.log.*
+*.log.gz
+*.log.zip
+
+# Large Binary Files
+*.zip
+*.tar
+*.tar.gz
+*.tar.bz2
+*.rar
+*.7z
+*.iso
+*.dmg
+*.img
+
+# Media Files
+*.jpg
+*.jpeg
+*.png
+*.gif
+*.bmp
+*.tiff
+*.svg
+*.ico
+*.mp3
+*.mp4
+*.avi
+*.mov
+*.wav
+*.pdf
+*.doc
+*.docx
+*.xls
+*.xlsx
+*.ppt
+*.pptx
+
+# Database Files
+*.db
+*.sqlite
+*.sqlite3
+*.mdb
+*.accdb
+*.dbf
+
+# Backup Files
+*.bak
+*.backup
+*.old
+*~
+data/backups/*.tar.gz
+data/backups/*.zip
+
+# Archive Directories
+archive/
+archived/
+old/
+backup/
+.backup/
+
+# Test Data
+test_data/
+test_files/
+mock_data/
+fixtures/
+*.fixture
+*.mock
+
+# Output Directories
+output/
+outputs/
+generated/
+reports/
+exports/temp/
+
+# Package Manager Files
+package-lock.json
+yarn.lock
+Pipfile.lock
+composer.lock
+Gemfile.lock
+
+# Runtime Files
+*.pid
+*.sock
+*.port
+.nrepl-port
+
+# Compiled Source
+*.class
+*.jar
+*.war
+*.ear
+*.o
+*.so
+*.a
+*.lib
+*.dll
+
+# Profiling and Debugging
+*.prof
+*.profile
+*.trace
+*.heap
+*.memprof
+*.cpuprof
+
+# Documentation Build
+_site/
+_build/
+site/
+.jekyll-cache/
+.sass-cache/
+
+# Workspace Specific Excludes
+workspace/scratch/temp/
+workspace/experiments/failed/
+workspace/tests/old/
+artifacts/code/prototypes/broken/
+data/processed/temp/
+
+# Language Specific
+
+## Python
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+## Node.js
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+.npm
+.eslintcache
+.stylelintcache
+.rpt2_cache/
+.rts2_cache_cjs/
+.rts2_cache_es/
+.rts2_cache_umd/
+.nyc_output
+.grunt
+bower_components/
+.lock-wscript
+.serverless/
+.fusebox/
+.dynamodb/
+.tern-port
+
+## Java
+*.class
+*.log
+*.ctxt
+.mtj.tmp/
+*.jar
+*.war
+*.nar
+*.ear
+*.zip
+*.tar.gz
+*.rar
+hs_err_pid*
+
+## .NET
+bin/
+obj/
+*.user
+*.userosscache
+*.sln.docstates
+*.userprefs
+mono_crash.*
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
+x64/
+x86/
+[Ww][Ii][Nn]32/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+bld/
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Ll]ogs/
+
+## Go
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.test
+*.out
+go.work
+
+## Rust
+target/
+Cargo.lock
+**/*.rs.bk
+*.pdb
+
+# Platform-Specific
+
+## Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+*.stackdump
+[Dd]esktop.ini
+$RECYCLE.BIN/
+*.cab
+*.msi
+*.msix
+*.msm
+*.msp
+*.lnk
+
+## macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+._*
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
+
+## Linux
+*~
+.fuse_hidden*
+.directory
+.Trash-*
+.nfs*
+
+# Performance Patterns
+# Exclude files that might cause performance issues
+files_larger_than_10mb
+extremely_long_filenames_that_might_cause_issues_with_certain_systems
+deeply/nested/directory/structures/that/go/beyond/reasonable/limits/
+
+# Security Patterns
+# Additional security-sensitive patterns
+ssh_keys/
+certificates/
+private_keys/
+.aws/
+.azure/
+.gcp/
+.kube/
+.docker/config.json
+
+# Custom Project Excludes
+# Add project-specific patterns below
+temp_*
+draft_*
+experimental_*
+_wip_*
+*.draft
+*.wip
+review_needed/
+pending_approval/

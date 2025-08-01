@@ -13,6 +13,7 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
       - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./database/migrations:/docker-entrypoint-initdb.d/migrations
     networks:
       - crm-network
 
@@ -35,18 +36,20 @@ services:
       NODE_ENV: development
       JWT_SECRET: your-super-secret-jwt-key
       USERS_SERVICE_URL: http://users-service:3001
-      CLIENTS_SERVICE_URL: http://clients-service:3002
       NOTES_SERVICE_URL: http://notes-service:3003
       PRODUCTS_SERVICE_URL: http://products-service:3004
-      PDF_SERVICE_URL: http://pdf-service:8000
+      CONTACTS_SERVICE_URL: http://contacts-service:3005
+      QUOTES_SERVICE_URL: http://quotes-service:3006
+      SERVICES_SERVICE_URL: http://services-service:3007
       REDIS_URL: redis://redis:6379
     depends_on:
       - redis
       - users-service
-      - clients-service
       - notes-service
       - products-service
-      - pdf-service
+      - contacts-service
+      - quotes-service
+      - services-service
     networks:
       - crm-network
 
@@ -55,41 +58,33 @@ services:
     build:
       context: ./users-service
       dockerfile: Dockerfile
+    ports:
+      - "3001:3001"
     environment:
       NODE_ENV: development
       DATABASE_URL: postgresql://crm_user:crm_password@postgres:5432/crm_db
       JWT_SECRET: your-super-secret-jwt-key
       REDIS_URL: redis://redis:6379
+      PORT: 3001
     depends_on:
       - postgres
       - redis
     networks:
       - crm-network
 
-  # Clients Microservice
-  clients-service:
-    build:
-      context: ./clients-service
-      dockerfile: Dockerfile
-    environment:
-      NODE_ENV: development
-      DATABASE_URL: postgresql://crm_user:crm_password@postgres:5432/crm_db
-      REDIS_URL: redis://redis:6379
-    depends_on:
-      - postgres
-      - redis
-    networks:
-      - crm-network
 
   # Notes Microservice
   notes-service:
     build:
       context: ./notes-service
       dockerfile: Dockerfile
+    ports:
+      - "3003:3003"
     environment:
       NODE_ENV: development
       DATABASE_URL: postgresql://crm_user:crm_password@postgres:5432/crm_db
       REDIS_URL: redis://redis:6379
+      PORT: 3003
     depends_on:
       - postgres
       - redis
@@ -105,26 +100,74 @@ services:
       - "3004:3004"
     environment:
       NODE_ENV: development
-      DB_HOST: postgres
-      DB_PORT: 5432
-      DB_USERNAME: crm_user
-      DB_PASSWORD: crm_password
-      DB_NAME: crm_db
+      DATABASE_URL: postgresql://crm_user:crm_password@postgres:5432/crm_db
       PORT: 3004
     depends_on:
       - postgres
     networks:
       - crm-network
 
-  # PDF Service (Python/FastAPI)
-  pdf-service:
+  # Contacts Microservice (formerly Leads)
+  contacts-service:
     build:
-      context: ./pdf-service
+      context: ./contacts-service
       dockerfile: Dockerfile
     ports:
-      - "8000:8000"
+      - "3005:3005"
     environment:
-      PYTHONPATH: /app
+      NODE_ENV: development
+      DATABASE_URL: postgresql://crm_user:crm_password@postgres:5432/crm_db
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_USERNAME: crm_user
+      DB_PASSWORD: crm_password
+      DB_NAME: crm_db
+      PORT: 3005
+      CORS_ORIGIN: http://localhost:3001
+    depends_on:
+      - postgres
+    networks:
+      - crm-network
+
+  # Quotes Microservice
+  quotes-service:
+    build:
+      context: ./quotes-service
+      dockerfile: Dockerfile
+    ports:
+      - "3006:3006"
+    environment:
+      NODE_ENV: development
+      DATABASE_URL: postgresql://crm_user:crm_password@postgres:5432/crm_db
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_USERNAME: crm_user
+      DB_PASSWORD: crm_password
+      DB_NAME: crm_db
+      PORT: 3006
+    depends_on:
+      - postgres
+    networks:
+      - crm-network
+
+  # Services Microservice
+  services-service:
+    build:
+      context: ./services-service
+      dockerfile: Dockerfile
+    ports:
+      - "3007:3007"
+    environment:
+      NODE_ENV: development
+      DATABASE_URL: postgresql://crm_user:crm_password@postgres:5432/crm_db
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_USERNAME: crm_user
+      DB_PASSWORD: crm_password
+      DB_NAME: crm_db
+      PORT: 3007
+    depends_on:
+      - postgres
     networks:
       - crm-network
 
@@ -134,9 +177,10 @@ services:
       context: ./frontend
       dockerfile: Dockerfile
     ports:
-      - "3001:3000"
+      - "3333:3333"
     environment:
       REACT_APP_API_URL: http://localhost:3000
+      PORT: 3333
     depends_on:
       - api-gateway
     networks:

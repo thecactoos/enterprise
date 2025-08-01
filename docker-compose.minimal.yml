@@ -1,0 +1,24 @@
+version: '3.8'
+
+services:
+  api-gateway:
+    build: ./api-gateway
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=development
+      - PORT=3000
+      - JWT_SECRET=your-super-secret-jwt-key
+      - USERS_SERVICE_URL=http://users-service:3001
+      - PRODUCTS_SERVICE_URL=http://products-service:3004
+      # Other services not ready yet
+      - CLIENTS_SERVICE_URL=http://localhost:3002  # placeholder
+      - NOTES_SERVICE_URL=http://localhost:3003    # placeholder
+      - PDF_SERVICE_URL=http://localhost:8000      # placeholder
+    networks:
+      - crm-network
+
+networks:
+  crm-network:
+    external: true
+    name: enterprise_crm-network

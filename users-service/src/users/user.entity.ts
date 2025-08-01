@@ -3,20 +3,31 @@ import { IsEmail, IsNotEmpty, MinLength } from 'class-validator';
 
 export enum UserRole {
   ADMIN = 'admin',
-  USER = 'user',
+  SALES = 'sales',
+  MANAGER = 'manager',
+}
+
+export enum UserStatus {
+  ACTIVE = 'active',
+  INVITED = 'invited',
+  INACTIVE = 'inactive',
 }
 
 @Entity('users')
 @Index(['email'])
 @Index(['role'])
-@Index(['isActive'])
+@Index(['status'])
 export class User {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
   @Column()
   @IsNotEmpty()
-  name: string;
+  firstName: string;
+
+  @Column()
+  @IsNotEmpty()
+  lastName: string;
 
   @Column({ unique: true })
   @IsEmail()
@@ -24,17 +35,21 @@ export class User {
 
   @Column()
   @MinLength(6)
-  password: string;
+  passwordHash: string;
 
   @Column({
     type: 'enum',
     enum: UserRole,
-    default: UserRole.USER,
+    default: UserRole.SALES,
   })
   role: UserRole;
 
-  @Column({ default: true })
-  isActive: boolean;
+  @Column({
+    type: 'enum',
+    enum: UserStatus,
+    default: UserStatus.INVITED,
+  })
+  status: UserStatus;
 
   @CreateDateColumn()
   createdAt: Date;

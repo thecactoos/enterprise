@@ -7,26 +7,38 @@ import {
   Typography,
   Box,
   CircularProgress,
+  TextField,
+  InputAdornment,
+  Button,
+  Paper,
   List,
   ListItem,
   ListItemText,
-  ListItemIcon,
-  Chip,
+  ListItemAvatar,
   Avatar,
-  Button,
-  Paper,
+  Chip,
+  IconButton,
+  Divider,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  Alert,
+  Tabs,
+  Tab,
 } from '@mui/material';
 import {
-  People as PeopleIcon,
-  Note as NoteIcon,
-  TrendingUp as TrendingUpIcon,
-  Assessment as AssessmentIcon,
+  Search as SearchIcon,
+  Add as AddIcon,
   Person as PersonIcon,
   Business as BusinessIcon,
-  Schedule as ScheduleIcon,
-  Add as AddIcon,
-  Description as DescriptionIcon,
-  PictureAsPdf as PdfIcon,
+  Phone as PhoneIcon,
+  Email as EmailIcon,
+  Clear as ClearIcon,
+  Inventory as ProductIcon,
+  Euro as EuroIcon,
+  Category as CategoryIcon,
+  ContactPhone as ContactIcon,
 } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 import { handleApiError, logError } from '../utils/errorHandler';
@@ -35,43 +47,92 @@ import apiService from '../services/api.service';
 
 function Dashboard() {
   const navigate = useNavigate();
-  const [dashboardData, setDashboardData] = useState({
-    stats: {
-      totalClients: 0,
-      totalNotes: 0,
-      totalUsers: 0,
-      recentActivity: [],
-      monthlyGrowth: {},
-    },
-    recentClients: [],
-    recentNotes: [],
+  
+  // Search states
+  const [searchQuery, setSearchQuery] = useState('');
+  const [searchResults, setSearchResults] = useState([]);
+  const [searchLoading, setSearchLoading] = useState(false);
+  const [searchCategory, setSearchCategory] = useState('all');
+  
+  // Quick add contact states
+  const [addContactOpen, setAddContactOpen] = useState(false);
+  const [contactForm, setContactForm] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    phone: '',
+    company: '',
+    type: 'INDIVIDUAL'
+  });
+  const [contactSubmitting, setContactSubmitting] = useState(false);
+  const [contactError, setContactError] = useState('');
+  
+  // Dashboard data
+  const [dashboardStats, setDashboardStats] = useState({
+    totalProducts: 0,
+    totalContacts: 0,
+    totalQuotes: 0,
+    recentProducts: []
   });
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
-  const [retryCount, setRetryCount] = useState(0);
 
+  // Search products
+  const handleSearch = async (query) => {
+    if (!query.trim()) {
+      setSearchResults([]);
+      return;
+    }
+
+    setSearchLoading(true);
+    try {
+      const results = await apiService.searchProducts({
+        search: query,
+        limit: 10,
+        category: searchCategory === 'all' ? undefined : searchCategory
+      });
+      
+      setSearchResults(results.data || results || []);
+    } catch (error) {
+      logError(error, 'Product search');
+      setSearchResults([]);
+    } finally {
+      setSearchLoading(false);
+    }
+  };
+
+  // Debounced search
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      handleSearch(searchQuery);
+    }, 300);
+
+    return () => clearTimeout(timer);
+  }, [searchQuery, searchCategory]);
+
+  // Load dashboard data
   useEffect(() => {
     const fetchDashboardData = async () => {
       try {
         setError('');
         
-        const [stats, clients, notes] = await Promise.all([
-          apiService.getDashboardStats(),
-          apiService.getRecentClients(),
-          apiService.getRecentNotes(),
+        const [products, contacts, quotes] = await Promise.all([
+          apiService.getProducts({ limit: 10 }).catch(() => []),
+          apiService.getContacts({ limit: 5 }).catch(() => ({ data: [], total: 0 })),
+          apiService.getQuotes({ limit: 5 }).catch(() => ({ quotes: [], total: 0 })),
         ]);
 
-        setDashboardData({
-          stats,
-          recentClients: clients,
-          recentNotes: notes,
+        setDashboardStats({
+          totalProducts: Array.isArray(products) ? products.length : (products.total || 0),
+          totalContacts: contacts.total || 0,
+          totalQuotes: quotes.total || 0,
+          recentProducts: Array.isArray(products) ? products.slice(0, 5) : (products.data?.slice(0, 5) || [])
         });
       } catch (error) {
         logError(error, 'Dashboard data fetch');
         const errorInfo = handleApiError(error);
         setError(errorInfo.message);
         
-        // Handle authentication errors
         if (errorInfo.shouldRedirect) {
           localStorage.removeItem('token');
           localStorage.removeItem('user');
@@ -83,198 +144,390 @@ function Dashboard() {
     };
 
     fetchDashboardData();
-  }, [retryCount]);
+  }, []);
 
-  const statCards = [
-    {
-      title: 'Total Clients',
-      value: dashboardData.stats.totalClients,
-      icon: <PeopleIcon sx={{ fontSize: 40 }} />,
-      color: '#1976d2',
-      growth: dashboardData.stats.monthlyGrowth?.clients || 0,
-    },
-    {
-      title: 'Total Notes',
-      value: dashboardData.stats.totalNotes,
-      icon: <NoteIcon sx={{ fontSize: 40 }} />,
-      color: '#dc004e',
-      growth: dashboardData.stats.monthlyGrowth?.notes || 0,
-    },
-    {
-      title: 'Total Users',
-      value: dashboardData.stats.totalUsers,
-      icon: <AssessmentIcon sx={{ fontSize: 40 }} />,
-      color: '#2e7d32',
-      growth: dashboardData.stats.monthlyGrowth?.users || 0,
-    },
-  ];
+  // Handle contact form
+  const handleContactSubmit = async () => {
+    if (!contactForm.firstName.trim() || !contactForm.lastName.trim()) {
+      setContactError('Imię i nazwisko są wymagane');
+      return;
+    }
 
-  const handleRetry = () => {
-    setRetryCount(prev => prev + 1);
+    setContactSubmitting(true);
+    setContactError('');
+
+    try {
+      await apiService.createContact({
+        ...contactForm,
+        type: 'LEAD',
+        source: 'website',
+        businessType: 'b2c'
+      });
+      
+      setAddContactOpen(false);
+      setContactForm({
+        firstName: '',
+        lastName: '',
+        email: '',
+        phone: '',
+        company: '',
+        type: 'INDIVIDUAL'
+      });
+      
+      // Show success message or refresh data
+      alert('Kontakt został dodany pomyślnie!');
+    } catch (error) {
+      logError(error, 'Contact creation');
+      setContactError(handleApiError(error).message);
+    } finally {
+      setContactSubmitting(false);
+    }
+  };
+
+  const handleProductClick = (product) => {
+    navigate('/products', { state: { selectedProduct: product } });
+  };
+
+  const clearSearch = () => {
+    setSearchQuery('');
+    setSearchResults([]);
   };
 
   return (
     <LoadingErrorState
       loading={loading}
       error={error}
-      onRetry={handleRetry}
-      loadingText="Loading dashboard..."
-      errorTitle="Error Loading Dashboard"
+      onRetry={() => window.location.reload()}
+      loadingText="Ładowanie panelu głównego..."
+      errorTitle="Błąd ładowania panelu"
     >
+      <Container maxWidth="lg">
+        {/* Header */}
+        <Box sx={{ mb: 4 }}>
+          <Typography variant="h4" gutterBottom>
+            Panel Główny CRM
+          </Typography>
+          <Typography variant="body1" color="textSecondary">
+            Wyszukuj produkty i zarządzaj kontaktami w jednym miejscu
+          </Typography>
+        </Box>
 
-  return (
-    <Container maxWidth="lg">
-      <Box sx={{ mb: 4 }}>
-        <Typography variant="h4" gutterBottom>
-          Welcome to Your CRM Dashboard
-        </Typography>
-        <Typography variant="body1" color="textSecondary">
-          Manage your clients, notes, and documents efficiently
-        </Typography>
-      </Box>
-
-      {/* Quick Actions */}
-      <Paper elevation={2} sx={{ p: 3, mb: 4 }}>
-        <Typography variant="h6" gutterBottom>
-          Quick Actions
-        </Typography>
-        <Grid container spacing={2}>
-          <Grid item xs={12} sm={4}>
-            <Button
-              variant="outlined"
-              startIcon={<AddIcon />}
-              fullWidth
-              onClick={() => navigate('/clients')}
-              sx={{ py: 2 }}
-            >
-              Add New Client
-            </Button>
-          </Grid>
-          <Grid item xs={12} sm={4}>
-            <Button
-              variant="outlined"
-              startIcon={<DescriptionIcon />}
-              fullWidth
-              onClick={() => navigate('/notes')}
-              sx={{ py: 2 }}
-            >
-              Create Note
-            </Button>
-          </Grid>
-          <Grid item xs={12} sm={4}>
-            <Button
-              variant="outlined"
-              startIcon={<PdfIcon />}
-              fullWidth
-              onClick={() => navigate('/pdf-analyzer')}
-              sx={{ py: 2 }}
-            >
-              Analyze PDF
-            </Button>
-          </Grid>
-        </Grid>
-      </Paper>
-
-      <Grid container spacing={3}>
-        {statCards.map((card, index) => (
-          <Grid item xs={12} sm={6} md={4} key={index}>
-            <Card elevation={3}>
-              <CardContent>
-                <Box display="flex" alignItems="center" justifyContent="space-between">
-                  <Box>
-                    <Typography variant="h4" component="div" sx={{ color: card.color }}>
-                      {card.value.toLocaleString()}
-                    </Typography>
-                    <Typography variant="body2" color="textSecondary">
-                      {card.title}
-                    </Typography>
-                    <Box display="flex" alignItems="center" sx={{ mt: 1 }}>
-                      <TrendingUpIcon 
-                        sx={{ 
-                          fontSize: 16, 
-                          color: card.growth >= 0 ? '#2e7d32' : '#d32f2f',
-                          mr: 0.5 
-                        }} 
-                      />
-                      <Typography 
-                        variant="caption" 
-                        sx={{ 
-                          color: card.growth >= 0 ? '#2e7d32' : '#d32f2f' 
-                        }}
+        <Grid container spacing={3}>
+          {/* Left Column - Product Search */}
+          <Grid item xs={12} md={8}>
+            <Paper elevation={3} sx={{ p: 3, mb: 3 }}>
+              <Typography variant="h6" gutterBottom sx={{ display: 'flex', alignItems: 'center' }}>
+                <SearchIcon sx={{ mr: 1 }} />
+                Wyszukiwarka Produktów
+              </Typography>
+              
+              {/* Search Categories */}
+              <Tabs 
+                value={searchCategory} 
+                onChange={(e, newValue) => setSearchCategory(newValue)}
+                sx={{ mb: 2 }}
+              >
+                <Tab label="Wszystkie" value="all" />
+                <Tab label="Inne" value="other" />
+              </Tabs>
+              
+              {/* Search Input */}
+              <TextField
+                fullWidth
+                placeholder="Wyszukaj produkty po nazwie, kodzie SKU, kategorii..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <SearchIcon />
+                    </InputAdornment>
+                  ),
+                  endAdornment: searchQuery && (
+                    <InputAdornment position="end">
+                      <IconButton onClick={clearSearch} size="small">
+                        <ClearIcon />
+                      </IconButton>
+                    </InputAdornment>
+                  ),
+                }}
+                sx={{ mb: 2 }}
+              />
+              
+              {/* Search Results */}
+              <Box sx={{ maxHeight: 400, overflowY: 'auto' }}>
+                {searchLoading && (
+                  <Box display="flex" justifyContent="center" p={2}>
+                    <CircularProgress size={24} />
+                  </Box>
+                )}
+                
+                {!searchLoading && searchQuery && searchResults.length === 0 && (
+                  <Typography color="textSecondary" align="center" sx={{ py: 2 }}>
+                    Brak wyników dla "{searchQuery}"
+                  </Typography>
+                )}
+                
+                {!searchLoading && searchResults.length > 0 && (
+                  <List>
+                    {searchResults.map((product) => (
+                      <ListItem 
+                        key={product.id}
+                        button
+                        onClick={() => handleProductClick(product)}
+                        divider
                       >
-                        {card.growth >= 0 ? '+' : ''}{card.growth}% this month
-                      </Typography>
-                    </Box>
-                  </Box>
-                  <Box sx={{ color: card.color }}>
-                    {card.icon}
-                  </Box>
-                </Box>
-              </CardContent>
-            </Card>
+                        <ListItemAvatar>
+                          <Avatar sx={{ bgcolor: '#1976d2' }}>
+                            <ProductIcon />
+                          </Avatar>
+                        </ListItemAvatar>
+                        <ListItemText
+                          primary={
+                            <Box>
+                              <Typography variant="body1" component="span">
+                                {product.product_name || product.name}
+                              </Typography>
+                              <Chip 
+                                label={product.category} 
+                                size="small" 
+                                sx={{ ml: 1 }}
+                                variant="outlined"
+                              />
+                            </Box>
+                          }
+                          secondary={
+                            <Box>
+                              <Typography variant="body2" color="textSecondary">
+                                SKU: {product.product_code || product.sku} • {product.selling_price_per_unit || product.sellingPrice ? `${product.selling_price_per_unit || product.sellingPrice} PLN` : 'Cena na zapytanie'}
+                              </Typography>
+                              {product.description && (
+                                <Typography variant="caption" display="block">
+                                  {product.description.substring(0, 100)}...
+                                </Typography>
+                              )}
+                            </Box>
+                          }
+                        />
+                      </ListItem>
+                    ))}
+                  </List>
+                )}
+                
+                {!searchQuery && dashboardStats.recentProducts.length > 0 && (
+                  <>
+                    <Typography variant="subtitle2" sx={{ mb: 1, fontWeight: 'bold' }}>
+                      Ostatnio przeglądane produkty:
+                    </Typography>
+                    <List>
+                      {dashboardStats.recentProducts.map((product) => (
+                        <ListItem 
+                          key={product.id}
+                          button
+                          onClick={() => handleProductClick(product)}
+                          divider
+                        >
+                          <ListItemAvatar>
+                            <Avatar sx={{ bgcolor: '#2e7d32' }}>
+                              <ProductIcon />
+                            </Avatar>
+                          </ListItemAvatar>
+                          <ListItemText
+                            primary={product.product_name || product.name}
+                            secondary={`${product.product_code || product.sku} • ${product.selling_price_per_unit || product.sellingPrice || 'N/A'} PLN`}
+                          />
+                        </ListItem>
+                      ))}
+                    </List>
+                  </>
+                )}
+              </Box>
+            </Paper>
           </Grid>
-        ))}
-      </Grid>
 
-      <Grid container spacing={3}>
-        <Grid item xs={12} md={6}>
-          <Card elevation={3}>
-            <CardContent>
-              <Typography variant="h6" gutterBottom>
-                Recent Clients
+          {/* Right Column - Quick Actions & Stats */}
+          <Grid item xs={12} md={4}>
+            {/* Quick Add Contact */}
+            <Paper elevation={3} sx={{ p: 3, mb: 3 }}>
+              <Typography variant="h6" gutterBottom sx={{ display: 'flex', alignItems: 'center' }}>
+                <ContactIcon sx={{ mr: 1 }} />
+                Szybki Kontakt
               </Typography>
-              <List>
-                {dashboardData.recentClients.map((client) => (
-                  <ListItem key={client.id} divider>
-                    <ListItemIcon>
-                      <Avatar sx={{ bgcolor: '#1976d2' }}>
+              <Button
+                variant="contained"
+                startIcon={<AddIcon />}
+                fullWidth
+                onClick={() => setAddContactOpen(true)}
+                sx={{ py: 2 }}
+              >
+                Dodaj Nowy Kontakt
+              </Button>
+            </Paper>
+
+            {/* Statistics */}
+            <Paper elevation={3} sx={{ p: 3, mb: 3 }}>
+              <Typography variant="h6" gutterBottom>
+                Statystyki
+              </Typography>
+              <Box sx={{ mb: 2 }}>
+                <Typography variant="h4" color="primary">
+                  {dashboardStats.totalProducts.toLocaleString()}
+                </Typography>
+                <Typography variant="body2" color="textSecondary">
+                  Produktów w katalogu
+                </Typography>
+              </Box>
+              <Divider sx={{ my: 2 }} />
+              <Box sx={{ mb: 2 }}>
+                <Typography variant="h4" color="secondary">
+                  {dashboardStats.totalContacts.toLocaleString()}
+                </Typography>
+                <Typography variant="body2" color="textSecondary">
+                  Kontaktów
+                </Typography>
+              </Box>
+              <Divider sx={{ my: 2 }} />
+              <Box>
+                <Typography variant="h4" sx={{ color: '#9c27b0' }}>
+                  {dashboardStats.totalQuotes.toLocaleString()}
+                </Typography>
+                <Typography variant="body2" color="textSecondary">
+                  Ofert
+                </Typography>
+              </Box>
+            </Paper>
+
+            {/* Quick Navigation */}
+            <Paper elevation={3} sx={{ p: 3 }}>
+              <Typography variant="h6" gutterBottom>
+                Szybka Nawigacja
+              </Typography>
+              <Grid container spacing={1}>
+                <Grid item xs={12}>
+                  <Button
+                    variant="outlined"
+                    fullWidth
+                    onClick={() => navigate('/products')}
+                    sx={{ mb: 1 }}
+                  >
+                    Katalog Produktów
+                  </Button>
+                </Grid>
+                <Grid item xs={12}>
+                  <Button
+                    variant="outlined"
+                    fullWidth
+                    onClick={() => navigate('/contacts')}
+                    sx={{ mb: 1 }}
+                  >
+                    Lista Kontaktów
+                  </Button>
+                </Grid>
+                <Grid item xs={12}>
+                  <Button
+                    variant="outlined"
+                    fullWidth
+                    onClick={() => navigate('/quotes')}
+                  >
+                    Zarządzaj Ofertami
+                  </Button>
+                </Grid>
+              </Grid>
+            </Paper>
+          </Grid>
+        </Grid>
+
+        {/* Quick Add Contact Dialog */}
+        <Dialog open={addContactOpen} onClose={() => setAddContactOpen(false)} maxWidth="sm" fullWidth>
+          <DialogTitle>Dodaj Nowy Kontakt</DialogTitle>
+          <DialogContent>
+            {contactError && (
+              <Alert severity="error" sx={{ mb: 2 }}>
+                {contactError}
+              </Alert>
+            )}
+            
+            <Grid container spacing={2} sx={{ mt: 1 }}>
+              <Grid item xs={6}>
+                <TextField
+                  label="Imię *"
+                  fullWidth
+                  value={contactForm.firstName}
+                  onChange={(e) => setContactForm(prev => ({ ...prev, firstName: e.target.value }))}
+                />
+              </Grid>
+              <Grid item xs={6}>
+                <TextField
+                  label="Nazwisko *"
+                  fullWidth
+                  value={contactForm.lastName}
+                  onChange={(e) => setContactForm(prev => ({ ...prev, lastName: e.target.value }))}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  label="Email"
+                  type="email"
+                  fullWidth
+                  value={contactForm.email}
+                  onChange={(e) => setContactForm(prev => ({ ...prev, email: e.target.value }))}
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <EmailIcon />
+                      </InputAdornment>
+                    ),
+                  }}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  label="Telefon"
+                  fullWidth
+                  value={contactForm.phone}
+                  onChange={(e) => setContactForm(prev => ({ ...prev, phone: e.target.value }))}
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <PhoneIcon />
+                      </InputAdornment>
+                    ),
+                  }}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  label="Firma"
+                  fullWidth
+                  value={contactForm.company}
+                  onChange={(e) => setContactForm(prev => ({ ...prev, company: e.target.value }))}
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
                         <BusinessIcon />
-                      </Avatar>
-                    </ListItemIcon>
-                    <ListItemText
-                      primary={client.name}
-                      secondary={client.email}
-                    />
-                    <Chip 
-                      label={client.status} 
-                      size="small"
-                      color={client.status === 'active' ? 'success' : 'warning'}
-                    />
-                  </ListItem>
-                ))}
-              </List>
-            </CardContent>
-          </Card>
-        </Grid>
-
-        <Grid item xs={12} md={6}>
-          <Card elevation={3}>
-            <CardContent>
-              <Typography variant="h6" gutterBottom>
-                Recent Activity
-              </Typography>
-              <List>
-                {dashboardData.stats.recentActivity.map((activity) => (
-                  <ListItem key={activity.id} divider>
-                    <ListItemIcon>
-                      <Avatar sx={{ bgcolor: '#dc004e' }}>
-                        <ScheduleIcon />
-                      </Avatar>
-                    </ListItemIcon>
-                    <ListItemText
-                      primary={activity.description}
-                      secondary={new Date(activity.timestamp).toLocaleString()}
-                    />
-                  </ListItem>
-                ))}
-              </List>
-            </CardContent>
-          </Card>
-        </Grid>
-      </Grid>
-    </Container>
+                      </InputAdornment>
+                    ),
+                  }}
+                />
+              </Grid>
+            </Grid>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={() => setAddContactOpen(false)}>
+              Anuluj
+            </Button>
+            <Button 
+              onClick={handleContactSubmit}
+              variant="contained"
+              disabled={contactSubmitting}
+            >
+              {contactSubmitting ? <CircularProgress size={20} /> : 'Dodaj'}
+            </Button>
+          </DialogActions>
+        </Dialog>
+      </Container>
     </LoadingErrorState>
   );
 }
 
-export default Dashboard; 
+export default Dashboard;

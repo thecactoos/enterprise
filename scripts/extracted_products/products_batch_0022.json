@@ -1,0 +1,976 @@
+[
+  {
+    "kod_produktu": "2179",
+    "nazwa_produktu": "Osmo 9236 Lazura Jednorazowa HS Plus | modrzew | 0,005L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "6.34",
+    "cena_sprzedaży_netto_1szt_[zł]": "5.71",
+    "cena_zakupu_netto_1szt_[zł]": "4.57",
+    "potencjalny_zysk_1szt_[zł]": "1.14",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "2181",
+    "nazwa_produktu": "Osmo 9236 Lazura Jednorazowa HS Plus | modrzew | 0,75L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "183.07",
+    "cena_sprzedaży_netto_1szt_[zł]": "164.76",
+    "cena_zakupu_netto_1szt_[zł]": "131.87",
+    "potencjalny_zysk_1szt_[zł]": "32.89",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "2180",
+    "nazwa_produktu": "Osmo 9236 Lazura Jednorazowa HS Plus | modrzew | 0,125L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "44.41",
+    "cena_sprzedaży_netto_1szt_[zł]": "39.97",
+    "cena_zakupu_netto_1szt_[zł]": "31.99",
+    "potencjalny_zysk_1szt_[zł]": "7.98",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "2184",
+    "nazwa_produktu": "Osmo 9241 Lazura Jednorazowa HS Plus | dąb | 0,005L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "6.34",
+    "cena_sprzedaży_netto_1szt_[zł]": "5.71",
+    "cena_zakupu_netto_1szt_[zł]": "4.57",
+    "potencjalny_zysk_1szt_[zł]": "1.14",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "2185",
+    "nazwa_produktu": "Osmo 9241 Lazura Jednorazowa HS Plus | dąb | 0,125L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "44.41",
+    "cena_sprzedaży_netto_1szt_[zł]": "39.97",
+    "cena_zakupu_netto_1szt_[zł]": "31.99",
+    "potencjalny_zysk_1szt_[zł]": "7.98",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "2182",
+    "nazwa_produktu": "Osmo 9236 Lazura Jednorazowa HS Plus | modrzew | 2,5L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "552.84",
+    "cena_sprzedaży_netto_1szt_[zł]": "497.56",
+    "cena_zakupu_netto_1szt_[zł]": "398.21",
+    "potencjalny_zysk_1szt_[zł]": "99.35",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "2183",
+    "nazwa_produktu": "Osmo 9236 Lazura Jednorazowa HS Plus | modrzew | 25L",
+    "jednostka_sprzedażowa": "szt",
+    "potencjalny_zysk_1szt_[zł]": "892.97",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "2187",
+    "nazwa_produktu": "Osmo 9241 Lazura Jednorazowa HS Plus | dąb | 2,5L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "552.84",
+    "cena_sprzedaży_netto_1szt_[zł]": "497.56",
+    "cena_zakupu_netto_1szt_[zł]": "398.21",
+    "potencjalny_zysk_1szt_[zł]": "99.35",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "2186",
+    "nazwa_produktu": "Osmo 9241 Lazura Jednorazowa HS Plus | dąb | 0,75L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "183.07",
+    "cena_sprzedaży_netto_1szt_[zł]": "164.76",
+    "cena_zakupu_netto_1szt_[zł]": "131.87",
+    "potencjalny_zysk_1szt_[zł]": "32.89",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "2190",
+    "nazwa_produktu": "Osmo 9261 Lazura Jednorazowa HS Plus | orzech | 0,125L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "44.41",
+    "cena_sprzedaży_netto_1szt_[zł]": "39.97",
+    "cena_zakupu_netto_1szt_[zł]": "31.99",
+    "potencjalny_zysk_1szt_[zł]": "7.98",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "2188",
+    "nazwa_produktu": "Osmo 9241 Lazura Jednorazowa HS Plus | dąb | 25L",
+    "jednostka_sprzedażowa": "szt",
+    "potencjalny_zysk_1szt_[zł]": "892.97",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "2203",
+    "nazwa_produktu": "Osmo 9264 Lazura Jednorazowa HS Plus | palisander | 25L",
+    "jednostka_sprzedażowa": "szt",
+    "potencjalny_zysk_1szt_[zł]": "892.97",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "2207",
+    "nazwa_produktu": "Osmo 9271 Lazura Jednorazowa HS Plus | heban | 2,5L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "552.84",
+    "cena_sprzedaży_netto_1szt_[zł]": "497.56",
+    "cena_zakupu_netto_1szt_[zł]": "398.21",
+    "potencjalny_zysk_1szt_[zł]": "99.35",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "2206",
+    "nazwa_produktu": "Osmo 9271 Lazura Jednorazowa HS Plus | heban | 0,75L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "183.07",
+    "cena_sprzedaży_netto_1szt_[zł]": "164.76",
+    "cena_zakupu_netto_1szt_[zł]": "131.87",
+    "potencjalny_zysk_1szt_[zł]": "32.89",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "2208",
+    "nazwa_produktu": "Osmo 9271 Lazura Jednorazowa HS Plus | heban | 25L",
+    "jednostka_sprzedażowa": "szt",
+    "potencjalny_zysk_1szt_[zł]": "892.97",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "3031",
+    "nazwa_produktu": "Overmat Floorservice Color Hartwachsöl 2K Ceram 178 | ceram 178 | 1L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "484.45",
+    "cena_sprzedaży_netto_1szt_[zł]": "436.01",
+    "cena_zakupu_netto_1szt_[zł]": "276.72",
+    "potencjalny_zysk_1szt_[zł]": "159.29",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "3030",
+    "nazwa_produktu": "Overmat Floorservice Color Hartwachsöl 2K Denali 175 | denali 175 | 1L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "484.45",
+    "cena_sprzedaży_netto_1szt_[zł]": "436.01",
+    "cena_zakupu_netto_1szt_[zł]": "276.72",
+    "potencjalny_zysk_1szt_[zł]": "159.29",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "3029",
+    "nazwa_produktu": "Overmat Floorservice Color Hartwachsöl 2K Janna 170 | janna 170 | 1L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "484.45",
+    "cena_sprzedaży_netto_1szt_[zł]": "436.01",
+    "cena_zakupu_netto_1szt_[zł]": "276.72",
+    "potencjalny_zysk_1szt_[zł]": "159.29",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "3032",
+    "nazwa_produktu": "Overmat Floorservice Color Hartwachsöl 2K Kamet 179 | kamet 179 | 1L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "484.45",
+    "cena_sprzedaży_netto_1szt_[zł]": "436.01",
+    "cena_zakupu_netto_1szt_[zł]": "276.72",
+    "potencjalny_zysk_1szt_[zł]": "159.29",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "3034",
+    "nazwa_produktu": "Overmat Floorservice Color Hartwachsöl 2K Pinata 773 | pinata 773 | 1L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "484.45",
+    "cena_sprzedaży_netto_1szt_[zł]": "436.01",
+    "cena_zakupu_netto_1szt_[zł]": "276.72",
+    "potencjalny_zysk_1szt_[zł]": "159.29",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "3039",
+    "nazwa_produktu": "Overmat Floorservice Color Hartwachsöl 2K Koro 972 | koro 972 | 1L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "484.45",
+    "cena_sprzedaży_netto_1szt_[zł]": "436.01",
+    "cena_zakupu_netto_1szt_[zł]": "276.72",
+    "potencjalny_zysk_1szt_[zł]": "159.29",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "3028",
+    "nazwa_produktu": "Overmat Floorservice Color Hartwachsöl 2K Lanai 071 | lanai 071 | 1L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "484.45",
+    "cena_sprzedaży_netto_1szt_[zł]": "436.01",
+    "cena_zakupu_netto_1szt_[zł]": "276.72",
+    "potencjalny_zysk_1szt_[zł]": "159.29",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "3015",
+    "nazwa_produktu": "Overmat Floorservice Color Hartwachsöl Classic | dover 114 | 1L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "254.35",
+    "cena_sprzedaży_netto_1szt_[zł]": "228.92",
+    "cena_zakupu_netto_1szt_[zł]": "145.28",
+    "potencjalny_zysk_1szt_[zł]": "83.64",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "3011",
+    "nazwa_produktu": "Overmat Floorservice Color Hartwachsöl Classic | cinza 755 | 1L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "254.35",
+    "cena_sprzedaży_netto_1szt_[zł]": "228.92",
+    "cena_zakupu_netto_1szt_[zł]": "145.28",
+    "potencjalny_zysk_1szt_[zł]": "83.64",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "3020",
+    "nazwa_produktu": "Overmat Floorservice Color Hartwachsöl Classic | gobi 720 | 0,25L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "74.29",
+    "cena_sprzedaży_netto_1szt_[zł]": "66.86",
+    "cena_zakupu_netto_1szt_[zł]": "42.43",
+    "potencjalny_zysk_1szt_[zł]": "24.43",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "3008",
+    "nazwa_produktu": "Overmat Floorservice Color Hartwachsöl Classic | gobi 720 | 1L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "254.35",
+    "cena_sprzedaży_netto_1szt_[zł]": "228.92",
+    "cena_zakupu_netto_1szt_[zł]": "145.28",
+    "potencjalny_zysk_1szt_[zł]": "83.64",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "3016",
+    "nazwa_produktu": "Overmat Floorservice Color Hartwachsöl Classic | havana 810 | 0,25L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "74.29",
+    "cena_sprzedaży_netto_1szt_[zł]": "66.86",
+    "cena_zakupu_netto_1szt_[zł]": "42.43",
+    "potencjalny_zysk_1szt_[zł]": "24.43",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "3009",
+    "nazwa_produktu": "Overmat Floorservice Color Hartwachsöl Classic | isanti 007 | 1L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "254.35",
+    "cena_sprzedaży_netto_1szt_[zł]": "228.92",
+    "cena_zakupu_netto_1szt_[zł]": "145.28",
+    "potencjalny_zysk_1szt_[zł]": "83.64",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "3000",
+    "nazwa_produktu": "Overmat Floorservice Color Hartwachsöl Classic | kapora 816 | 1L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "254.35",
+    "cena_sprzedaży_netto_1szt_[zł]": "228.92",
+    "cena_zakupu_netto_1szt_[zł]": "145.28",
+    "potencjalny_zysk_1szt_[zł]": "83.64",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "3021",
+    "nazwa_produktu": "Overmat Floorservice Color Hartwachsöl Classic | isanti 007 | 0,25L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "74.29",
+    "cena_sprzedaży_netto_1szt_[zł]": "66.86",
+    "cena_zakupu_netto_1szt_[zł]": "42.43",
+    "potencjalny_zysk_1szt_[zł]": "24.43",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "3004",
+    "nazwa_produktu": "Overmat Floorservice Color Hartwachsöl Classic | havana 810 | 1L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "254.35",
+    "cena_sprzedaży_netto_1szt_[zł]": "228.92",
+    "cena_zakupu_netto_1szt_[zł]": "145.28",
+    "potencjalny_zysk_1szt_[zł]": "83.64",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "3012",
+    "nazwa_produktu": "Overmat Floorservice Color Hartwachsöl Classic | lunarda 756 | 1L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "254.35",
+    "cena_sprzedaży_netto_1szt_[zł]": "228.92",
+    "cena_zakupu_netto_1szt_[zł]": "145.28",
+    "potencjalny_zysk_1szt_[zł]": "83.64",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "2997",
+    "nazwa_produktu": "Overmat Floorservice Color Hartwachsöl Classic | maori 304 | 1L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "254.35",
+    "cena_sprzedaży_netto_1szt_[zł]": "228.92",
+    "cena_zakupu_netto_1szt_[zł]": "145.28",
+    "potencjalny_zysk_1szt_[zł]": "83.64",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "2976",
+    "nazwa_produktu": "Overmat Floorservice Hartwachsöl FF | satinmatt | 1L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "257.96",
+    "cena_sprzedaży_netto_1szt_[zł]": "232.16",
+    "cena_zakupu_netto_1szt_[zł]": "147.35",
+    "potencjalny_zysk_1szt_[zł]": "84.81",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "2977",
+    "nazwa_produktu": "Overmat Floorservice Hartwachsöl FF | satinmatt | 5L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_zakupu_netto_1szt_[zł]": "700.78",
+    "potencjalny_zysk_1szt_[zł]": "403.39",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "2985",
+    "nazwa_produktu": "Overmat Floorservice Hartwachsöl FF | ultramatt | 1L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "270.86",
+    "cena_sprzedaży_netto_1szt_[zł]": "243.77",
+    "cena_zakupu_netto_1szt_[zł]": "154.72",
+    "potencjalny_zysk_1szt_[zł]": "89.05",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "2987",
+    "nazwa_produktu": "Overmat Floorservice Hartwachsöl FF | ultramatt + 1% biały | 0,25L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "77.39",
+    "cena_sprzedaży_netto_1szt_[zł]": "69.65",
+    "cena_zakupu_netto_1szt_[zł]": "44.21",
+    "potencjalny_zysk_1szt_[zł]": "25.44",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "2988",
+    "nazwa_produktu": "Overmat Floorservice Hartwachsöl FF | ultramatt + 1% biały | 1L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "272.41",
+    "cena_sprzedaży_netto_1szt_[zł]": "245.17",
+    "cena_zakupu_netto_1szt_[zł]": "155.6",
+    "potencjalny_zysk_1szt_[zł]": "89.57",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "2984",
+    "nazwa_produktu": "Overmat Floorservice Hartwachsöl FF | ultramatt | 0,25L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "76.36",
+    "cena_sprzedaży_netto_1szt_[zł]": "68.72",
+    "cena_zakupu_netto_1szt_[zł]": "43.62",
+    "potencjalny_zysk_1szt_[zł]": "25.1",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "2989",
+    "nazwa_produktu": "Overmat Floorservice Hartwachsöl FF | ultramatt + 1% biały | 5L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_zakupu_netto_1szt_[zł]": "748.23",
+    "potencjalny_zysk_1szt_[zł]": "430.7",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "2986",
+    "nazwa_produktu": "Overmat Floorservice Hartwachsöl FF | ultramatt | 5L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_zakupu_netto_1szt_[zł]": "736.44",
+    "potencjalny_zysk_1szt_[zł]": "423.91",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "2990",
+    "nazwa_produktu": "Overmat Floorservice Nature Sealer | 1L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "279.32",
+    "cena_sprzedaży_netto_1szt_[zł]": "251.39",
+    "cena_zakupu_netto_1szt_[zł]": "159.55",
+    "potencjalny_zysk_1szt_[zł]": "91.84",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1005",
+    "nazwa_produktu": "Pallmann Cobra",
+    "jednostka_sprzedażowa": "szt",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1009",
+    "nazwa_produktu": "Pallmann End Grain Protector | Wosk do krawędzi | 1L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "259.69",
+    "cena_sprzedaży_netto_1szt_[zł]": "220.74",
+    "cena_zakupu_netto_1szt_[zł]": "155.42",
+    "potencjalny_zysk_1szt_[zł]": "65.32",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1007",
+    "nazwa_produktu": "Pallmann Eco Oil Care | 0,75L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "114.01",
+    "cena_sprzedaży_netto_1szt_[zł]": "96.91",
+    "cena_zakupu_netto_1szt_[zł]": "68.23",
+    "potencjalny_zysk_1szt_[zł]": "28.68",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1008",
+    "nazwa_produktu": "Pallmann Eco Oil Care | 5L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "534.15",
+    "cena_sprzedaży_netto_1szt_[zł]": "454.03",
+    "cena_zakupu_netto_1szt_[zł]": "319.69",
+    "potencjalny_zysk_1szt_[zł]": "134.34",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1010",
+    "nazwa_produktu": "Pallmann Entgrauer / Odszarzacz | 2L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "121.86",
+    "cena_sprzedaży_netto_1szt_[zł]": "103.58",
+    "cena_zakupu_netto_1szt_[zł]": "72.93",
+    "potencjalny_zysk_1szt_[zł]": "30.65",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1014",
+    "nazwa_produktu": "Pallmann Finish Care Mat | 0,75L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "93.32",
+    "cena_sprzedaży_netto_1szt_[zł]": "79.32",
+    "cena_zakupu_netto_1szt_[zł]": "55.85",
+    "potencjalny_zysk_1szt_[zł]": "23.47",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1016",
+    "nazwa_produktu": "Pallmann Gecko Flex",
+    "jednostka_sprzedażowa": "szt",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1012",
+    "nazwa_produktu": "Pallmann Finish Care | 10L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "726.1",
+    "cena_sprzedaży_netto_1szt_[zł]": "617.19",
+    "cena_zakupu_netto_1szt_[zł]": "434.57",
+    "potencjalny_zysk_1szt_[zł]": "182.62",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1015",
+    "nazwa_produktu": "Pallmann Finish Care Stop | 0,75L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "70.03",
+    "cena_sprzedaży_netto_1szt_[zł]": "59.53",
+    "cena_zakupu_netto_1szt_[zł]": "41.91",
+    "potencjalny_zysk_1szt_[zł]": "17.62",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1011",
+    "nazwa_produktu": "Pallmann Finish Care | 0,75L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "77.22",
+    "cena_sprzedaży_netto_1szt_[zł]": "65.64",
+    "cena_zakupu_netto_1szt_[zł]": "46.22",
+    "potencjalny_zysk_1szt_[zł]": "19.42",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1017",
+    "nazwa_produktu": "Pallmann Gecko Flex | walizka transportowa",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "697.92",
+    "cena_sprzedaży_netto_1szt_[zł]": "697.92",
+    "cena_zakupu_netto_1szt_[zł]": "571.6",
+    "potencjalny_zysk_1szt_[zł]": "126.32",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1013",
+    "nazwa_produktu": "Pallmann Finish Care | 5L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "372.2",
+    "cena_sprzedaży_netto_1szt_[zł]": "316.37",
+    "cena_zakupu_netto_1szt_[zł]": "222.76",
+    "potencjalny_zysk_1szt_[zł]": "93.61",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1041",
+    "nazwa_produktu": "Pallmann Magic Oil Care | 0,75L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "146.74",
+    "cena_sprzedaży_netto_1szt_[zł]": "124.73",
+    "cena_zakupu_netto_1szt_[zł]": "87.82",
+    "potencjalny_zysk_1szt_[zł]": "36.91",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1040",
+    "nazwa_produktu": "Pallmann Magic Oil Applicator",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "288.99",
+    "cena_sprzedaży_netto_1szt_[zł]": "288.99",
+    "cena_zakupu_netto_1szt_[zł]": "227.58",
+    "potencjalny_zysk_1szt_[zł]": "61.41",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1042",
+    "nazwa_produktu": "Pallmann Magic Oil Care | 5L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "725.1",
+    "cena_sprzedaży_netto_1szt_[zł]": "616.34",
+    "cena_zakupu_netto_1szt_[zł]": "433.97",
+    "potencjalny_zysk_1szt_[zł]": "182.37",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1043",
+    "nazwa_produktu": "Pallmann Multipad 410MM | P150",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "34.51",
+    "cena_sprzedaży_netto_1szt_[zł]": "34.51",
+    "cena_zakupu_netto_1szt_[zł]": "27.18",
+    "potencjalny_zysk_1szt_[zł]": "7.33",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1044",
+    "nazwa_produktu": "Pallmann Multipad 410MM | P220",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "34.51",
+    "cena_sprzedaży_netto_1szt_[zł]": "34.51",
+    "cena_zakupu_netto_1szt_[zł]": "27.18",
+    "potencjalny_zysk_1szt_[zł]": "7.33",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1046",
+    "nazwa_produktu": "Pallmann Multipad 410MM | P36",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "115.43",
+    "cena_sprzedaży_netto_1szt_[zł]": "115.43",
+    "cena_zakupu_netto_1szt_[zł]": "90.9",
+    "potencjalny_zysk_1szt_[zł]": "24.53",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1045",
+    "nazwa_produktu": "Pallmann Multipad 410MM | P320",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "34.51",
+    "cena_sprzedaży_netto_1szt_[zł]": "34.51",
+    "cena_zakupu_netto_1szt_[zł]": "27.18",
+    "potencjalny_zysk_1szt_[zł]": "7.33",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1067",
+    "nazwa_produktu": "Pallmann Pall-X 333 Barwnik | 03 Balanced Oak | 0,2L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "291.22",
+    "cena_sprzedaży_netto_1szt_[zł]": "247.54",
+    "cena_zakupu_netto_1szt_[zł]": "174.3",
+    "potencjalny_zysk_1szt_[zł]": "73.24",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1068",
+    "nazwa_produktu": "Pallmann Pall-X 333 Barwnik | 04 Natural White | 0,2L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "291.22",
+    "cena_sprzedaży_netto_1szt_[zł]": "247.54",
+    "cena_zakupu_netto_1szt_[zł]": "174.3",
+    "potencjalny_zysk_1szt_[zł]": "73.24",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1069",
+    "nazwa_produktu": "Pallmann Pall-X 333 Barwnik | 05 Victorian Bronze | 0,2L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "291.22",
+    "cena_sprzedaży_netto_1szt_[zł]": "247.54",
+    "cena_zakupu_netto_1szt_[zł]": "174.3",
+    "potencjalny_zysk_1szt_[zł]": "73.24",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1070",
+    "nazwa_produktu": "Pallmann Pall-X 333 Barwnik | 06 Havana Brown | 0,2L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "291.22",
+    "cena_sprzedaży_netto_1szt_[zł]": "247.54",
+    "cena_zakupu_netto_1szt_[zł]": "174.3",
+    "potencjalny_zysk_1szt_[zł]": "73.24",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1071",
+    "nazwa_produktu": "Pallmann Pall-X 333 Barwnik | 07 Endless Brown | 0,2L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "291.22",
+    "cena_sprzedaży_netto_1szt_[zł]": "247.54",
+    "cena_zakupu_netto_1szt_[zł]": "174.3",
+    "potencjalny_zysk_1szt_[zł]": "73.24",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1072",
+    "nazwa_produktu": "Pallmann Pall-X 333 Barwnik | 08 Stylish Chestnut | 0,2L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "291.22",
+    "cena_sprzedaży_netto_1szt_[zł]": "247.54",
+    "cena_zakupu_netto_1szt_[zł]": "174.3",
+    "potencjalny_zysk_1szt_[zł]": "73.24",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1073",
+    "nazwa_produktu": "Pallmann Pall-X 333 Barwnik | 09 Shaded Grey | 0,2L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "291.22",
+    "cena_sprzedaży_netto_1szt_[zł]": "247.54",
+    "cena_zakupu_netto_1szt_[zł]": "174.3",
+    "potencjalny_zysk_1szt_[zł]": "73.24",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1075",
+    "nazwa_produktu": "Pallmann Pall-X 333 Barwnik | 11 Bleached Grey | 0,2L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "291.22",
+    "cena_sprzedaży_netto_1szt_[zł]": "247.54",
+    "cena_zakupu_netto_1szt_[zł]": "174.3",
+    "potencjalny_zysk_1szt_[zł]": "73.24",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1074",
+    "nazwa_produktu": "Pallmann Pall-X 333 Barwnik | 10 Rich Brown | 0,2L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "291.22",
+    "cena_sprzedaży_netto_1szt_[zł]": "247.54",
+    "cena_zakupu_netto_1szt_[zł]": "174.3",
+    "potencjalny_zysk_1szt_[zł]": "73.24",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1076",
+    "nazwa_produktu": "Pallmann Pall-X 333 Barwnik | 12 Pretty Pink | 0,2L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "291.22",
+    "cena_sprzedaży_netto_1szt_[zł]": "247.54",
+    "cena_zakupu_netto_1szt_[zł]": "174.3",
+    "potencjalny_zysk_1szt_[zł]": "73.24",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1078",
+    "nazwa_produktu": "Pallmann Pall-X 333 Barwnik | 14 Smoked Oak | 0,2L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "291.22",
+    "cena_sprzedaży_netto_1szt_[zł]": "247.54",
+    "cena_zakupu_netto_1szt_[zł]": "174.3",
+    "potencjalny_zysk_1szt_[zł]": "73.24",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1077",
+    "nazwa_produktu": "Pallmann Pall-X 333 Barwnik | 13 Concrete Grey | 0,2L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "291.22",
+    "cena_sprzedaży_netto_1szt_[zł]": "247.54",
+    "cena_zakupu_netto_1szt_[zł]": "174.3",
+    "potencjalny_zysk_1szt_[zł]": "73.24",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1079",
+    "nazwa_produktu": "Pallmann Pall-X 333 Barwnik | 16 Nostalgic Brown | 0,2L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "291.22",
+    "cena_sprzedaży_netto_1szt_[zł]": "247.54",
+    "cena_zakupu_netto_1szt_[zł]": "174.3",
+    "potencjalny_zysk_1szt_[zł]": "73.24",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1080",
+    "nazwa_produktu": "Pallmann Pall-X 333 Barwnik | 17 Happy Yellow | 0,2L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "291.22",
+    "cena_sprzedaży_netto_1szt_[zł]": "247.54",
+    "cena_zakupu_netto_1szt_[zł]": "174.3",
+    "potencjalny_zysk_1szt_[zł]": "73.24",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1081",
+    "nazwa_produktu": "Pallmann Pall-X 333 Barwnik | 18 Solid Grey | 0,2L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "291.22",
+    "cena_sprzedaży_netto_1szt_[zł]": "247.54",
+    "cena_zakupu_netto_1szt_[zł]": "174.3",
+    "potencjalny_zysk_1szt_[zł]": "73.24",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1083",
+    "nazwa_produktu": "Pallmann Pall-X 333 Barwnik | 20 Luxurious Black | 0,2L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "291.22",
+    "cena_sprzedaży_netto_1szt_[zł]": "247.54",
+    "cena_zakupu_netto_1szt_[zł]": "174.3",
+    "potencjalny_zysk_1szt_[zł]": "73.24",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1084",
+    "nazwa_produktu": "Pallmann Pall-X 333 Barwnik | 21 Easy White | 0,2L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "291.22",
+    "cena_sprzedaży_netto_1szt_[zł]": "247.54",
+    "cena_zakupu_netto_1szt_[zł]": "174.3",
+    "potencjalny_zysk_1szt_[zł]": "73.24",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1099",
+    "nazwa_produktu": "Pallmann Pall-X 333 Tester | 01 Secret Green | 0,1L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "116.35",
+    "cena_sprzedaży_netto_1szt_[zł]": "98.9",
+    "cena_zakupu_netto_1szt_[zł]": "69.64",
+    "potencjalny_zysk_1szt_[zł]": "29.26",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1096",
+    "nazwa_produktu": "Pallmann Pall-X 333 Barwnik | 33 Black | 0,2L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "291.22",
+    "cena_sprzedaży_netto_1szt_[zł]": "247.54",
+    "cena_zakupu_netto_1szt_[zł]": "174.3",
+    "potencjalny_zysk_1szt_[zł]": "73.24",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1100",
+    "nazwa_produktu": "Pallmann Pall-X 333 Tester | 02 Almost Black | 0,1L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "116.35",
+    "cena_sprzedaży_netto_1szt_[zł]": "98.9",
+    "cena_zakupu_netto_1szt_[zł]": "69.64",
+    "potencjalny_zysk_1szt_[zł]": "29.26",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1098",
+    "nazwa_produktu": "Pallmann Pall-X 333 Barwnik | 35 Dark Brown | 0,2L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "291.22",
+    "cena_sprzedaży_netto_1szt_[zł]": "247.54",
+    "cena_zakupu_netto_1szt_[zł]": "174.3",
+    "potencjalny_zysk_1szt_[zł]": "73.24",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1101",
+    "nazwa_produktu": "Pallmann Pall-X 333 Tester | 03 Balanced Oak | 0,1L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "116.35",
+    "cena_sprzedaży_netto_1szt_[zł]": "98.9",
+    "cena_zakupu_netto_1szt_[zł]": "69.64",
+    "potencjalny_zysk_1szt_[zł]": "29.26",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1097",
+    "nazwa_produktu": "Pallmann Pall-X 333 Barwnik | 34 Grey | 0,2L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "291.22",
+    "cena_sprzedaży_netto_1szt_[zł]": "247.54",
+    "cena_zakupu_netto_1szt_[zł]": "174.3",
+    "potencjalny_zysk_1szt_[zł]": "73.24",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1102",
+    "nazwa_produktu": "Pallmann Pall-X 333 Tester | 04 Natural White | 0,1L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "116.35",
+    "cena_sprzedaży_netto_1szt_[zł]": "98.9",
+    "cena_zakupu_netto_1szt_[zł]": "69.64",
+    "potencjalny_zysk_1szt_[zł]": "29.26",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1103",
+    "nazwa_produktu": "Pallmann Pall-X 333 Tester | 05 Victorian Bronze | 0,1L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "116.35",
+    "cena_sprzedaży_netto_1szt_[zł]": "98.9",
+    "cena_zakupu_netto_1szt_[zł]": "69.64",
+    "potencjalny_zysk_1szt_[zł]": "29.26",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1104",
+    "nazwa_produktu": "Pallmann Pall-X 333 Tester | 06 Havana Brown | 0,1L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "116.35",
+    "cena_sprzedaży_netto_1szt_[zł]": "98.9",
+    "cena_zakupu_netto_1szt_[zł]": "69.64",
+    "potencjalny_zysk_1szt_[zł]": "29.26",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1106",
+    "nazwa_produktu": "Pallmann Pall-X 333 Tester | 08 Stylish Chestnut | 0,1L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "116.35",
+    "cena_sprzedaży_netto_1szt_[zł]": "98.9",
+    "cena_zakupu_netto_1szt_[zł]": "69.64",
+    "potencjalny_zysk_1szt_[zł]": "29.26",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1108",
+    "nazwa_produktu": "Pallmann Pall-X 333 Tester | 10 Rich Brown | 0,1L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "116.35",
+    "cena_sprzedaży_netto_1szt_[zł]": "98.9",
+    "cena_zakupu_netto_1szt_[zł]": "69.64",
+    "potencjalny_zysk_1szt_[zł]": "29.26",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1105",
+    "nazwa_produktu": "Pallmann Pall-X 333 Tester | 07 Endless Brown | 0,1L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "116.35",
+    "cena_sprzedaży_netto_1szt_[zł]": "98.9",
+    "cena_zakupu_netto_1szt_[zł]": "69.64",
+    "potencjalny_zysk_1szt_[zł]": "29.26",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1107",
+    "nazwa_produktu": "Pallmann Pall-X 333 Tester | 09 Shaded Grey | 0,1L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "116.35",
+    "cena_sprzedaży_netto_1szt_[zł]": "98.9",
+    "cena_zakupu_netto_1szt_[zł]": "69.64",
+    "potencjalny_zysk_1szt_[zł]": "29.26",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1110",
+    "nazwa_produktu": "Pallmann Pall-X 333 Tester | 12 Pretty Pink | 0,1L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "116.35",
+    "cena_sprzedaży_netto_1szt_[zł]": "98.9",
+    "cena_zakupu_netto_1szt_[zł]": "69.64",
+    "potencjalny_zysk_1szt_[zł]": "29.26",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1109",
+    "nazwa_produktu": "Pallmann Pall-X 333 Tester | 11 Bleached Grey | 0,1L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "116.35",
+    "cena_sprzedaży_netto_1szt_[zł]": "98.9",
+    "cena_zakupu_netto_1szt_[zł]": "69.64",
+    "potencjalny_zysk_1szt_[zł]": "29.26",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1111",
+    "nazwa_produktu": "Pallmann Pall-X 333 Tester | 13 Concrete Grey | 0,1L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "116.35",
+    "cena_sprzedaży_netto_1szt_[zł]": "98.9",
+    "cena_zakupu_netto_1szt_[zł]": "69.64",
+    "potencjalny_zysk_1szt_[zł]": "29.26",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1115",
+    "nazwa_produktu": "Pallmann Pall-X 333 Tester | 17 Happy Yellow | 0,1L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "116.35",
+    "cena_sprzedaży_netto_1szt_[zł]": "98.9",
+    "cena_zakupu_netto_1szt_[zł]": "69.64",
+    "potencjalny_zysk_1szt_[zł]": "29.26",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1113",
+    "nazwa_produktu": "Pallmann Pall-X 333 Tester | 15 White | 0,1L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "116.35",
+    "cena_sprzedaży_netto_1szt_[zł]": "98.9",
+    "cena_zakupu_netto_1szt_[zł]": "69.64",
+    "potencjalny_zysk_1szt_[zł]": "29.26",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1126",
+    "nazwa_produktu": "Pallmann Pall-X 333 Tester | 28 Exotic Brown | 0,1L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "116.35",
+    "cena_sprzedaży_netto_1szt_[zł]": "98.9",
+    "cena_zakupu_netto_1szt_[zł]": "69.64",
+    "potencjalny_zysk_1szt_[zł]": "29.26",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1127",
+    "nazwa_produktu": "Pallmann Pall-X 333 Tester | 29 Elegant Walnut | 0,1L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "116.35",
+    "cena_sprzedaży_netto_1szt_[zł]": "98.9",
+    "cena_zakupu_netto_1szt_[zł]": "69.64",
+    "potencjalny_zysk_1szt_[zł]": "29.26",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1130",
+    "nazwa_produktu": "Pallmann Pall-X 333 Tester | 32 Denim Blue | 0,1L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "116.35",
+    "cena_sprzedaży_netto_1szt_[zł]": "98.9",
+    "cena_zakupu_netto_1szt_[zł]": "69.64",
+    "potencjalny_zysk_1szt_[zł]": "29.26",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1128",
+    "nazwa_produktu": "Pallmann Pall-X 333 Tester | 30 Classic Red | 0,1L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "116.35",
+    "cena_sprzedaży_netto_1szt_[zł]": "98.9",
+    "cena_zakupu_netto_1szt_[zł]": "69.64",
+    "potencjalny_zysk_1szt_[zł]": "29.26",
+    "długość_sprzedażowa_[mb]": "1.0"
+  }
+]

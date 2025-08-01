@@ -20,6 +20,7 @@ class ProductImporter {
       successfulImports: 0,
       skippedRecords: 0,
       errors: 0,
+      duplicates: 0,
       startTime: null,
       endTime: null
     };
@@ -46,35 +47,8 @@ class ProductImporter {
     return isNaN(number) ? null : number;
   }
 
-  // Determine product category from name
-  determineCategory(productName) {
-    if (!productName) return 'other';
-    
-    const name = productName.toLowerCase();
-    
-    if (name.includes('vinyl') || 
-        name.includes('laminat') || 
-        name.includes('podłog') ||
-        name.includes('parkiet')) {
-      return 'flooring';
-    }
-    
-    if (name.includes('listwa') || 
-        name.includes('profil') ||
-        name.includes('krawędź')) {
-      return 'molding';
-    }
-    
-    if (name.includes('panel') && !name.includes('podłog')) {
-      return 'panel';
-    }
-    
-    return 'other';
-  }
-
   // Extract pricing unit from field names
   extractPricingUnit(data) {
-    // Look for unit indicators in price field names from original data
     const priceFields = Object.keys(data).filter(key => 
       key.includes('cena_') && key.includes('[zł]')
     );
@@ -85,104 +59,80 @@ class ProductImporter {
       if (field.includes('1szt')) return 'szt';
     }
     
-    // Fallback to jednostka_sprzedażowa
     return data.jednostka_sprzedażowa || 'szt';
   }
 
-  // Convert scraped data to our improved structure
-  transformScrapedData(scrapedData) {
+  // Convert scraped data to your exact column names
+  transformToExactColumns(scrapedData) {
     const sellingUnit = scrapedData.jednostka_sprzedażowa || 'szt';
     const pricingUnit = this.extractPricingUnit(scrapedData);
     
     return {
-      // Use kod_produktu as external_code, generate UUID as primary key
-      external_code: scrapedData.kod_produktu || null,
-      
-      // Core product information
+      // YOUR EXACT COLUMN NAMES
+      product_code: scrapedData.kod_produktu || null,
       product_name: scrapedData.nazwa_produktu || 'Unknown Product',
-      unofficial_product_name: scrapedData.nieoficjalna_nazwa_produktu || null,
-      category: this.determineCategory(scrapedData.nazwa_produktu),
-      
-      // Unit management
-      measure_unit: sellingUnit === 'mb' ? 'm' : (sellingUnit === 'm²' ? 'm²' : 'piece'),
-      base_unit_for_pricing: pricingUnit === 'mb' ? 'm' : (pricingUnit === 'm²' ? 'm²' : 'piece'),
+      measure_unit: sellingUnit,
+      base_unit_for_pricing: pricingUnit,
       selling_unit: sellingUnit,
       measurement_units_per_selling_unit: this.cleanDecimal(scrapedData['długość_sprzedażowa_[mb]']) || 1.0,
-      
-      // Product specifications
+      unofficial_product_name: scrapedData.nieoficjalna_nazwa_produktu || null,
       type_of_finish: scrapedData['rodzaj_wykończenia'] || null,
       surface: scrapedData.powierzchnia || null,
       bevel: scrapedData.fazowanie || null,
-      
-      // Dimensions
       thickness_mm: this.cleanDecimal(scrapedData['grubość_[mm]']),
       width_mm: this.cleanDecimal(scrapedData['szerokość_[mm]']),
       length_mm: this.cleanDecimal(scrapedData['długość_[mm]']),
       package_m2: this.cleanDecimal(scrapedData['paczka_[m²]']),
-      
-      // Descriptions
       additional_item_description: scrapedData.dodatkowy_opis_przedmiotu || null,
-      description: null, // We'll generate this later
-      
-      // Pricing (all in PLN)
-      retail_price_per_unit: this.cleanDecimal(scrapedData['cena_detaliczna_netto_1mb_[zł]'] || scrapedData['cena_detaliczna_netto_1m²_[zł]']),
-      selling_price_per_unit: this.cleanDecimal(scrapedData['cena_sprzedaży_netto_1mb_[zł]'] || scrapedData['cena_sprzedaży_netto_1m²_[zł]']),
-      purchase_price_per_unit: this.cleanDecimal(scrapedData['cena_zakupu_netto_1mb_[zł]'] || scrapedData['cena_zakupu_netto_1m²_[zł]']),
-      potential_profit: this.cleanDecimal(scrapedData['potencjalny_zysk_1mb_[zł]'] || scrapedData['potencjalny_zysk_1m²_[zł]']),
-      installation_allowance: 0.0, // Default, can be configured later
-      
-      // Inventory
-      current_stock: 0, // Default
-      standard_stock_percent: this.cleanDecimal(scrapedData['standardowy_zapas_[%]']),
-      
-      // Status
+      retail_price_per_unit: this.cleanDecimal(
+        scrapedData['cena_detaliczna_netto_1mb_[zł]'] || 
+        scrapedData['cena_detaliczna_netto_1m²_[zł]']
+      ),
+      selling_price_per_unit: this.cleanDecimal(
+        scrapedData['cena_sprzedaży_netto_1mb_[zł]'] || 
+        scrapedData['cena_sprzedaży_netto_1m²_[zł]']
+      ),
+      purchase_price_per_unit: this.cleanDecimal(
+        scrapedData['cena_zakupu_netto_1mb_[zł]'] || 
+        scrapedData['cena_zakupu_netto_1m²_[zł]']
+      ),
+      potential_profit: this.cleanDecimal(
+        scrapedData['potencjalny_zysk_1mb_[zł]'] || 
+        scrapedData['potencjalny_zysk_1m²_[zł]']
+      ),
+      installation_allowance: 0.0, // Default
+      currency: 'PLN',
       status: 'active',
       is_active: true,
-      
-      // Keep original data for reference
       original_scraped_data: scrapedData
     };
   }
 
-  // Insert product into database
+  // Insert product using your exact column names
   async insertProduct(productData) {
     const query = `
       INSERT INTO products (
-        external_code, product_name, unofficial_product_name, category,
-        measure_unit, base_unit_for_pricing, selling_unit, measurement_units_per_selling_unit,
-        type_of_finish, surface, bevel,
-        thickness_mm, width_mm, length_mm, package_m2,
-        additional_item_description, description,
-        retail_price_per_unit, selling_price_per_unit, purchase_price_per_unit, 
-        potential_profit, installation_allowance,
-        current_stock, standard_stock_percent,
-        status, is_active, original_scraped_data
+        product_code, product_name, measure_unit, base_unit_for_pricing, selling_unit,
+        measurement_units_per_selling_unit, unofficial_product_name, type_of_finish,
+        surface, bevel, thickness_mm, width_mm, length_mm, package_m2,
+        additional_item_description, retail_price_per_unit, selling_price_per_unit,
+        purchase_price_per_unit, potential_profit, installation_allowance,
+        currency, status, is_active, original_scraped_data
       ) VALUES (
         $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15,
-        $16, $17, $18, $19, $20, $21, $22, $23, $24, $25, $26, $27
+        $16, $17, $18, $19, $20, $21, $22, $23, $24
       )
-      ON CONFLICT (external_code) 
-      DO UPDATE SET
-        product_name = EXCLUDED.product_name,
-        unofficial_product_name = EXCLUDED.unofficial_product_name,
-        category = EXCLUDED.category,
-        selling_price_per_unit = EXCLUDED.selling_price_per_unit,
-        purchase_price_per_unit = EXCLUDED.purchase_price_per_unit,
-        retail_price_per_unit = EXCLUDED.retail_price_per_unit,
-        potential_profit = EXCLUDED.potential_profit,
-        updated_at = CURRENT_TIMESTAMP
       RETURNING id;
     `;
 
     const values = [
-      productData.external_code,
+      productData.product_code,
       productData.product_name,
-      productData.unofficial_product_name,
-      productData.category,
       productData.measure_unit,
       productData.base_unit_for_pricing,
       productData.selling_unit,
       productData.measurement_units_per_selling_unit,
+      productData.unofficial_product_name,
       productData.type_of_finish,
       productData.surface,
       productData.bevel,
@@ -191,14 +141,12 @@ class ProductImporter {
       productData.length_mm,
       productData.package_m2,
       productData.additional_item_description,
-      productData.description,
       productData.retail_price_per_unit,
       productData.selling_price_per_unit,
       productData.purchase_price_per_unit,
       productData.potential_profit,
       productData.installation_allowance,
-      productData.current_stock,
-      productData.standard_stock_percent,
+      productData.currency,
       productData.status,
       productData.is_active,
       JSON.stringify(productData.original_scraped_data)
@@ -208,7 +156,11 @@ class ProductImporter {
       const result = await this.client.query(query, values);
       return result.rows[0]?.id;
     } catch (error) {
-      console.error(`❌ Error inserting product ${productData.external_code}:`, error.message);
+      if (error.code === '23505') { // Duplicate key
+        this.importStats.duplicates++;
+        return 'duplicate';
+      }
+      console.error(`❌ Error inserting product ${productData.product_code}:`, error.message);
       this.importStats.errors++;
       return null;
     }
@@ -242,10 +194,10 @@ class ProductImporter {
           continue;
         }
 
-        const transformedProduct = this.transformScrapedData(product);
+        const transformedProduct = this.transformToExactColumns(product);
         const productId = await this.insertProduct(transformedProduct);
         
-        if (productId) {
+        if (productId && productId !== 'duplicate') {
           fileSuccessCount++;
           this.importStats.successfulImports++;
         }
@@ -253,7 +205,12 @@ class ProductImporter {
         this.importStats.totalRecords++;
       }
 
-      console.log(`✅ ${path.basename(filePath)}: ${fileSuccessCount}/${products.length} products imported`);
+      const fileName = path.basename(filePath);
+      if (fileSuccessCount > 0) {
+        console.log(`✅ ${fileName}: ${fileSuccessCount}/${products.length} products imported`);
+      } else if (this.importStats.totalRecords % 100 === 0) {
+        console.log(`📊 Progress: ${this.importStats.totalRecords} records processed...`);
+      }
       
     } catch (error) {
       console.error(`❌ Error processing file ${filePath}:`, error.message);
@@ -273,7 +230,7 @@ class ProductImporter {
   // Main import process
   async importProducts(dataDirectory, maxFiles = null) {
     this.importStats.startTime = new Date();
-    console.log('🚀 Starting product import process...\n');
+    console.log('🚀 Starting product import with your exact column names...\n');
 
     try {
       await this.connect();
@@ -289,63 +246,116 @@ class ProductImporter {
       console.log(`📊 Processing ${filesToProcess.length} files...\n`);
 
       // Process files in batches to avoid memory issues
-      const batchSize = 10;
+      const batchSize = 20;
+      let processedFiles = 0;
+      
       for (let i = 0; i < filesToProcess.length; i += batchSize) {
         const batch = filesToProcess.slice(i, i + batchSize);
         
         console.log(`📦 Processing batch ${Math.floor(i/batchSize) + 1}/${Math.ceil(filesToProcess.length/batchSize)}...`);
         
+        // Process batch files
         for (const file of batch) {
           await this.processFile(file);
+          processedFiles++;
         }
         
-        // Progress update
-        const progress = ((i + batch.length) / filesToProcess.length * 100).toFixed(1);
-        console.log(`📈 Progress: ${progress}% (${i + batch.length}/${filesToProcess.length} files)\n`);
+        // Progress update every batch
+        const progress = (processedFiles / filesToProcess.length * 100).toFixed(1);
+        console.log(`📈 Progress: ${progress}% (${processedFiles}/${filesToProcess.length} files)`);
+        console.log(`   Records: ${this.importStats.successfulImports} imported, ${this.importStats.duplicates} duplicates, ${this.importStats.errors} errors\n`);
       }
+
+      // Final statistics from database
+      await this.printDatabaseStats();
 
     } catch (error) {
       console.error('💥 Import process failed:', error.message);
     } finally {
       await this.disconnect();
       this.importStats.endTime = new Date();
-      this.printStats();
+      this.printFinalStats();
     }
   }
 
-  // Print import statistics
-  printStats() {
+  // Print database statistics
+  async printDatabaseStats() {
+    try {
+      console.log('\n📊 CHECKING DATABASE STATISTICS...');
+      
+      const totalCount = await this.client.query('SELECT COUNT(*) as count FROM products');
+      console.log(`📋 Total products in database: ${totalCount.rows[0].count}`);
+      
+      const unitStats = await this.client.query(`
+        SELECT selling_unit, COUNT(*) as count 
+        FROM products 
+        GROUP BY selling_unit 
+        ORDER BY count DESC
+      `);
+      console.log('📏 Products by selling unit:');
+      unitStats.rows.forEach(row => {
+        console.log(`   ${row.selling_unit}: ${row.count} products`);
+      });
+      
+      const priceStats = await this.client.query(`
+        SELECT 
+          COUNT(CASE WHEN selling_price_per_unit > 0 THEN 1 END) as with_price,
+          ROUND(AVG(selling_price_per_unit), 2) as avg_price,
+          ROUND(MIN(selling_price_per_unit), 2) as min_price,
+          ROUND(MAX(selling_price_per_unit), 2) as max_price
+        FROM products 
+        WHERE selling_price_per_unit > 0
+      `);
+      if (priceStats.rows[0].with_price > 0) {
+        const stats = priceStats.rows[0];
+        console.log(`💰 Pricing: ${stats.with_price} products with prices`);
+        console.log(`   Average: ${stats.avg_price} PLN, Range: ${stats.min_price}-${stats.max_price} PLN`);
+      }
+      
+    } catch (error) {
+      console.log('⚠️  Could not retrieve database statistics:', error.message);
+    }
+  }
+
+  // Print final import statistics
+  printFinalStats() {
     const duration = (this.importStats.endTime - this.importStats.startTime) / 1000;
     
-    console.log('\n' + '='.repeat(50));
-    console.log('📊 IMPORT STATISTICS');
-    console.log('='.repeat(50));
-    console.log(`⏱️  Duration: ${duration.toFixed(2)} seconds`);
+    console.log('\n' + '='.repeat(60));
+    console.log('🎉 COMPLETE IMPORT FINISHED!');
+    console.log('='.repeat(60));
+    console.log(`⏱️  Duration: ${Math.floor(duration / 60)}m ${(duration % 60).toFixed(0)}s`);
     console.log(`📁 Files processed: ${this.importStats.totalFiles}`);
-    console.log(`📋 Total records: ${this.importStats.totalRecords}`);
+    console.log(`📋 Total records processed: ${this.importStats.totalRecords}`);
     console.log(`✅ Successful imports: ${this.importStats.successfulImports}`);
+    console.log(`🔄 Duplicates handled: ${this.importStats.duplicates}`);
     console.log(`⏭️  Skipped records: ${this.importStats.skippedRecords}`);
     console.log(`❌ Errors: ${this.importStats.errors}`);
     console.log(`📈 Success rate: ${((this.importStats.successfulImports / this.importStats.totalRecords) * 100).toFixed(1)}%`);
     console.log(`⚡ Records per second: ${(this.importStats.totalRecords / duration).toFixed(1)}`);
-    console.log('='.repeat(50));
+    console.log('\n🎯 Database now contains your complete product catalog!');
+    console.log('='.repeat(60));
   }
 
   // Quick test with sample data
   async testImport() {
-    console.log('🧪 Running import test with sample data...\n');
+    console.log('🧪 Testing product import with your exact column names...\n');
     
     const sampleData = {
-      "kod_produktu": "TEST-001",
-      "nazwa_produktu": "Test Product Listwa PVC",
+      "kod_produktu": "TEST-MB-001", 
+      "nazwa_produktu": "[S] Tarkett Listwa Foliowana Biała",
       "jednostka_sprzedażowa": "mb",
-      "nieoficjalna_nazwa_produktu": "Test Product | 16x60x2400",
-      "materiał": "PVC",
+      "nieoficjalna_nazwa_produktu": "Tarkett Listwa Foliowana Biała | 16x60x2400",
+      "rodzaj_wykończenia": "PVC",
+      "powierzchnia": "foliowana",
+      "fazowanie": null,
       "grubość_[mm]": "16",
-      "szerokość_[mm]": "60",
+      "szerokość_[mm]": "60", 
       "długość_[mm]": "2400",
+      "długość_sprzedażowa_[mb]": "2,5",
+      "dodatkowy_opis_przedmiotu": "Listwa wykończeniowa PVC",
       "cena_zakupu_netto_1mb_[zł]": "14,26",
-      "cena_sprzedaży_netto_1mb_[zł]": "23,00",
+      "cena_sprzedaży_netto_1mb_[zł]": "23,00", 
       "cena_detaliczna_netto_1mb_[zł]": "28,75",
       "potencjalny_zysk_1mb_[zł]": "8,74"
     };
@@ -353,19 +363,28 @@ class ProductImporter {
     try {
       await this.connect();
       
-      const transformedProduct = this.transformScrapedData(sampleData);
-      console.log('🔄 Transformed product:', JSON.stringify(transformedProduct, null, 2));
+      const transformedProduct = this.transformToExactColumns(sampleData);
+      console.log('🔄 Transformed with your exact columns:');
+      console.log(JSON.stringify(transformedProduct, null, 2));
       
       const productId = await this.insertProduct(transformedProduct);
       
-      if (productId) {
-        console.log(`✅ Test product inserted with ID: ${productId}`);
+      if (productId && productId !== 'duplicate') {
+        console.log(`✅ Test product inserted with UUID: ${productId}`);
         
-        // Verify insertion
-        const result = await this.client.query('SELECT * FROM products WHERE id = $1', [productId]);
-        console.log('📋 Inserted product details:', result.rows[0]);
+        // Verify with your exact column names
+        const result = await this.client.query(`
+          SELECT 
+            product_code, product_name, selling_unit, thickness_mm, width_mm, length_mm,
+            selling_price_per_unit, purchase_price_per_unit, potential_profit
+          FROM products 
+          WHERE id = $1
+        `, [productId]);
+        
+        console.log('\n📋 Inserted product with your exact columns:');
+        console.log(result.rows[0]);
       } else {
-        console.log('❌ Test product insertion failed');
+        console.log('❌ Test product insertion failed or duplicate');
       }
       
     } catch (error) {
@@ -401,12 +420,13 @@ async function main() {
       break;
       
     default:
-      console.log('📖 Usage:');
-      console.log('  npm run import-products test                    # Test with sample data');
+      console.log('📖 Product Import - Your Exact Column Names');
+      console.log('Usage:');
+      console.log('  npm run import-products test                    # Test with sample');
       console.log('  npm run import-products import [dir] [limit]    # Import all products');
       console.log('');
       console.log('Examples:');
-      console.log('  npm run import-products import                  # Import all files');
+      console.log('  npm run import-products import                  # Import ALL 2000+ files');
       console.log('  npm run import-products import ../data/scraped/json 100  # Import first 100 files');
       break;
   }

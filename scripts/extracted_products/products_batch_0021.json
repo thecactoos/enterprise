@@ -1,0 +1,966 @@
+[
+  {
+    "kod_produktu": "1787",
+    "nazwa_produktu": "Osmo 3519 Bejca Olejna | surowe drewno | 2,5L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "615.59",
+    "cena_sprzedaży_netto_1szt_[zł]": "554.03",
+    "cena_zakupu_netto_1szt_[zł]": "443.41",
+    "potencjalny_zysk_1szt_[zł]": "110.62",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1785",
+    "nazwa_produktu": "Osmo 3519 Bejca Olejna | surowe drewno | 0,5L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "145.11",
+    "cena_sprzedaży_netto_1szt_[zł]": "130.6",
+    "cena_zakupu_netto_1szt_[zł]": "104.52",
+    "potencjalny_zysk_1szt_[zł]": "26.08",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1790",
+    "nazwa_produktu": "Osmo 3541 Bejca Olejna | hawana | 0,5L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "145.11",
+    "cena_sprzedaży_netto_1szt_[zł]": "130.6",
+    "cena_zakupu_netto_1szt_[zł]": "104.52",
+    "potencjalny_zysk_1szt_[zł]": "26.08",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1791",
+    "nazwa_produktu": "Osmo 3541 Bejca Olejna | hawana | 1L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "272.31",
+    "cena_sprzedaży_netto_1szt_[zł]": "245.08",
+    "cena_zakupu_netto_1szt_[zł]": "196.14",
+    "potencjalny_zysk_1szt_[zł]": "48.94",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1792",
+    "nazwa_produktu": "Osmo 3541 Bejca Olejna | hawana | 2,5L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "615.59",
+    "cena_sprzedaży_netto_1szt_[zł]": "554.03",
+    "cena_zakupu_netto_1szt_[zł]": "443.41",
+    "potencjalny_zysk_1szt_[zł]": "110.62",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1793",
+    "nazwa_produktu": "Osmo 3543 Bejca Olejna | koniak | 0,005L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "6.34",
+    "cena_sprzedaży_netto_1szt_[zł]": "5.71",
+    "cena_zakupu_netto_1szt_[zł]": "4.57",
+    "potencjalny_zysk_1szt_[zł]": "1.14",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1796",
+    "nazwa_produktu": "Osmo 3543 Bejca Olejna | koniak | 1L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "272.31",
+    "cena_sprzedaży_netto_1szt_[zł]": "245.08",
+    "cena_zakupu_netto_1szt_[zł]": "196.14",
+    "potencjalny_zysk_1szt_[zł]": "48.94",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1794",
+    "nazwa_produktu": "Osmo 3543 Bejca Olejna | koniak | 0,125L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "44.41",
+    "cena_sprzedaży_netto_1szt_[zł]": "39.97",
+    "cena_zakupu_netto_1szt_[zł]": "31.99",
+    "potencjalny_zysk_1szt_[zł]": "7.98",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1797",
+    "nazwa_produktu": "Osmo 3543 Bejca Olejna | koniak | 2,5L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "615.59",
+    "cena_sprzedaży_netto_1szt_[zł]": "554.03",
+    "cena_zakupu_netto_1szt_[zł]": "443.41",
+    "potencjalny_zysk_1szt_[zł]": "110.62",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1795",
+    "nazwa_produktu": "Osmo 3543 Bejca Olejna | koniak | 0,5L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "145.11",
+    "cena_sprzedaży_netto_1szt_[zł]": "130.6",
+    "cena_zakupu_netto_1szt_[zł]": "104.52",
+    "potencjalny_zysk_1szt_[zł]": "26.08",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1799",
+    "nazwa_produktu": "Osmo 3564 Bejca Olejna | tabakowy | 0,125L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "44.41",
+    "cena_sprzedaży_netto_1szt_[zł]": "39.97",
+    "cena_zakupu_netto_1szt_[zł]": "31.99",
+    "potencjalny_zysk_1szt_[zł]": "7.98",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "2108",
+    "nazwa_produktu": "Osmo 420 Olej Ochronny UV Extra | bezbarwny | 0,125L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "44.41",
+    "cena_sprzedaży_netto_1szt_[zł]": "39.97",
+    "cena_zakupu_netto_1szt_[zł]": "31.99",
+    "potencjalny_zysk_1szt_[zł]": "7.98",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "2107",
+    "nazwa_produktu": "Osmo 420 Olej Ochronny UV Extra | bezbarwny | 0,005L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "6.34",
+    "cena_sprzedaży_netto_1szt_[zł]": "5.71",
+    "cena_zakupu_netto_1szt_[zł]": "4.57",
+    "potencjalny_zysk_1szt_[zł]": "1.14",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "2105",
+    "nazwa_produktu": "Osmo 410 Olej Ochronny UV | bezbarwny | 2,5L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "413.31",
+    "cena_sprzedaży_netto_1szt_[zł]": "371.98",
+    "cena_zakupu_netto_1szt_[zł]": "297.71",
+    "potencjalny_zysk_1szt_[zł]": "74.27",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "2109",
+    "nazwa_produktu": "Osmo 420 Olej Ochronny UV Extra | bezbarwny | 0,75L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "136.89",
+    "cena_sprzedaży_netto_1szt_[zł]": "123.2",
+    "cena_zakupu_netto_1szt_[zł]": "98.6",
+    "potencjalny_zysk_1szt_[zł]": "24.6",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "2112",
+    "nazwa_produktu": "Osmo 424 Olej Ochronny UV Extra | sosna | 0,125L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "44.41",
+    "cena_sprzedaży_netto_1szt_[zł]": "39.97",
+    "cena_zakupu_netto_1szt_[zł]": "31.99",
+    "potencjalny_zysk_1szt_[zł]": "7.98",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "2110",
+    "nazwa_produktu": "Osmo 420 Olej Ochronny UV Extra | bezbarwny | 2,5L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "413.31",
+    "cena_sprzedaży_netto_1szt_[zł]": "371.98",
+    "cena_zakupu_netto_1szt_[zł]": "297.71",
+    "potencjalny_zysk_1szt_[zł]": "74.27",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "2111",
+    "nazwa_produktu": "Osmo 420 Olej Ochronny UV Extra | bezbarwny | 25L",
+    "jednostka_sprzedażowa": "szt",
+    "potencjalny_zysk_1szt_[zł]": "667.55",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "2113",
+    "nazwa_produktu": "Osmo 424 Olej Ochronny UV Extra | sosna | 0,75L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "144.21",
+    "cena_sprzedaży_netto_1szt_[zł]": "129.79",
+    "cena_zakupu_netto_1szt_[zł]": "103.87",
+    "potencjalny_zysk_1szt_[zł]": "25.92",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "2115",
+    "nazwa_produktu": "Osmo 424 Olej Ochronny UV Extra | sosna | 25L",
+    "jednostka_sprzedażowa": "szt",
+    "potencjalny_zysk_1szt_[zł]": "700.1",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "2116",
+    "nazwa_produktu": "Osmo 425 Olej Ochronny UV Extra | dąb | 0,125L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "44.41",
+    "cena_sprzedaży_netto_1szt_[zł]": "39.97",
+    "cena_zakupu_netto_1szt_[zł]": "31.99",
+    "potencjalny_zysk_1szt_[zł]": "7.98",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "2114",
+    "nazwa_produktu": "Osmo 424 Olej Ochronny UV Extra | sosna | 2,5L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "433.97",
+    "cena_sprzedaży_netto_1szt_[zł]": "390.57",
+    "cena_zakupu_netto_1szt_[zł]": "312.59",
+    "potencjalny_zysk_1szt_[zł]": "77.98",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "2118",
+    "nazwa_produktu": "Osmo 425 Olej Ochronny UV Extra | dąb | 2,5L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "433.97",
+    "cena_sprzedaży_netto_1szt_[zł]": "390.57",
+    "cena_zakupu_netto_1szt_[zł]": "312.59",
+    "potencjalny_zysk_1szt_[zł]": "77.98",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "2099",
+    "nazwa_produktu": "Osmo 430 Antypoślizgowy Olej do Tarasów | bezbarwny | 2,5L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "440.27",
+    "cena_sprzedaży_netto_1szt_[zł]": "396.24",
+    "cena_zakupu_netto_1szt_[zł]": "317.13",
+    "potencjalny_zysk_1szt_[zł]": "79.11",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "2100",
+    "nazwa_produktu": "Osmo 430 Antypoślizgowy Olej do Tarasów | bezbarwny | 25L",
+    "jednostka_sprzedażowa": "szt",
+    "potencjalny_zysk_1szt_[zł]": "711.46",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "2136",
+    "nazwa_produktu": "Osmo 431 Olej Ochronny UV Kolor | jasny cedr | 0,125L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "44.41",
+    "cena_sprzedaży_netto_1szt_[zł]": "39.97",
+    "cena_zakupu_netto_1szt_[zł]": "31.99",
+    "potencjalny_zysk_1szt_[zł]": "7.98",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "2137",
+    "nazwa_produktu": "Osmo 431 Olej Ochronny UV Kolor | jasny cedr | 0,75L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "144.21",
+    "cena_sprzedaży_netto_1szt_[zł]": "129.79",
+    "cena_zakupu_netto_1szt_[zł]": "103.87",
+    "potencjalny_zysk_1szt_[zł]": "25.92",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "2139",
+    "nazwa_produktu": "Osmo 431 Olej Ochronny UV Kolor | jasny cedr | 25L",
+    "jednostka_sprzedażowa": "szt",
+    "potencjalny_zysk_1szt_[zł]": "700.1",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "2138",
+    "nazwa_produktu": "Osmo 431 Olej Ochronny UV Kolor | jasny cedr | 2,5L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "433.97",
+    "cena_sprzedaży_netto_1szt_[zł]": "390.57",
+    "cena_zakupu_netto_1szt_[zł]": "312.59",
+    "potencjalny_zysk_1szt_[zł]": "77.98",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "2140",
+    "nazwa_produktu": "Osmo 432 Olej Ochronny UV Kolor | jasny dąb | 0,125L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "44.41",
+    "cena_sprzedaży_netto_1szt_[zł]": "39.97",
+    "cena_zakupu_netto_1szt_[zł]": "31.99",
+    "potencjalny_zysk_1szt_[zł]": "7.98",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1551",
+    "nazwa_produktu": "Osmo 6116 Olej do Drewna 2K | wiśnia | 1L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "732.8",
+    "cena_sprzedaży_netto_1szt_[zł]": "659.52",
+    "cena_zakupu_netto_1szt_[zł]": "527.84",
+    "potencjalny_zysk_1szt_[zł]": "131.68",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1550",
+    "nazwa_produktu": "Osmo 6116 Olej do Drewna 2K | wiśnia | 0,375L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "316.3",
+    "cena_sprzedaży_netto_1szt_[zł]": "284.67",
+    "cena_zakupu_netto_1szt_[zł]": "227.83",
+    "potencjalny_zysk_1szt_[zł]": "56.84",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1554",
+    "nazwa_produktu": "Osmo 6119 Olej do Drewna 2K | surowe drewno | 0,375L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "316.3",
+    "cena_sprzedaży_netto_1szt_[zł]": "284.67",
+    "cena_zakupu_netto_1szt_[zł]": "227.83",
+    "potencjalny_zysk_1szt_[zł]": "56.84",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1556",
+    "nazwa_produktu": "Osmo 6141 Olej do Drewna 2K | hawana | 0,375L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "316.3",
+    "cena_sprzedaży_netto_1szt_[zł]": "284.67",
+    "cena_zakupu_netto_1szt_[zł]": "227.83",
+    "potencjalny_zysk_1szt_[zł]": "56.84",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1555",
+    "nazwa_produktu": "Osmo 6119 Olej do Drewna 2K | surowe drewno | 1L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "732.8",
+    "cena_sprzedaży_netto_1szt_[zł]": "659.52",
+    "cena_zakupu_netto_1szt_[zł]": "527.84",
+    "potencjalny_zysk_1szt_[zł]": "131.68",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1557",
+    "nazwa_produktu": "Osmo 6141 Olej do Drewna 2K | hawana | 1L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "732.8",
+    "cena_sprzedaży_netto_1szt_[zł]": "659.52",
+    "cena_zakupu_netto_1szt_[zł]": "527.84",
+    "potencjalny_zysk_1szt_[zł]": "131.68",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1558",
+    "nazwa_produktu": "Osmo 6143 Olej do Drewna 2K | koniak | 0,375L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "316.3",
+    "cena_sprzedaży_netto_1szt_[zł]": "284.67",
+    "cena_zakupu_netto_1szt_[zł]": "227.83",
+    "potencjalny_zysk_1szt_[zł]": "56.84",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1559",
+    "nazwa_produktu": "Osmo 6143 Olej do Drewna 2K | koniak | 1L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "732.8",
+    "cena_sprzedaży_netto_1szt_[zł]": "659.52",
+    "cena_zakupu_netto_1szt_[zł]": "527.84",
+    "potencjalny_zysk_1szt_[zł]": "131.68",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1562",
+    "nazwa_produktu": "Osmo 6190 Olej do Drewna 2K | czarny | 0,375L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "316.3",
+    "cena_sprzedaży_netto_1szt_[zł]": "284.67",
+    "cena_zakupu_netto_1szt_[zł]": "227.83",
+    "potencjalny_zysk_1szt_[zł]": "56.84",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1560",
+    "nazwa_produktu": "Osmo 6164 Olej do Drewna 2K | tabakowy | 0,375L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "316.3",
+    "cena_sprzedaży_netto_1szt_[zł]": "284.67",
+    "cena_zakupu_netto_1szt_[zł]": "227.83",
+    "potencjalny_zysk_1szt_[zł]": "56.84",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1561",
+    "nazwa_produktu": "Osmo 6164 Olej do Drewna 2K | tabakowy | 1L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "732.8",
+    "cena_sprzedaży_netto_1szt_[zł]": "659.52",
+    "cena_zakupu_netto_1szt_[zł]": "527.84",
+    "potencjalny_zysk_1szt_[zł]": "131.68",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1563",
+    "nazwa_produktu": "Osmo 6190 Olej do Drewna 2K | czarny | 1L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "732.8",
+    "cena_sprzedaży_netto_1szt_[zł]": "659.52",
+    "cena_zakupu_netto_1szt_[zł]": "527.84",
+    "potencjalny_zysk_1szt_[zł]": "131.68",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "2350",
+    "nazwa_produktu": "Osmo 7000 Farba Podkładowa | bezbarwny | 2,5L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "339.14",
+    "cena_sprzedaży_netto_1szt_[zł]": "305.23",
+    "cena_zakupu_netto_1szt_[zł]": "244.28",
+    "potencjalny_zysk_1szt_[zł]": "60.95",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1933",
+    "nazwa_produktu": "Osmo 701 Lazura Olejna do Ochrony Drewna | matowy | 0,005L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "6.34",
+    "cena_sprzedaży_netto_1szt_[zł]": "5.71",
+    "cena_zakupu_netto_1szt_[zł]": "4.57",
+    "potencjalny_zysk_1szt_[zł]": "1.14",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1934",
+    "nazwa_produktu": "Osmo 701 Lazura Olejna do Ochrony Drewna | matowy | 0,125L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "44.41",
+    "cena_sprzedaży_netto_1szt_[zł]": "39.97",
+    "cena_zakupu_netto_1szt_[zł]": "31.99",
+    "potencjalny_zysk_1szt_[zł]": "7.98",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1936",
+    "nazwa_produktu": "Osmo 701 Lazura Olejna do Ochrony Drewna | matowy | 2,5L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "466.37",
+    "cena_sprzedaży_netto_1szt_[zł]": "419.73",
+    "cena_zakupu_netto_1szt_[zł]": "335.93",
+    "potencjalny_zysk_1szt_[zł]": "83.8",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1935",
+    "nazwa_produktu": "Osmo 701 Lazura Olejna do Ochrony Drewna | matowy | 0,75L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "154.77",
+    "cena_sprzedaży_netto_1szt_[zł]": "139.29",
+    "cena_zakupu_netto_1szt_[zł]": "111.48",
+    "potencjalny_zysk_1szt_[zł]": "27.81",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1943",
+    "nazwa_produktu": "Osmo 702 Lazura Olejna do Ochrony Drewna | modrzew | 0,005L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "6.34",
+    "cena_sprzedaży_netto_1szt_[zł]": "5.71",
+    "cena_zakupu_netto_1szt_[zł]": "4.57",
+    "potencjalny_zysk_1szt_[zł]": "1.14",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1944",
+    "nazwa_produktu": "Osmo 702 Lazura Olejna do Ochrony Drewna | modrzew | 0,125L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "44.41",
+    "cena_sprzedaży_netto_1szt_[zł]": "39.97",
+    "cena_zakupu_netto_1szt_[zł]": "31.99",
+    "potencjalny_zysk_1szt_[zł]": "7.98",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1937",
+    "nazwa_produktu": "Osmo 701 Lazura Olejna do Ochrony Drewna | matowy | 25L",
+    "jednostka_sprzedażowa": "szt",
+    "potencjalny_zysk_1szt_[zł]": "753.81",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1945",
+    "nazwa_produktu": "Osmo 702 Lazura Olejna do Ochrony Drewna | modrzew | 0,75L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "154.77",
+    "cena_sprzedaży_netto_1szt_[zł]": "139.29",
+    "cena_zakupu_netto_1szt_[zł]": "111.48",
+    "potencjalny_zysk_1szt_[zł]": "27.81",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1967",
+    "nazwa_produktu": "Osmo 708 Lazura Olejna do Ochrony Drewna | teak | 25L",
+    "jednostka_sprzedażowa": "szt",
+    "potencjalny_zysk_1szt_[zł]": "753.81",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1968",
+    "nazwa_produktu": "Osmo 710 Lazura Olejna do Ochrony Drewna | pinia | 0,005L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "6.34",
+    "cena_sprzedaży_netto_1szt_[zł]": "5.71",
+    "cena_zakupu_netto_1szt_[zł]": "4.57",
+    "potencjalny_zysk_1szt_[zł]": "1.14",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1969",
+    "nazwa_produktu": "Osmo 710 Lazura Olejna do Ochrony Drewna | pinia | 0,125L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "44.41",
+    "cena_sprzedaży_netto_1szt_[zł]": "39.97",
+    "cena_zakupu_netto_1szt_[zł]": "31.99",
+    "potencjalny_zysk_1szt_[zł]": "7.98",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1971",
+    "nazwa_produktu": "Osmo 710 Lazura Olejna do Ochrony Drewna | pinia | 2,5L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "466.37",
+    "cena_sprzedaży_netto_1szt_[zł]": "419.73",
+    "cena_zakupu_netto_1szt_[zł]": "335.93",
+    "potencjalny_zysk_1szt_[zł]": "83.8",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1970",
+    "nazwa_produktu": "Osmo 710 Lazura Olejna do Ochrony Drewna | pinia | 0,75L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "154.77",
+    "cena_sprzedaży_netto_1szt_[zł]": "139.29",
+    "cena_zakupu_netto_1szt_[zł]": "111.48",
+    "potencjalny_zysk_1szt_[zł]": "27.81",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "2307",
+    "nazwa_produktu": "Osmo 7103 Farba do Fasad i Drewna w Ogrodzie | RAL 1003 | sygnałowy żółty | 0,75L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "128.21",
+    "cena_sprzedaży_netto_1szt_[zł]": "115.39",
+    "cena_zakupu_netto_1szt_[zł]": "92.35",
+    "potencjalny_zysk_1szt_[zł]": "23.04",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1979",
+    "nazwa_produktu": "Osmo 727 Lazura Olejna do Ochrony Drewna | palisander | 0,125L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "44.41",
+    "cena_sprzedaży_netto_1szt_[zł]": "39.97",
+    "cena_zakupu_netto_1szt_[zł]": "31.99",
+    "potencjalny_zysk_1szt_[zł]": "7.98",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1980",
+    "nazwa_produktu": "Osmo 727 Lazura Olejna do Ochrony Drewna | palisander | 0,75L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "154.77",
+    "cena_sprzedaży_netto_1szt_[zł]": "139.29",
+    "cena_zakupu_netto_1szt_[zł]": "111.48",
+    "potencjalny_zysk_1szt_[zł]": "27.81",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1983",
+    "nazwa_produktu": "Osmo 728 Lazura Olejna do Ochrony Drewna | cedr | 0,005L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "6.34",
+    "cena_sprzedaży_netto_1szt_[zł]": "5.71",
+    "cena_zakupu_netto_1szt_[zł]": "4.57",
+    "potencjalny_zysk_1szt_[zł]": "1.14",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1981",
+    "nazwa_produktu": "Osmo 727 Lazura Olejna do Ochrony Drewna | palisander | 2,5L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "466.37",
+    "cena_sprzedaży_netto_1szt_[zł]": "419.73",
+    "cena_zakupu_netto_1szt_[zł]": "335.93",
+    "potencjalny_zysk_1szt_[zł]": "83.8",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1982",
+    "nazwa_produktu": "Osmo 727 Lazura Olejna do Ochrony Drewna | palisander | 25L",
+    "jednostka_sprzedażowa": "szt",
+    "potencjalny_zysk_1szt_[zł]": "753.81",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1984",
+    "nazwa_produktu": "Osmo 728 Lazura Olejna do Ochrony Drewna | cedr | 0,125L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "44.41",
+    "cena_sprzedaży_netto_1szt_[zł]": "39.97",
+    "cena_zakupu_netto_1szt_[zł]": "31.99",
+    "potencjalny_zysk_1szt_[zł]": "7.98",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1985",
+    "nazwa_produktu": "Osmo 728 Lazura Olejna do Ochrony Drewna | cedr | 0,75L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "154.77",
+    "cena_sprzedaży_netto_1szt_[zł]": "139.29",
+    "cena_zakupu_netto_1szt_[zł]": "111.48",
+    "potencjalny_zysk_1szt_[zł]": "27.81",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1996",
+    "nazwa_produktu": "Osmo 731 Lazura Olejna do Ochrony Drewna | daglezja | 25L",
+    "jednostka_sprzedażowa": "szt",
+    "potencjalny_zysk_1szt_[zł]": "753.81",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1998",
+    "nazwa_produktu": "Osmo 732 Lazura Olejna do Ochrony Drewna | jasny dąb | 0,125L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "44.41",
+    "cena_sprzedaży_netto_1szt_[zł]": "39.97",
+    "cena_zakupu_netto_1szt_[zł]": "31.99",
+    "potencjalny_zysk_1szt_[zł]": "7.98",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1907",
+    "nazwa_produktu": "Osmo 7350 Spoiwo do fug | bezbarwne | 5L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "292.07",
+    "cena_sprzedaży_netto_1szt_[zł]": "262.86",
+    "cena_zakupu_netto_1szt_[zł]": "210.38",
+    "potencjalny_zysk_1szt_[zł]": "52.48",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "2000",
+    "nazwa_produktu": "Osmo 732 Lazura Olejna do Ochrony Drewna | jasny dąb | 2,5L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "466.37",
+    "cena_sprzedaży_netto_1szt_[zł]": "419.73",
+    "cena_zakupu_netto_1szt_[zł]": "335.93",
+    "potencjalny_zysk_1szt_[zł]": "83.8",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "2002",
+    "nazwa_produktu": "Osmo 739 Lazura Olejna do Ochrony Drewna | srebrny szary | 0,125L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "44.41",
+    "cena_sprzedaży_netto_1szt_[zł]": "39.97",
+    "cena_zakupu_netto_1szt_[zł]": "31.99",
+    "potencjalny_zysk_1szt_[zł]": "7.98",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "2001",
+    "nazwa_produktu": "Osmo 732 Lazura Olejna do Ochrony Drewna | jasny dąb | 25L",
+    "jednostka_sprzedażowa": "szt",
+    "potencjalny_zysk_1szt_[zł]": "753.81",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "2003",
+    "nazwa_produktu": "Osmo 739 Lazura Olejna do Ochrony Drewna | srebrny szary | 0,75L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "154.77",
+    "cena_sprzedaży_netto_1szt_[zł]": "139.29",
+    "cena_zakupu_netto_1szt_[zł]": "111.48",
+    "potencjalny_zysk_1szt_[zł]": "27.81",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "2331",
+    "nazwa_produktu": "Osmo 7535 Farba do Fasad i Drewna w Ogrodzie | RAL 7035 | jasny szary | 0,75L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "128.21",
+    "cena_sprzedaży_netto_1szt_[zł]": "115.39",
+    "cena_zakupu_netto_1szt_[zł]": "92.35",
+    "potencjalny_zysk_1szt_[zł]": "23.04",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "2333",
+    "nazwa_produktu": "Osmo 7542 Farba do Fasad i Drewna w Ogrodzie | RAL 7042 | drogowy szary | 0,005L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "6.34",
+    "cena_sprzedaży_netto_1szt_[zł]": "5.71",
+    "cena_zakupu_netto_1szt_[zł]": "4.57",
+    "potencjalny_zysk_1szt_[zł]": "1.14",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "2332",
+    "nazwa_produktu": "Osmo 7535 Farba do Fasad i Drewna w Ogrodzie | RAL 7035 | jasny szary | 2,5L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "386.31",
+    "cena_sprzedaży_netto_1szt_[zł]": "347.68",
+    "cena_zakupu_netto_1szt_[zł]": "278.26",
+    "potencjalny_zysk_1szt_[zł]": "69.42",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "2335",
+    "nazwa_produktu": "Osmo 7542 Farba do Fasad i Drewna w Ogrodzie | RAL 7042 | drogowy szary | 2,5L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "386.31",
+    "cena_sprzedaży_netto_1szt_[zł]": "347.68",
+    "cena_zakupu_netto_1szt_[zł]": "278.26",
+    "potencjalny_zysk_1szt_[zł]": "69.42",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "2334",
+    "nazwa_produktu": "Osmo 7542 Farba do Fasad i Drewna w Ogrodzie | RAL 7042 | drogowy szary | 0,75L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "128.21",
+    "cena_sprzedaży_netto_1szt_[zł]": "115.39",
+    "cena_zakupu_netto_1szt_[zł]": "92.35",
+    "potencjalny_zysk_1szt_[zł]": "23.04",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "2337",
+    "nazwa_produktu": "Osmo 7629 Farba do Fasad i Drewna w Ogrodzie | RAL 6029 | miętowy zielony | 0,75L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "128.21",
+    "cena_sprzedaży_netto_1szt_[zł]": "115.39",
+    "cena_zakupu_netto_1szt_[zł]": "92.35",
+    "potencjalny_zysk_1szt_[zł]": "23.04",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "2366",
+    "nazwa_produktu": "Osmo 8025 Środek do Czyszczenia Tarasów | bezbarwny | 1L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "67.41",
+    "cena_sprzedaży_netto_1szt_[zł]": "60.67",
+    "cena_zakupu_netto_1szt_[zł]": "48.56",
+    "potencjalny_zysk_1szt_[zł]": "12.11",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1928",
+    "nazwa_produktu": "Osmo 8026 Płyn do Czyszczenia w Sprayu do Wewnątrz | bezbarwny | 0,5L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "53.19",
+    "cena_sprzedaży_netto_1szt_[zł]": "47.87",
+    "cena_zakupu_netto_1szt_[zł]": "38.31",
+    "potencjalny_zysk_1szt_[zł]": "9.56",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "2008",
+    "nazwa_produktu": "Osmo 900 Lazura Olejna do Ochrony Drewna | biały | 0,75L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "154.77",
+    "cena_sprzedaży_netto_1szt_[zł]": "139.29",
+    "cena_zakupu_netto_1szt_[zł]": "111.48",
+    "potencjalny_zysk_1szt_[zł]": "27.81",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "2010",
+    "nazwa_produktu": "Osmo 900 Lazura Olejna do Ochrony Drewna | biały | 25L",
+    "jednostka_sprzedażowa": "szt",
+    "potencjalny_zysk_1szt_[zł]": "753.81",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "2009",
+    "nazwa_produktu": "Osmo 900 Lazura Olejna do Ochrony Drewna | biały | 2,5L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "466.37",
+    "cena_sprzedaży_netto_1szt_[zł]": "419.73",
+    "cena_zakupu_netto_1szt_[zł]": "335.93",
+    "potencjalny_zysk_1szt_[zł]": "83.8",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "2007",
+    "nazwa_produktu": "Osmo 900 Lazura Olejna do Ochrony Drewna | biały | 0,125L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "44.41",
+    "cena_sprzedaży_netto_1szt_[zł]": "39.97",
+    "cena_zakupu_netto_1szt_[zł]": "31.99",
+    "potencjalny_zysk_1szt_[zł]": "7.98",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "2011",
+    "nazwa_produktu": "Osmo 903 Lazura Olejna do Ochrony Drewna | szarość bazaltowa | 0,005L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "6.34",
+    "cena_sprzedaży_netto_1szt_[zł]": "5.71",
+    "cena_zakupu_netto_1szt_[zł]": "4.57",
+    "potencjalny_zysk_1szt_[zł]": "1.14",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "2013",
+    "nazwa_produktu": "Osmo 903 Lazura Olejna do Ochrony Drewna | szarość bazaltowa | 0,75L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "154.77",
+    "cena_sprzedaży_netto_1szt_[zł]": "139.29",
+    "cena_zakupu_netto_1szt_[zł]": "111.48",
+    "potencjalny_zysk_1szt_[zł]": "27.81",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "2012",
+    "nazwa_produktu": "Osmo 903 Lazura Olejna do Ochrony Drewna | szarość bazaltowa | 0,125L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "44.41",
+    "cena_sprzedaży_netto_1szt_[zł]": "39.97",
+    "cena_zakupu_netto_1szt_[zł]": "31.99",
+    "potencjalny_zysk_1szt_[zł]": "7.98",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "2016",
+    "nazwa_produktu": "Osmo 905 Lazura Olejna do Ochrony Drewna | patyna | 0,005L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "6.34",
+    "cena_sprzedaży_netto_1szt_[zł]": "5.71",
+    "cena_zakupu_netto_1szt_[zł]": "4.57",
+    "potencjalny_zysk_1szt_[zł]": "1.14",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "2014",
+    "nazwa_produktu": "Osmo 903 Lazura Olejna do Ochrony Drewna | szarość bazaltowa | 2,5L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "466.37",
+    "cena_sprzedaży_netto_1szt_[zł]": "419.73",
+    "cena_zakupu_netto_1szt_[zł]": "335.93",
+    "potencjalny_zysk_1szt_[zł]": "83.8",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "2148",
+    "nazwa_produktu": "Osmo 9203 Lazura Jednorazowa HS Plus | bazaltowy szary | 25L",
+    "jednostka_sprzedażowa": "szt",
+    "potencjalny_zysk_1szt_[zł]": "892.97",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "2149",
+    "nazwa_produktu": "Osmo 9205 Lazura Jednorazowa HS Plus | patyna | 0,005L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "6.34",
+    "cena_sprzedaży_netto_1szt_[zł]": "5.71",
+    "cena_zakupu_netto_1szt_[zł]": "4.57",
+    "potencjalny_zysk_1szt_[zł]": "1.14",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "2150",
+    "nazwa_produktu": "Osmo 9205 Lazura Jednorazowa HS Plus | patyna | 0,125L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "44.41",
+    "cena_sprzedaży_netto_1szt_[zł]": "39.97",
+    "cena_zakupu_netto_1szt_[zł]": "31.99",
+    "potencjalny_zysk_1szt_[zł]": "7.98",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "2152",
+    "nazwa_produktu": "Osmo 9205 Lazura Jednorazowa HS Plus | patyna | 2,5L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "552.84",
+    "cena_sprzedaży_netto_1szt_[zł]": "497.56",
+    "cena_zakupu_netto_1szt_[zł]": "398.21",
+    "potencjalny_zysk_1szt_[zł]": "99.35",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "2151",
+    "nazwa_produktu": "Osmo 9205 Lazura Jednorazowa HS Plus | patyna | 0,75L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "183.07",
+    "cena_sprzedaży_netto_1szt_[zł]": "164.76",
+    "cena_zakupu_netto_1szt_[zł]": "131.87",
+    "potencjalny_zysk_1szt_[zł]": "32.89",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "2153",
+    "nazwa_produktu": "Osmo 9205 Lazura Jednorazowa HS Plus | patyna | 25L",
+    "jednostka_sprzedażowa": "szt",
+    "potencjalny_zysk_1szt_[zł]": "892.97",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "2156",
+    "nazwa_produktu": "Osmo 9206 Lazura Jednorazowa HS Plus | jasny dąb | 0,75L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "183.07",
+    "cena_sprzedaży_netto_1szt_[zł]": "164.76",
+    "cena_zakupu_netto_1szt_[zł]": "131.87",
+    "potencjalny_zysk_1szt_[zł]": "32.89",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "2154",
+    "nazwa_produktu": "Osmo 9206 Lazura Jednorazowa HS Plus | jasny dąb | 0,005L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "6.34",
+    "cena_sprzedaży_netto_1szt_[zł]": "5.71",
+    "cena_zakupu_netto_1szt_[zł]": "4.57",
+    "potencjalny_zysk_1szt_[zł]": "1.14",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "2157",
+    "nazwa_produktu": "Osmo 9206 Lazura Jednorazowa HS Plus | jasny dąb | 2,5L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "552.84",
+    "cena_sprzedaży_netto_1szt_[zł]": "497.56",
+    "cena_zakupu_netto_1szt_[zł]": "398.21",
+    "potencjalny_zysk_1szt_[zł]": "99.35",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "2155",
+    "nazwa_produktu": "Osmo 9206 Lazura Jednorazowa HS Plus | jasny dąb | 0,125L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "44.41",
+    "cena_sprzedaży_netto_1szt_[zł]": "39.97",
+    "cena_zakupu_netto_1szt_[zł]": "31.99",
+    "potencjalny_zysk_1szt_[zł]": "7.98",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "2177",
+    "nazwa_produktu": "Osmo 9235 Lazura Jednorazowa HS Plus | czerwony cedr | 2,5L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "552.84",
+    "cena_sprzedaży_netto_1szt_[zł]": "497.56",
+    "cena_zakupu_netto_1szt_[zł]": "398.21",
+    "potencjalny_zysk_1szt_[zł]": "99.35",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "2176",
+    "nazwa_produktu": "Osmo 9235 Lazura Jednorazowa HS Plus | czerwony cedr | 0,75L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "183.07",
+    "cena_sprzedaży_netto_1szt_[zł]": "164.76",
+    "cena_zakupu_netto_1szt_[zł]": "131.87",
+    "potencjalny_zysk_1szt_[zł]": "32.89",
+    "długość_sprzedażowa_[mb]": "1.0"
+  }
+]

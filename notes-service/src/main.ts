@@ -6,7 +6,13 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   
   app.enableCors({
-    origin: ['http://localhost:3000', 'http://api-gateway:3000'],
+    origin: [
+      'http://localhost:3000',  // API Gateway
+      'http://localhost:3005',  // Frontend
+      'http://127.0.0.1:3000',  // API Gateway (IPv4)
+      'http://127.0.0.1:3005',  // Frontend (IPv4)
+      'http://api-gateway:3000' // Docker network
+    ],
     credentials: true,
   });
   

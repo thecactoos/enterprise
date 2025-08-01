@@ -18,22 +18,22 @@ import {
 const DemoInfo = () => {
   const demoUsers = [
     {
-      name: 'John Doe (Admin)',
-      email: 'john@example.com',
-      password: 'password123',
+      name: 'Arek Orłowski (Administrator)',
+      email: 'a.orlowski@superparkiet.pl',
+      password: 'SuperParkiet123',
       role: 'admin',
     },
     {
-      name: 'Jane Smith (User)',
-      email: 'jane@example.com',
-      password: 'password123',
-      role: 'user',
+      name: 'Paulina Sowińska (Sales)',
+      email: 'p.sowinska@superparkiet.pl',
+      password: 'SuperParkiet456',
+      role: 'sales',
     },
     {
-      name: 'Bob Johnson (User)',
-      email: 'bob@example.com',
-      password: 'password123',
-      role: 'user',
+      name: 'Grzegorz Pol (Manager)',
+      email: 'g.pol@superparkiet.pl',
+      password: 'SuperParkiet789',
+      role: 'manager',
     },
   ];
 

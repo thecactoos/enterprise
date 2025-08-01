@@ -1,0 +1,944 @@
+[
+  {
+    "kod_produktu": "1844",
+    "nazwa_produktu": "Osmo 3050 Natryskowy Wosk Olejny | biały kryjący matowy | 1L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "195.5",
+    "cena_sprzedaży_netto_1szt_[zł]": "175.95",
+    "cena_zakupu_netto_1szt_[zł]": "140.82",
+    "potencjalny_zysk_1szt_[zł]": "35.13",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1846",
+    "nazwa_produktu": "Osmo 3050 Natryskowy Wosk Olejny | biały kryjący matowy | 10L",
+    "jednostka_sprzedażowa": "szt",
+    "potencjalny_zysk_1szt_[zł]": "302.17",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1841",
+    "nazwa_produktu": "Osmo 3049 Natryskowy Wosk Olejny | czarny kryjący matowy | 1L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "195.5",
+    "cena_sprzedaży_netto_1szt_[zł]": "175.95",
+    "cena_zakupu_netto_1szt_[zł]": "140.82",
+    "potencjalny_zysk_1szt_[zł]": "35.13",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1845",
+    "nazwa_produktu": "Osmo 3050 Natryskowy Wosk Olejny | biały kryjący matowy | 2,5L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "471.49",
+    "cena_sprzedaży_netto_1szt_[zł]": "424.34",
+    "cena_zakupu_netto_1szt_[zł]": "339.61",
+    "potencjalny_zysk_1szt_[zł]": "84.73",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1820",
+    "nazwa_produktu": "Osmo 3058 Top Olej do Blatów Kuchennych | matowy | 0,005L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "10.51",
+    "cena_sprzedaży_netto_1szt_[zł]": "9.46",
+    "cena_zakupu_netto_1szt_[zł]": "7.57",
+    "potencjalny_zysk_1szt_[zł]": "1.89",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1821",
+    "nazwa_produktu": "Osmo 3058 Top Olej do Blatów Kuchennych | matowy | 0,5L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "140.74",
+    "cena_sprzedaży_netto_1szt_[zł]": "126.67",
+    "cena_zakupu_netto_1szt_[zł]": "101.38",
+    "potencjalny_zysk_1szt_[zł]": "25.29",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1822",
+    "nazwa_produktu": "Osmo 3058 Top Olej do Blatów Kuchennych | matowy | 25L",
+    "jednostka_sprzedażowa": "szt",
+    "potencjalny_zysk_1szt_[zł]": "981.6",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1889",
+    "nazwa_produktu": "Osmo 3060 Olej do Drzwi | bezbarwny | 1L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "210.16",
+    "cena_sprzedaży_netto_1szt_[zł]": "189.14",
+    "cena_zakupu_netto_1szt_[zł]": "151.38",
+    "potencjalny_zysk_1szt_[zł]": "37.76",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1495",
+    "nazwa_produktu": "Osmo 3062 Wosk Twardy Olejny Original | matowy | 0,005L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "6.34",
+    "cena_sprzedaży_netto_1szt_[zł]": "5.71",
+    "cena_zakupu_netto_1szt_[zł]": "4.57",
+    "potencjalny_zysk_1szt_[zł]": "1.14",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1570",
+    "nazwa_produktu": "Osmo 3067 Wosk Twardy Olejny Kolor | jasny szary | 0,005L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "6.34",
+    "cena_sprzedaży_netto_1szt_[zł]": "5.71",
+    "cena_zakupu_netto_1szt_[zł]": "4.57",
+    "potencjalny_zysk_1szt_[zł]": "1.14",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1572",
+    "nazwa_produktu": "Osmo 3067 Wosk Twardy Olejny Kolor | jasny szary | 0,75L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "175.3",
+    "cena_sprzedaży_netto_1szt_[zł]": "157.77",
+    "cena_zakupu_netto_1szt_[zł]": "126.27",
+    "potencjalny_zysk_1szt_[zł]": "31.5",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1573",
+    "nazwa_produktu": "Osmo 3067 Wosk Twardy Olejny Kolor | jasny szary | 2,5L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "529.99",
+    "cena_sprzedaży_netto_1szt_[zł]": "476.99",
+    "cena_zakupu_netto_1szt_[zł]": "381.75",
+    "potencjalny_zysk_1szt_[zł]": "95.24",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1571",
+    "nazwa_produktu": "Osmo 3067 Wosk Twardy Olejny Kolor | jasny szary | 0,125L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "44.41",
+    "cena_sprzedaży_netto_1szt_[zł]": "39.97",
+    "cena_zakupu_netto_1szt_[zł]": "31.99",
+    "potencjalny_zysk_1szt_[zł]": "7.98",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1575",
+    "nazwa_produktu": "Osmo 3067 Wosk Twardy Olejny Kolor | jasny szary | 25L",
+    "jednostka_sprzedażowa": "szt",
+    "potencjalny_zysk_1szt_[zł]": "855.54",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1825",
+    "nazwa_produktu": "Osmo 3068 Top Olej do Blatów Kuchennych | surowe drewno | 0,005L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "10.51",
+    "cena_sprzedaży_netto_1szt_[zł]": "9.46",
+    "cena_zakupu_netto_1szt_[zł]": "7.57",
+    "potencjalny_zysk_1szt_[zł]": "1.89",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1826",
+    "nazwa_produktu": "Osmo 3068 Top Olej do Blatów Kuchennych | surowe drewno | 0,5L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "140.74",
+    "cena_sprzedaży_netto_1szt_[zł]": "126.67",
+    "cena_zakupu_netto_1szt_[zł]": "101.38",
+    "potencjalny_zysk_1szt_[zł]": "25.29",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1576",
+    "nazwa_produktu": "Osmo 3071 Wosk Twardy Olejny Kolor | miód | 0,005L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "6.34",
+    "cena_sprzedaży_netto_1szt_[zł]": "5.71",
+    "cena_zakupu_netto_1szt_[zł]": "4.57",
+    "potencjalny_zysk_1szt_[zł]": "1.14",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1577",
+    "nazwa_produktu": "Osmo 3071 Wosk Twardy Olejny Kolor | miód | 0,125L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "44.41",
+    "cena_sprzedaży_netto_1szt_[zł]": "39.97",
+    "cena_zakupu_netto_1szt_[zł]": "31.99",
+    "potencjalny_zysk_1szt_[zł]": "7.98",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1580",
+    "nazwa_produktu": "Osmo 3071 Wosk Twardy Olejny Kolor | miód | 10L",
+    "jednostka_sprzedażowa": "szt",
+    "potencjalny_zysk_1szt_[zł]": "361.3",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1578",
+    "nazwa_produktu": "Osmo 3071 Wosk Twardy Olejny Kolor | miód | 0,75L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "175.3",
+    "cena_sprzedaży_netto_1szt_[zł]": "157.77",
+    "cena_zakupu_netto_1szt_[zł]": "126.27",
+    "potencjalny_zysk_1szt_[zł]": "31.5",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1579",
+    "nazwa_produktu": "Osmo 3071 Wosk Twardy Olejny Kolor | miód | 2,5L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "529.99",
+    "cena_sprzedaży_netto_1szt_[zł]": "476.99",
+    "cena_zakupu_netto_1szt_[zł]": "381.75",
+    "potencjalny_zysk_1szt_[zł]": "95.24",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1584",
+    "nazwa_produktu": "Osmo 3072 Wosk Twardy Olejny Kolor | bursztyn | 0,75L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "175.3",
+    "cena_sprzedaży_netto_1szt_[zł]": "157.77",
+    "cena_zakupu_netto_1szt_[zł]": "126.27",
+    "potencjalny_zysk_1szt_[zł]": "31.5",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1603",
+    "nazwa_produktu": "Osmo 3075 Wosk Twardy Olejny Kolor | czarny | 2,5L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "529.99",
+    "cena_sprzedaży_netto_1szt_[zł]": "476.99",
+    "cena_zakupu_netto_1szt_[zł]": "381.75",
+    "potencjalny_zysk_1szt_[zł]": "95.24",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1601",
+    "nazwa_produktu": "Osmo 3075 Wosk Twardy Olejny Kolor | czarny | 0,125L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "44.41",
+    "cena_sprzedaży_netto_1szt_[zł]": "39.97",
+    "cena_zakupu_netto_1szt_[zł]": "31.99",
+    "potencjalny_zysk_1szt_[zł]": "7.98",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1604",
+    "nazwa_produktu": "Osmo 3075 Wosk Twardy Olejny Kolor | czarny | 10L",
+    "jednostka_sprzedażowa": "szt",
+    "potencjalny_zysk_1szt_[zł]": "361.3",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1602",
+    "nazwa_produktu": "Osmo 3075 Wosk Twardy Olejny Kolor | czarny | 0,75L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "175.3",
+    "cena_sprzedaży_netto_1szt_[zł]": "157.77",
+    "cena_zakupu_netto_1szt_[zł]": "126.27",
+    "potencjalny_zysk_1szt_[zł]": "31.5",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1605",
+    "nazwa_produktu": "Osmo 3075 Wosk Twardy Olejny Kolor | czarny | 25L",
+    "jednostka_sprzedażowa": "szt",
+    "potencjalny_zysk_1szt_[zł]": "855.54",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1894",
+    "nazwa_produktu": "Osmo 3079 Wosk Regeneracyjny | matowy | 2,5L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "407.43",
+    "cena_sprzedaży_netto_1szt_[zł]": "366.69",
+    "cena_zakupu_netto_1szt_[zł]": "293.47",
+    "potencjalny_zysk_1szt_[zł]": "73.22",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1895",
+    "nazwa_produktu": "Osmo 3079 Wosk Regeneracyjny | matowy | 10L",
+    "jednostka_sprzedażowa": "szt",
+    "potencjalny_zysk_1szt_[zł]": "263.01",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1905",
+    "nazwa_produktu": "Osmo 3080 Pasta Woskowa do Reperacji | bezbarwna | 0,075KG",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "58.17",
+    "cena_sprzedaży_netto_1szt_[zł]": "52.35",
+    "cena_zakupu_netto_1szt_[zł]": "41.9",
+    "potencjalny_zysk_1szt_[zł]": "10.45",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1893",
+    "nazwa_produktu": "Osmo 3079 Wosk Regeneracyjny | matowy | 1L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "178.97",
+    "cena_sprzedaży_netto_1szt_[zł]": "161.07",
+    "cena_zakupu_netto_1szt_[zł]": "128.91",
+    "potencjalny_zysk_1szt_[zł]": "32.16",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1898",
+    "nazwa_produktu": "Osmo 3081 Wosk Regeneracyjny | jedwabisty połysk | 10L",
+    "jednostka_sprzedażowa": "szt",
+    "potencjalny_zysk_1szt_[zł]": "263.01",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1515",
+    "nazwa_produktu": "Osmo 3089 Wosk Twardy Olejny Anti-Slip | R11 | jedwabisty połysk | 2,5L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "572.17",
+    "cena_sprzedaży_netto_1szt_[zł]": "514.95",
+    "cena_zakupu_netto_1szt_[zł]": "412.13",
+    "potencjalny_zysk_1szt_[zł]": "102.82",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1611",
+    "nazwa_produktu": "Osmo 3091 Wosk Twardy Olejny Effekt | srebrny | 0,005L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "6.34",
+    "cena_sprzedaży_netto_1szt_[zł]": "5.71",
+    "cena_zakupu_netto_1szt_[zł]": "4.57",
+    "potencjalny_zysk_1szt_[zł]": "1.14",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1612",
+    "nazwa_produktu": "Osmo 3091 Wosk Twardy Olejny Effekt | srebrny | 0,375L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "167.1",
+    "cena_sprzedaży_netto_1szt_[zł]": "150.39",
+    "cena_zakupu_netto_1szt_[zł]": "120.36",
+    "potencjalny_zysk_1szt_[zł]": "30.03",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1613",
+    "nazwa_produktu": "Osmo 3091 Wosk Twardy Olejny Effekt | srebrny | 0,75L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "331.39",
+    "cena_sprzedaży_netto_1szt_[zł]": "298.25",
+    "cena_zakupu_netto_1szt_[zł]": "238.7",
+    "potencjalny_zysk_1szt_[zł]": "59.55",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1616",
+    "nazwa_produktu": "Osmo 3092 Wosk Twardy Olejny Effekt | złoty | 0,125L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "44.41",
+    "cena_sprzedaży_netto_1szt_[zł]": "39.97",
+    "cena_zakupu_netto_1szt_[zł]": "31.99",
+    "potencjalny_zysk_1szt_[zł]": "7.98",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1614",
+    "nazwa_produktu": "Osmo 3091 Wosk Twardy Olejny Effekt | srebrny | 2,5L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_sprzedaży_netto_1szt_[zł]": "903.3",
+    "cena_zakupu_netto_1szt_[zł]": "722.94",
+    "potencjalny_zysk_1szt_[zł]": "180.36",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1617",
+    "nazwa_produktu": "Osmo 3092 Wosk Twardy Olejny Effekt | złoty | 0,375L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "167.1",
+    "cena_sprzedaży_netto_1szt_[zł]": "150.39",
+    "cena_zakupu_netto_1szt_[zł]": "120.36",
+    "potencjalny_zysk_1szt_[zł]": "30.03",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1713",
+    "nazwa_produktu": "Osmo 3104 Wosk Dekoracyjny | RAL 3000 | ognisto czerwony | 0,005L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "6.34",
+    "cena_sprzedaży_netto_1szt_[zł]": "5.71",
+    "cena_zakupu_netto_1szt_[zł]": "4.57",
+    "potencjalny_zysk_1szt_[zł]": "1.14",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1714",
+    "nazwa_produktu": "Osmo 3104 Wosk Dekoracyjny | RAL 3000 | ognisto czerwony | 0,125L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "44.41",
+    "cena_sprzedaży_netto_1szt_[zł]": "39.97",
+    "cena_zakupu_netto_1szt_[zł]": "31.99",
+    "potencjalny_zysk_1szt_[zł]": "7.98",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1716",
+    "nazwa_produktu": "Osmo 3105 Wosk Dekoracyjny | RAL 1021 | żółty kadmowy | 0,005L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "6.34",
+    "cena_sprzedaży_netto_1szt_[zł]": "5.71",
+    "cena_zakupu_netto_1szt_[zł]": "4.57",
+    "potencjalny_zysk_1szt_[zł]": "1.14",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1717",
+    "nazwa_produktu": "Osmo 3105 Wosk Dekoracyjny | RAL 1021 | żółty kadmowy | 0,125L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "44.41",
+    "cena_sprzedaży_netto_1szt_[zł]": "39.97",
+    "cena_zakupu_netto_1szt_[zł]": "31.99",
+    "potencjalny_zysk_1szt_[zł]": "7.98",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1638",
+    "nazwa_produktu": "Osmo 3111 Wosk Dekoracyjny | biały | 0,005L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "6.34",
+    "cena_sprzedaży_netto_1szt_[zł]": "5.71",
+    "cena_zakupu_netto_1szt_[zł]": "4.57",
+    "potencjalny_zysk_1szt_[zł]": "1.14",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1660",
+    "nazwa_produktu": "Osmo 3123 Wosk Dekoracyjny | złoty klon | 2,5L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "492.01",
+    "cena_sprzedaży_netto_1szt_[zł]": "442.81",
+    "cena_zakupu_netto_1szt_[zł]": "354.39",
+    "potencjalny_zysk_1szt_[zł]": "88.42",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1719",
+    "nazwa_produktu": "Osmo 3125 Wosk Dekoracyjny | RAL 5010 | niebieski chagall | 0,005L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "6.34",
+    "cena_sprzedaży_netto_1szt_[zł]": "5.71",
+    "cena_zakupu_netto_1szt_[zł]": "4.57",
+    "potencjalny_zysk_1szt_[zł]": "1.14",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1720",
+    "nazwa_produktu": "Osmo 3125 Wosk Dekoracyjny | RAL 5010 | niebieski chagall | 0,125L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "44.41",
+    "cena_sprzedaży_netto_1szt_[zł]": "39.97",
+    "cena_zakupu_netto_1szt_[zł]": "31.99",
+    "potencjalny_zysk_1szt_[zł]": "7.98",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1722",
+    "nazwa_produktu": "Osmo 3131 Wosk Dekoracyjny | RAL 6029 | miętowy zielony | 0,005L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "6.34",
+    "cena_sprzedaży_netto_1szt_[zł]": "5.71",
+    "cena_zakupu_netto_1szt_[zł]": "4.57",
+    "potencjalny_zysk_1szt_[zł]": "1.14",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1723",
+    "nazwa_produktu": "Osmo 3131 Wosk Dekoracyjny | RAL 6029 | miętowy zielony | 0,125L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "44.41",
+    "cena_sprzedaży_netto_1szt_[zł]": "39.97",
+    "cena_zakupu_netto_1szt_[zł]": "31.99",
+    "potencjalny_zysk_1szt_[zł]": "7.98",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1721",
+    "nazwa_produktu": "Osmo 3125 Wosk Dekoracyjny | RAL 5010 | niebieski chagall | 0,375L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "120.47",
+    "cena_sprzedaży_netto_1szt_[zł]": "108.42",
+    "cena_zakupu_netto_1szt_[zł]": "86.77",
+    "potencjalny_zysk_1szt_[zł]": "21.65",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1724",
+    "nazwa_produktu": "Osmo 3131 Wosk Dekoracyjny | RAL 6029 | miętowy zielony | 0,375L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "120.47",
+    "cena_sprzedaży_netto_1szt_[zł]": "108.42",
+    "cena_zakupu_netto_1szt_[zł]": "86.77",
+    "potencjalny_zysk_1szt_[zł]": "21.65",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1725",
+    "nazwa_produktu": "Osmo 3132 Wosk Dekoracyjny | RAL 1019 | irchowo szary | 0,005L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "6.34",
+    "cena_sprzedaży_netto_1szt_[zł]": "5.71",
+    "cena_zakupu_netto_1szt_[zł]": "4.57",
+    "potencjalny_zysk_1szt_[zł]": "1.14",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1727",
+    "nazwa_produktu": "Osmo 3132 Wosk Dekoracyjny | RAL 1019 | irchowo szary | 0,375L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "120.47",
+    "cena_sprzedaży_netto_1szt_[zł]": "108.42",
+    "cena_zakupu_netto_1szt_[zł]": "86.77",
+    "potencjalny_zysk_1szt_[zł]": "21.65",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1682",
+    "nazwa_produktu": "Osmo 3143 Wosk Dekoracyjny | koniak | 0,375L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "104.34",
+    "cena_sprzedaży_netto_1szt_[zł]": "93.91",
+    "cena_zakupu_netto_1szt_[zł]": "75.16",
+    "potencjalny_zysk_1szt_[zł]": "18.75",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1683",
+    "nazwa_produktu": "Osmo 3143 Wosk Dekoracyjny | koniak | 0,75L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "162.97",
+    "cena_sprzedaży_netto_1szt_[zł]": "146.67",
+    "cena_zakupu_netto_1szt_[zł]": "117.39",
+    "potencjalny_zysk_1szt_[zł]": "29.28",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1685",
+    "nazwa_produktu": "Osmo 3143 Wosk Dekoracyjny | koniak | 25L",
+    "jednostka_sprzedażowa": "szt",
+    "potencjalny_zysk_1szt_[zł]": "795.02",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1684",
+    "nazwa_produktu": "Osmo 3143 Wosk Dekoracyjny | koniak | 2,5L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "492.01",
+    "cena_sprzedaży_netto_1szt_[zł]": "442.81",
+    "cena_zakupu_netto_1szt_[zł]": "354.39",
+    "potencjalny_zysk_1szt_[zł]": "88.42",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1687",
+    "nazwa_produktu": "Osmo 3144 Wosk Dekoracyjny | lapacho | 0,75L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "162.97",
+    "cena_sprzedaży_netto_1szt_[zł]": "146.67",
+    "cena_zakupu_netto_1szt_[zł]": "117.39",
+    "potencjalny_zysk_1szt_[zł]": "29.28",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1688",
+    "nazwa_produktu": "Osmo 3144 Wosk Dekoracyjny | lapacho | 2,5L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "492.01",
+    "cena_sprzedaży_netto_1szt_[zł]": "442.81",
+    "cena_zakupu_netto_1szt_[zł]": "354.39",
+    "potencjalny_zysk_1szt_[zł]": "88.42",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1689",
+    "nazwa_produktu": "Osmo 3161 Wosk Dekoracyjny | heban | 0,005L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "6.34",
+    "cena_sprzedaży_netto_1szt_[zł]": "5.71",
+    "cena_zakupu_netto_1szt_[zł]": "4.57",
+    "potencjalny_zysk_1szt_[zł]": "1.14",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1691",
+    "nazwa_produktu": "Osmo 3161 Wosk Dekoracyjny | heban | 0,375L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "104.34",
+    "cena_sprzedaży_netto_1szt_[zł]": "93.91",
+    "cena_zakupu_netto_1szt_[zł]": "75.16",
+    "potencjalny_zysk_1szt_[zł]": "18.75",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1707",
+    "nazwa_produktu": "Osmo 3168 Wosk Dekoracyjny | dąb antyczny | 0,005L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "6.34",
+    "cena_sprzedaży_netto_1szt_[zł]": "5.71",
+    "cena_zakupu_netto_1szt_[zł]": "4.57",
+    "potencjalny_zysk_1szt_[zł]": "1.14",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1709",
+    "nazwa_produktu": "Osmo 3168 Wosk Dekoracyjny | dąb antyczny | 0,375L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "104.34",
+    "cena_sprzedaży_netto_1szt_[zł]": "93.91",
+    "cena_zakupu_netto_1szt_[zł]": "75.16",
+    "potencjalny_zysk_1szt_[zł]": "18.75",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1711",
+    "nazwa_produktu": "Osmo 3168 Wosk Dekoracyjny | dąb antyczny | 2,5L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "492.01",
+    "cena_sprzedaży_netto_1szt_[zł]": "442.81",
+    "cena_zakupu_netto_1szt_[zł]": "354.39",
+    "potencjalny_zysk_1szt_[zł]": "88.42",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1710",
+    "nazwa_produktu": "Osmo 3168 Wosk Dekoracyjny | dąb antyczny | 0,75L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "162.97",
+    "cena_sprzedaży_netto_1szt_[zł]": "146.67",
+    "cena_zakupu_netto_1szt_[zł]": "117.39",
+    "potencjalny_zysk_1szt_[zł]": "29.28",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1712",
+    "nazwa_produktu": "Osmo 3168 Wosk Dekoracyjny | dąb antyczny | 25L",
+    "jednostka_sprzedażowa": "szt",
+    "potencjalny_zysk_1szt_[zł]": "795.02",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1730",
+    "nazwa_produktu": "Osmo 3169 Wosk Dekoracyjny | czarny | 0,125L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "44.41",
+    "cena_sprzedaży_netto_1szt_[zł]": "39.97",
+    "cena_zakupu_netto_1szt_[zł]": "31.99",
+    "potencjalny_zysk_1szt_[zł]": "7.98",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1729",
+    "nazwa_produktu": "Osmo 3169 Wosk Dekoracyjny | czarny | 0,005L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "6.34",
+    "cena_sprzedaży_netto_1szt_[zł]": "5.71",
+    "cena_zakupu_netto_1szt_[zł]": "4.57",
+    "potencjalny_zysk_1szt_[zł]": "1.14",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1731",
+    "nazwa_produktu": "Osmo 3169 Wosk Dekoracyjny | czarny | 0,375L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "120.47",
+    "cena_sprzedaży_netto_1szt_[zł]": "108.42",
+    "cena_zakupu_netto_1szt_[zł]": "86.77",
+    "potencjalny_zysk_1szt_[zł]": "21.65",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1734",
+    "nazwa_produktu": "Osmo 3169 Wosk Dekoracyjny | czarny | 25L",
+    "jednostka_sprzedażowa": "szt",
+    "potencjalny_zysk_1szt_[zł]": "924.29",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1735",
+    "nazwa_produktu": "Osmo 3172 Wosk Dekoracyjny | jedwab | 0,005L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "6.34",
+    "cena_sprzedaży_netto_1szt_[zł]": "5.71",
+    "cena_zakupu_netto_1szt_[zł]": "4.57",
+    "potencjalny_zysk_1szt_[zł]": "1.14",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1738",
+    "nazwa_produktu": "Osmo 3172 Wosk Dekoracyjny | jedwab | 0,75L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "188.63",
+    "cena_sprzedaży_netto_1szt_[zł]": "169.77",
+    "cena_zakupu_netto_1szt_[zł]": "135.87",
+    "potencjalny_zysk_1szt_[zł]": "33.9",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1754",
+    "nazwa_produktu": "Osmo 3188 Wosk Dekoracyjny | śnieg | 0,375L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "120.47",
+    "cena_sprzedaży_netto_1szt_[zł]": "108.42",
+    "cena_zakupu_netto_1szt_[zł]": "86.77",
+    "potencjalny_zysk_1szt_[zł]": "21.65",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1756",
+    "nazwa_produktu": "Osmo 3188 Wosk Dekoracyjny | śnieg | 2,5L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "572.17",
+    "cena_sprzedaży_netto_1szt_[zł]": "514.95",
+    "cena_zakupu_netto_1szt_[zł]": "412.13",
+    "potencjalny_zysk_1szt_[zł]": "102.82",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1751",
+    "nazwa_produktu": "Osmo 3186 Wosk Dekoracyjny | matowa biel | 25L",
+    "jednostka_sprzedażowa": "szt",
+    "potencjalny_zysk_1szt_[zł]": "924.29",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1757",
+    "nazwa_produktu": "Osmo 3188 Wosk Dekoracyjny | śnieg | 25L",
+    "jednostka_sprzedażowa": "szt",
+    "potencjalny_zysk_1szt_[zł]": "924.29",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1755",
+    "nazwa_produktu": "Osmo 3188 Wosk Dekoracyjny | śnieg | 0,75L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "188.63",
+    "cena_sprzedaży_netto_1szt_[zł]": "169.77",
+    "cena_zakupu_netto_1szt_[zł]": "135.87",
+    "potencjalny_zysk_1szt_[zł]": "33.9",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1517",
+    "nazwa_produktu": "Osmo 3232 Wosk Twardy Olejny Rapid | jedwabisty połysk | 0,75L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "188.63",
+    "cena_sprzedaży_netto_1szt_[zł]": "169.77",
+    "cena_zakupu_netto_1szt_[zł]": "135.87",
+    "potencjalny_zysk_1szt_[zł]": "33.9",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1518",
+    "nazwa_produktu": "Osmo 3232 Wosk Twardy Olejny Rapid | jedwabisty połysk | 2,5L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "572.17",
+    "cena_sprzedaży_netto_1szt_[zł]": "514.95",
+    "cena_zakupu_netto_1szt_[zł]": "412.13",
+    "potencjalny_zysk_1szt_[zł]": "102.82",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1519",
+    "nazwa_produktu": "Osmo 3232 Wosk Twardy Olejny Rapid | jedwabisty połysk | 10L",
+    "jednostka_sprzedażowa": "szt",
+    "potencjalny_zysk_1szt_[zł]": "390.64",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1520",
+    "nazwa_produktu": "Osmo 3232 Wosk Twardy Olejny Rapid | jedwabisty połysk | 25L",
+    "jednostka_sprzedażowa": "szt",
+    "potencjalny_zysk_1szt_[zł]": "925.28",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1526",
+    "nazwa_produktu": "Osmo 3240 Wosk Twardy Olejny Rapid | biały | 2,5L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "572.17",
+    "cena_sprzedaży_netto_1szt_[zł]": "514.95",
+    "cena_zakupu_netto_1szt_[zł]": "412.13",
+    "potencjalny_zysk_1szt_[zł]": "102.82",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1525",
+    "nazwa_produktu": "Osmo 3240 Wosk Twardy Olejny Rapid | biały | 0,75L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "188.63",
+    "cena_sprzedaży_netto_1szt_[zł]": "169.77",
+    "cena_zakupu_netto_1szt_[zł]": "135.87",
+    "potencjalny_zysk_1szt_[zł]": "33.9",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1528",
+    "nazwa_produktu": "Osmo 3240 Wosk Twardy Olejny Rapid | biały | 25L",
+    "jednostka_sprzedażowa": "szt",
+    "potencjalny_zysk_1szt_[zł]": "925.28",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1523",
+    "nazwa_produktu": "Osmo 3262 Wosk Twardy Olejny Rapid | matowy | 10L",
+    "jednostka_sprzedażowa": "szt",
+    "potencjalny_zysk_1szt_[zł]": "390.64",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1904",
+    "nazwa_produktu": "Osmo 3440 Wosk Regeneracyjny | biały transparentny | 10L",
+    "jednostka_sprzedażowa": "szt",
+    "potencjalny_zysk_1szt_[zł]": "271.07",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1536",
+    "nazwa_produktu": "Osmo 3362 Wosk Twardy Olejny Express | matowy | 25L",
+    "jednostka_sprzedażowa": "szt",
+    "potencjalny_zysk_1szt_[zł]": "924.13",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1760",
+    "nazwa_produktu": "Osmo 3501 Bejca Olejna | biały | 0,5L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "145.11",
+    "cena_sprzedaży_netto_1szt_[zł]": "130.6",
+    "cena_zakupu_netto_1szt_[zł]": "104.52",
+    "potencjalny_zysk_1szt_[zł]": "26.08",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1758",
+    "nazwa_produktu": "Osmo 3501 Bejca Olejna | biały | 0,005L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "6.34",
+    "cena_sprzedaży_netto_1szt_[zł]": "5.71",
+    "cena_zakupu_netto_1szt_[zł]": "4.57",
+    "potencjalny_zysk_1szt_[zł]": "1.14",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1903",
+    "nazwa_produktu": "Osmo 3440 Wosk Regeneracyjny | biały transparentny | 2,5L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "415.63",
+    "cena_sprzedaży_netto_1szt_[zł]": "374.07",
+    "cena_zakupu_netto_1szt_[zł]": "299.38",
+    "potencjalny_zysk_1szt_[zł]": "74.69",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1759",
+    "nazwa_produktu": "Osmo 3501 Bejca Olejna | biały | 0,125L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "44.41",
+    "cena_sprzedaży_netto_1szt_[zł]": "39.97",
+    "cena_zakupu_netto_1szt_[zł]": "31.99",
+    "potencjalny_zysk_1szt_[zł]": "7.98",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1761",
+    "nazwa_produktu": "Osmo 3501 Bejca Olejna | biały | 1L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "272.31",
+    "cena_sprzedaży_netto_1szt_[zł]": "245.08",
+    "cena_zakupu_netto_1szt_[zł]": "196.14",
+    "potencjalny_zysk_1szt_[zł]": "48.94",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1762",
+    "nazwa_produktu": "Osmo 3501 Bejca Olejna | biały | 2,5L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "615.59",
+    "cena_sprzedaży_netto_1szt_[zł]": "554.03",
+    "cena_zakupu_netto_1szt_[zł]": "443.41",
+    "potencjalny_zysk_1szt_[zł]": "110.62",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1763",
+    "nazwa_produktu": "Osmo 3512 Bejca Olejna | srebrny szary | 0,005L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "6.34",
+    "cena_sprzedaży_netto_1szt_[zł]": "5.71",
+    "cena_zakupu_netto_1szt_[zł]": "4.57",
+    "potencjalny_zysk_1szt_[zł]": "1.14",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1766",
+    "nazwa_produktu": "Osmo 3512 Bejca Olejna | srebrny szary | 1L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "272.31",
+    "cena_sprzedaży_netto_1szt_[zł]": "245.08",
+    "cena_zakupu_netto_1szt_[zł]": "196.14",
+    "potencjalny_zysk_1szt_[zł]": "48.94",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1764",
+    "nazwa_produktu": "Osmo 3512 Bejca Olejna | srebrny szary | 0,125L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "44.41",
+    "cena_sprzedaży_netto_1szt_[zł]": "39.97",
+    "cena_zakupu_netto_1szt_[zł]": "31.99",
+    "potencjalny_zysk_1szt_[zł]": "7.98",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1765",
+    "nazwa_produktu": "Osmo 3512 Bejca Olejna | srebrny szary | 0,5L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "145.11",
+    "cena_sprzedaży_netto_1szt_[zł]": "130.6",
+    "cena_zakupu_netto_1szt_[zł]": "104.52",
+    "potencjalny_zysk_1szt_[zł]": "26.08",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1767",
+    "nazwa_produktu": "Osmo 3512 Bejca Olejna | srebrny szary | 2,5L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "615.59",
+    "cena_sprzedaży_netto_1szt_[zł]": "554.03",
+    "cena_zakupu_netto_1szt_[zł]": "443.41",
+    "potencjalny_zysk_1szt_[zł]": "110.62",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1786",
+    "nazwa_produktu": "Osmo 3519 Bejca Olejna | surowe drewno | 1L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "272.31",
+    "cena_sprzedaży_netto_1szt_[zł]": "245.08",
+    "cena_zakupu_netto_1szt_[zł]": "196.14",
+    "potencjalny_zysk_1szt_[zł]": "48.94",
+    "długość_sprzedażowa_[mb]": "1.0"
+  },
+  {
+    "kod_produktu": "1788",
+    "nazwa_produktu": "Osmo 3541 Bejca Olejna | hawana | 0,005L",
+    "jednostka_sprzedażowa": "szt",
+    "cena_detaliczna_netto_1szt_[zł]": "6.34",
+    "cena_sprzedaży_netto_1szt_[zł]": "5.71",
+    "cena_zakupu_netto_1szt_[zł]": "4.57",
+    "potencjalny_zysk_1szt_[zł]": "1.14",
+    "długość_sprzedażowa_[mb]": "1.0"
+  }
+]

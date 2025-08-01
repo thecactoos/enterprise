@@ -12,7 +12,8 @@ export enum ProductCategory {
 
 export enum BaseUnit {
   MM = 'mm',                       // millimeter
-  M = 'm',                         // meter  
+  M = 'm',                         // meter
+  MB = 'mb',                       // linear meter (metr bieżący)
   M2 = 'm²',                       // square meter
   PIECE = 'piece'                  // piece/item
 }
@@ -32,12 +33,12 @@ export enum ProductStatus {
 }
 
 @Entity('products')
-@Index(['external_code'])
-@Index(['name'])
+@Index(['product_code'])
+@Index(['product_name'])
 @Index(['category'])
 @Index(['selling_unit'])
 @Index(['status'])
-@Index(['selling_price'])
+@Index(['selling_price_per_unit'])
 @Index(['is_active'])
 @Index(['created_at'])
 export class Product {

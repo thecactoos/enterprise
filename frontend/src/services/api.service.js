@@ -141,39 +141,67 @@ class ApiService {
     return response.data;
   }
 
+  async getRecentContacts() {
+    const response = await this.get('/contacts', { 
+      sortBy: 'createdAt', 
+      sortOrder: 'DESC', 
+      limit: 10 
+    });
+    return response.data;
+  }
+
   async getRecentClients() {
-    const response = await this.get('/dashboard/recent-clients');
+    const response = await this.get('/contacts/clients', { 
+      sortBy: 'clientSince', 
+      sortOrder: 'DESC', 
+      limit: 10 
+    });
+    return response.data;
+  }
+
+  async getRecentLeads() {
+    const response = await this.get('/contacts/leads', { 
+      sortBy: 'createdAt', 
+      sortOrder: 'DESC', 
+      limit: 10 
+    });
     return response.data;
   }
 
   async getRecentNotes() {
-    const response = await this.get('/dashboard/recent-notes');
+    const response = await this.get('/notes', { 
+      sortBy: 'createdAt', 
+      sortOrder: 'DESC', 
+      limit: 10 
+    });
     return response.data;
   }
 
-  // Client methods
-  async getClients() {
-    const response = await this.get('/clients');
-    return response.data;
+  // Legacy Client methods - Updated to use contacts API
+  // These methods are deprecated, use getClients() and getClient() instead
+  async getLegacyClients() {
+    // Return clients from contacts API
+    return await this.getClients();
   }
 
-  async getClient(id) {
-    const response = await this.get(`/clients/${id}`);
-    return response.data;
+  async getLegacyClient(id) {
+    // Return client from contacts API
+    return await this.getClient(id);
   }
 
   async createClient(clientData) {
-    const response = await this.post('/clients', clientData);
+    // Create as client type in contacts
+    const response = await this.post('/contacts', { ...clientData, type: 'client' });
     return response.data;
   }
 
   async updateClient(id, clientData) {
-    const response = await this.put(`/clients/${id}`, clientData);
+    const response = await this.put(`/contacts/${id}`, clientData);
     return response.data;
   }
 
   async deleteClient(id) {
-    const response = await this.delete(`/clients/${id}`);
+    const response = await this.delete(`/contacts/${id}`);
     return response.data;
   }
 
@@ -200,6 +228,368 @@ class ApiService {
 
   async deleteNote(id) {
     const response = await this.delete(`/notes/${id}`);
+    return response.data;
+  }
+
+  // Product methods - Updated for API Gateway integration
+  async getProducts(params = {}) {
+    const response = await this.get('/api/products', params);
+    return response.data;
+  }
+
+  async getProduct(id) {
+    const response = await this.get(`/api/products/${id}`);
+    return response.data;
+  }
+
+  async getProductByCode(productCode) {
+    const response = await this.get(`/api/products/code/${productCode}`);
+    return response.data;
+  }
+
+  async getProductStats() {
+    const response = await this.get('/api/products/stats');
+    return response.data;
+  }
+
+  async searchProducts(params = {}) {
+    const response = await this.get('/api/products', params);
+    return response.data;
+  }
+
+  async searchProductsByDimensions(dimensions) {
+    const response = await this.get('/api/products/search/dimensions', dimensions);
+    return response.data;
+  }
+
+  // Contact methods - Updated for unified contacts API
+  async getContacts(params = {}) {
+    const response = await this.get('/contacts', params);
+    return response.data;
+  }
+
+  async getContact(id) {
+    const response = await this.get(`/contacts/${id}`);
+    return response.data;
+  }
+
+  async createContact(contactData) {
+    const response = await this.post('/contacts', contactData);
+    return response.data;
+  }
+
+  async updateContact(id, contactData) {
+    const response = await this.put(`/contacts/${id}`, contactData);
+    return response.data;
+  }
+
+  async deleteContact(id) {
+    const response = await this.delete(`/contacts/${id}`);
+    return response.data;
+  }
+
+  // Lead-specific methods (using contacts API with lead filtering)
+  async getLeads(params = {}) {
+    const response = await this.get('/contacts/leads', params);
+    return response.data;
+  }
+
+  async getLead(id) {
+    const contact = await this.getContact(id);
+    // Only return if it's a lead
+    if (contact.type === 'lead') {
+      return contact;
+    }
+    throw new Error('Contact is not a lead');
+  }
+
+  async createLead(leadData) {
+    // Ensure type is set to lead
+    const response = await this.post('/contacts', { ...leadData, type: 'lead' });
+    return response.data;
+  }
+
+  async updateLead(id, leadData) {
+    const response = await this.put(`/contacts/${id}`, leadData);
+    return response.data;
+  }
+
+  async deleteLead(id) {
+    const response = await this.delete(`/contacts/${id}`);
+    return response.data;
+  }
+
+  async updateLeadStatus(id, status) {
+    const response = await this.put(`/contacts/${id}`, { status });
+    return response.data;
+  }
+
+  async getLeadsByStatus(status) {
+    const response = await this.get('/contacts/leads', { status });
+    return response.data;
+  }
+
+  async getLeadsBySource(source) {
+    const response = await this.get('/contacts/leads', { source });
+    return response.data;
+  }
+
+  async getLeadsByPriority(priority) {
+    const response = await this.get('/contacts/leads', { priority });
+    return response.data;
+  }
+
+  async getLeadsByType(leadType) {
+    const response = await this.get('/contacts/leads', { leadType });
+    return response.data;
+  }
+
+  async searchLeads(query) {
+    const response = await this.get('/contacts/leads', { search: query });
+    return response.data;
+  }
+
+  async getLeadStatistics() {
+    const response = await this.get('/contacts/leads/stats');
+    return response.data;
+  }
+
+  async convertLeadToClient(id, purchaseAmount = null) {
+    const data = purchaseAmount ? { purchaseAmount } : {};
+    const response = await this.post(`/contacts/leads/${id}/convert`, data);
+    return response.data;
+  }
+
+  async bulkUpdateLeadStatus(leadIds, status) {
+    const response = await this.post('/contacts/bulk-action', { 
+      contactIds: leadIds, 
+      action: 'updateStatus', 
+      data: { status } 
+    });
+    return response.data;
+  }
+
+  async getLeadsByDateRange(startDate, endDate) {
+    const response = await this.get('/contacts/leads', { 
+      startDate, 
+      endDate 
+    });
+    return response.data;
+  }
+
+  async getTopLeadsByScore(limit = 10) {
+    const response = await this.get('/contacts/leads', { 
+      sortBy: 'qualificationScore', 
+      sortOrder: 'DESC', 
+      limit 
+    });
+    return response.data;
+  }
+
+  async getLeadConversionFunnel() {
+    const response = await this.get('/contacts/leads/funnel-stats');
+    return response.data;
+  }
+
+  async getLeadsByCity(city) {
+    const response = await this.get('/contacts/leads', { city });
+    return response.data;
+  }
+
+  async getLeadsByVoivodeship(voivodeship) {
+    const response = await this.get('/contacts/leads', { voivodeship });
+    return response.data;
+  }
+
+  async getLeadsByBudgetRange(minBudget, maxBudget) {
+    const response = await this.get('/contacts/leads', { 
+      minValue: minBudget, 
+      maxValue: maxBudget 
+    });
+    return response.data;
+  }
+
+  async updateLeadQualificationScore(id) {
+    const response = await this.put(`/contacts/leads/${id}/qualify`, {});
+    return response.data;
+  }
+
+  async scheduleLeadFollowUp(id, date) {
+    const response = await this.put(`/contacts/leads/${id}/follow-up`, { 
+      nextFollowUpDate: date 
+    });
+    return response.data;
+  }
+
+  async markLeadAsLost(id, reason) {
+    const response = await this.put(`/contacts/${id}`, { 
+      status: 'lost', 
+      lostReason: reason,
+      lostAt: new Date().toISOString()
+    });
+    return response.data;
+  }
+
+  // Client-specific methods (new functionality)
+  async getClients(params = {}) {
+    const response = await this.get('/contacts/clients', params);
+    return response.data;
+  }
+
+  async getClient(id) {
+    const contact = await this.getContact(id);
+    // Only return if it's a client
+    if (contact.type === 'client') {
+      return contact;
+    }
+    throw new Error('Contact is not a client');
+  }
+
+  async getClientStatistics() {
+    const response = await this.get('/contacts/clients/stats');
+    return response.data;
+  }
+
+  async getHighValueClients(minValue = 50000) {
+    const response = await this.get('/contacts/clients/high-value', { minValue });
+    return response.data;
+  }
+
+  async recordClientPurchase(id, purchaseData) {
+    const response = await this.post(`/contacts/clients/${id}/purchase`, purchaseData);
+    return response.data;
+  }
+
+  // ========================================
+  // QUOTES METHODS - NEW MICROSERVICE
+  // ========================================
+
+  // Quote methods - API Gateway integration
+  async getQuotes(params = {}) {
+    const response = await this.get('/quotes', params);
+    return response.data;
+  }
+
+  async getQuote(id) {
+    const response = await this.get(`/quotes/${id}`);
+    return response.data;
+  }
+
+  async createQuote(quoteData) {
+    const response = await this.post('/quotes', quoteData);
+    return response.data;
+  }
+
+  async updateQuote(id, quoteData) {
+    const response = await this.put(`/quotes/${id}`, quoteData);
+    return response.data;
+  }
+
+  async deleteQuote(id) {
+    const response = await this.delete(`/quotes/${id}`);
+    return response.data;
+  }
+
+  async updateQuoteStatus(id, status) {
+    const response = await this.put(`/quotes/${id}/status`, { status });
+    return response.data;
+  }
+
+  async getQuotesByStatus(status) {
+    const response = await this.get('/quotes', { status });
+    return response.data;
+  }
+
+  async getQuotesByContact(contactId) {
+    const response = await this.get('/quotes', { contactId });
+    return response.data;
+  }
+
+  async getQuoteStatistics() {
+    const response = await this.get('/quotes/stats');
+    return response.data;
+  }
+
+  async generateQuotePDF(id) {
+    const response = await this.get(`/quotes/${id}/pdf`, {}, {
+      responseType: 'blob'
+    });
+    return response.data;
+  }
+
+  async sendQuoteEmail(id, emailData) {
+    const response = await this.post(`/quotes/${id}/send-email`, emailData);
+    return response.data;
+  }
+
+  async duplicateQuote(id) {
+    const response = await this.post(`/quotes/${id}/duplicate`);
+    return response.data;
+  }
+
+  async convertQuoteToOrder(id) {
+    const response = await this.post(`/quotes/${id}/convert-to-order`);
+    return response.data;
+  }
+
+  async addQuoteItem(quoteId, itemData) {
+    const response = await this.post(`/quotes/${quoteId}/items`, itemData);
+    return response.data;
+  }
+
+  async updateQuoteItem(quoteId, itemId, itemData) {
+    const response = await this.put(`/quotes/${quoteId}/items/${itemId}`, itemData);
+    return response.data;
+  }
+
+  async removeQuoteItem(quoteId, itemId) {
+    const response = await this.delete(`/quotes/${quoteId}/items/${itemId}`);
+    return response.data;
+  }
+
+  async getQuoteRevisions(id) {
+    const response = await this.get(`/quotes/${id}/revisions`);
+    return response.data;
+  }
+
+  async createQuoteRevision(id, revisionData) {
+    const response = await this.post(`/quotes/${id}/revisions`, revisionData);
+    return response.data;
+  }
+
+  // Mock lead methods - for development
+  async getMockLeads() {
+    const response = await this.get('/mock-leads');
+    return response.data;
+  }
+
+  async getMockLeadById(id) {
+    const response = await this.get(`/mock-leads/${id}`);
+    return response.data;
+  }
+
+  async getMockLeadsByStatus(status) {
+    const response = await this.get(`/mock-leads/by-status/${status}`);
+    return response.data;
+  }
+
+  async getMockLeadsBySource(source) {
+    const response = await this.get(`/mock-leads/by-source/${source}`);
+    return response.data;
+  }
+
+  async getMockLeadsByPriority(priority) {
+    const response = await this.get(`/mock-leads/by-priority/${priority}`);
+    return response.data;
+  }
+
+  async getMockLeadsByType(leadType) {
+    const response = await this.get(`/mock-leads/by-type/${leadType}`);
+    return response.data;
+  }
+
+  async getMockLeadStatistics() {
+    const response = await this.get('/mock-leads/statistics');
     return response.data;
   }
 

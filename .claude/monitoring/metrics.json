@@ -1,0 +1,25 @@
+{
+  "workspace": {
+    "version": "1.0.0",
+    "created": "2025-07-30T13:33:09+00:00",
+    "last_updated": "2025-07-30T13:33:09+00:00"
+  },
+  "performance": {
+    "setup_time_seconds": 0,
+    "last_health_check": "2025-07-30T13:33:09+00:00",
+    "health_status": "healthy",
+    "disk_usage_mb": 0,
+    "memory_usage_mb": 0
+  },
+  "usage": {
+    "total_sessions": 0,
+    "total_plans_created": 0,
+    "total_artifacts_generated": 0,
+    "total_errors_logged": 0
+  },
+  "quality": {
+    "plan_completion_rate": 0.0,
+    "error_resolution_rate": 0.0,
+    "performance_trend": "stable"
+  }
+}

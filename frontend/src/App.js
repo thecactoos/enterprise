@@ -5,8 +5,11 @@ import Navbar from './components/Navbar';
 import Login from './components/Login';
 import Welcome from './components/Welcome';
 import Dashboard from './components/Dashboard';
+import Leads from './components/Leads';
 import Clients from './components/Clients';
+import Products from './components/Products';
 import Notes from './components/Notes';
+import Quotes from './components/Quotes';
 import PdfAnalyzer from './components/PdfAnalyzer';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
 import ErrorBoundary from './components/ErrorBoundary';
@@ -55,8 +58,11 @@ function AppContent() {
       <Container component="main" sx={{ mt: 4, mb: 4, flex: 1 }}>
         <Routes>
           <Route path="/" element={<Dashboard />} />
+          <Route path="/leads" element={<Leads />} />
           <Route path="/clients" element={<Clients />} />
+          <Route path="/products" element={<Products />} />
           <Route path="/notes" element={<Notes />} />
+          <Route path="/quotes" element={<Quotes />} />
           <Route path="/pdf-analyzer" element={<PdfAnalyzer />} />
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>

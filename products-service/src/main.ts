@@ -8,7 +8,13 @@ async function bootstrap() {
 
   // Enable CORS
   app.enableCors({
-    origin: ['http://localhost:3000', 'http://localhost:3001'], // API Gateway and Frontend
+    origin: [
+      'http://localhost:3000',  // API Gateway
+      'http://localhost:3005',  // Frontend
+      'http://127.0.0.1:3000',  // API Gateway (IPv4)
+      'http://127.0.0.1:3005',  // Frontend (IPv4)
+      'http://api-gateway:3000' // Docker network
+    ],
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
     credentials: true,
   });
@@ -36,7 +42,7 @@ async function bootstrap() {
   SwaggerModule.setup('api/docs', app, document);
 
   const port = process.env.PORT || 3004;
-  await app.listen(port);
+  await app.listen(port, '0.0.0.0');
   
   console.log(`🚀 Products Service running on port ${port}`);
   console.log(`📚 API Documentation: http://localhost:${port}/api/docs`);

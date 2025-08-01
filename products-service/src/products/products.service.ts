@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository, Like, FindManyOptions } from 'typeorm';
+import { Repository } from 'typeorm';
 import { Product, ProductStatus } from './product.entity';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
@@ -14,78 +14,53 @@ export class ProductsService {
   ) {}
 
   async findAll(searchDto?: ProductSearchDto): Promise<Product[]> {
-    const options: FindManyOptions<Product> = {
-      where: {},
-      order: { product_name: 'ASC' },
-    };
-
+    // Use query builder for all searches to ensure consistent ILIKE behavior
+    const queryBuilder = this.productRepository.createQueryBuilder('product');
+    
     if (searchDto) {
       if (searchDto.search) {
-        options.where = [
-          { product_name: Like(`%${searchDto.search}%`) },
-          { product_code: Like(`%${searchDto.search}%`) },
-          { unofficial_product_name: Like(`%${searchDto.search}%`) },
-        ];
+        queryBuilder.where(
+          '(product.product_name ILIKE :search OR product.product_code ILIKE :search OR product.unofficial_product_name ILIKE :search)',
+          { search: `%${searchDto.search}%` }
+        );
       }
-
+      
       if (searchDto.status) {
-        options.where = { ...options.where, status: searchDto.status };
-      }
-
-      if (searchDto.isActive !== undefined) {
-        options.where = { ...options.where, is_active: searchDto.isActive };
-      }
-
-      // Price filtering will be handled with query builder for complex conditions
-      if (searchDto.minPrice || searchDto.maxPrice) {
-        const queryBuilder = this.productRepository.createQueryBuilder('product');
-        
         if (searchDto.search) {
-          queryBuilder.where(
-            '(product.product_name ILIKE :search OR product.product_code ILIKE :search OR product.unofficial_product_name ILIKE :search)',
-            { search: `%${searchDto.search}%` }
-          );
-        }
-        
-        if (searchDto.status) {
           queryBuilder.andWhere('product.status = :status', { status: searchDto.status });
+        } else {
+          queryBuilder.where('product.status = :status', { status: searchDto.status });
         }
-        
-        if (searchDto.isActive !== undefined) {
+      }
+      
+      if (searchDto.isActive !== undefined) {
+        if (searchDto.search || searchDto.status) {
           queryBuilder.andWhere('product.is_active = :isActive', { isActive: searchDto.isActive });
+        } else {
+          queryBuilder.where('product.is_active = :isActive', { isActive: searchDto.isActive });
         }
-        
-        if (searchDto.minPrice) {
-          queryBuilder.andWhere('product.selling_price_per_unit >= :minPrice', { minPrice: searchDto.minPrice });
-        }
-        
-        if (searchDto.maxPrice) {
-          queryBuilder.andWhere('product.selling_price_per_unit <= :maxPrice', { maxPrice: searchDto.maxPrice });
-        }
-        
-        queryBuilder.orderBy('product.product_name', 'ASC');
-        
-        if (searchDto.limit) {
-          queryBuilder.take(searchDto.limit);
-        }
-        
-        if (searchDto.offset) {
-          queryBuilder.skip(searchDto.offset);
-        }
-        
-        return await queryBuilder.getMany();
       }
-
+      
+      if (searchDto.minPrice) {
+        queryBuilder.andWhere('product.selling_price_per_unit >= :minPrice', { minPrice: searchDto.minPrice });
+      }
+      
+      if (searchDto.maxPrice) {
+        queryBuilder.andWhere('product.selling_price_per_unit <= :maxPrice', { maxPrice: searchDto.maxPrice });
+      }
+      
       if (searchDto.limit) {
-        options.take = searchDto.limit;
+        queryBuilder.take(searchDto.limit);
       }
-
+      
       if (searchDto.offset) {
-        options.skip = searchDto.offset;
+        queryBuilder.skip(searchDto.offset);
       }
     }
-
-    return await this.productRepository.find(options);
+    
+    queryBuilder.orderBy('product.product_name', 'ASC');
+    
+    return await queryBuilder.getMany();
   }
 
   async findOne(id: string): Promise<Product> {

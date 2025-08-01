@@ -2,10 +2,10 @@
 
 const environments = {
   development: {
-    API_BASE_URL: 'http://localhost:3000',
-    PDF_SERVICE_URL: 'http://localhost:8000', // Direct connection to PDF service
-    USE_MOCK_DATA: false, // Disable mock data to use real PDF service
-    MOCK_DELAY: 500, // Simulate network delay
+    API_BASE_URL: 'http://localhost:3000', // Use API Gateway locally
+    PDF_SERVICE_URL: 'http://localhost:8000', // Direct connection to PDF service locally
+    USE_MOCK_DATA: false, // Use real API data
+    MOCK_DELAY: 200, // Simulate network delay (reduced for development)
     LOG_LEVEL: 'debug',
   },
   staging: {

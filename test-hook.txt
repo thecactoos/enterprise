@@ -1,2 +1,0 @@
-Testing sound hook functionality
-This is a test file to trigger permission requests

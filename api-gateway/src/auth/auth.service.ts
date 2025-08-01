@@ -1,39 +1,59 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { MockDataService } from '../common/services/mock-data.service';
+import { HttpService } from '@nestjs/axios';
+import { firstValueFrom } from 'rxjs';
 
 @Injectable()
 export class AuthService {
+  private readonly usersServiceUrl = process.env.USERS_SERVICE_URL || 'http://users-service:3001';
+
   constructor(
     private jwtService: JwtService,
-    private mockDataService: MockDataService
+    private httpService: HttpService,
   ) {}
 
   async validateUser(email: string, password: string): Promise<any> {
-    const user = this.mockDataService.validateUser(email, password);
-    if (!user) {
-      throw new Error('Invalid credentials');
+    try {
+      const response = await firstValueFrom(
+        this.httpService.post(`${this.usersServiceUrl}/auth/login`, {
+          email,
+          password,
+        })
+      );
+      // Return the complete response from users service (includes access_token + user)
+      return (response.data as any);
+    } catch (error) {
+      throw new UnauthorizedException('Invalid credentials');
     }
-    return user;
   }
 
   async login(user: any) {
-    const payload = { email: user.email, sub: user.id, role: user.role };
+    // User parameter now contains the complete response from users service
     return {
-      access_token: this.jwtService.sign(payload),
+      access_token: user.access_token,
       user: {
-        id: user.id,
-        email: user.email,
-        role: user.role,
+        id: user.user.id,
+        email: user.user.email,
+        firstName: user.user.firstName,
+        lastName: user.user.lastName,
+        role: user.user.role,
       },
     };
   }
 
   async register(userData: any) {
     try {
-      return this.mockDataService.createUser(userData);
+      const response = await firstValueFrom(
+        this.httpService.post(`${this.usersServiceUrl}/auth/register`, {
+          firstName: userData.name ? userData.name.split(' ')[0] : userData.firstName,
+          lastName: userData.name ? userData.name.split(' ').slice(1).join(' ') : userData.lastName,
+          email: userData.email,
+          password: userData.password,
+        })
+      );
+      return (response.data as any);
     } catch (error) {
-      throw new Error(error.message || 'Registration failed');
+      throw new UnauthorizedException(error.response?.data?.message || 'Registration failed');
     }
   }
 } 
