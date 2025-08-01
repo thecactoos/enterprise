@@ -121,3 +121,7 @@ data/processed/
 
 # Local development
 .local/ 
+
+# Claude Code configuration
+.claude/settings.local.json
+.claudedocs/temp/.claude/settings.local.json
