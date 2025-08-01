@@ -1,5 +1,6 @@
-import { Controller, Post, Body, HttpCode, HttpStatus, UnauthorizedException } from '@nestjs/common';
+import { Controller, Post, Body, HttpCode, HttpStatus, UnauthorizedException, UseGuards, Request } from '@nestjs/common';
 import { AuthService } from './auth.service';
+import { JwtAuthGuard } from './jwt-auth.guard';
 
 @Controller('auth')
 export class AuthController {
@@ -21,5 +22,13 @@ export class AuthController {
   @Post('register')
   async register(@Body() registerDto: { email: string; password: string; firstName: string; lastName: string }) {
     return this.authService.register(registerDto);
+  }
+
+  @Post('refresh')
+  @HttpCode(HttpStatus.OK)
+  @UseGuards(JwtAuthGuard)
+  async refresh(@Request() req) {
+    // Generate new token for authenticated user
+    return this.authService.refreshToken(req.user);
   }
 } 

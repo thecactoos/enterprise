@@ -12,12 +12,13 @@ This is an **MVP (Minimum Viable Product)** of a microservices-based CRM system 
 - **Polish market requirements** - NIP, REGON, Polish addresses, PLN currency
 
 ### MVP Priorities:
-1. ✅ Lead management (simplified for B2C)
+1. ✅ Contact management (unified leads/clients system) - **Minimal validation fixed (firstName + lastName only)**
 2. ✅ Basic authentication 
 3. ✅ Product catalog (flooring/construction)
-4. 🔄 Client management (needs restoration)
-5. ⏳ PDF processing (future phase)
-6. ⏳ Advanced analytics (future phase)
+4. 🔄 Quote generation system (partially implemented)
+5. ✅ Services catalog (flooring services)
+6. ⏳ PDF processing (future phase)
+7. ⏳ Advanced analytics (future phase)
 
 ## System Architecture
 
@@ -26,12 +27,13 @@ This is a **microservices-based CRM system** with Polish documentation. The syst
 ### Key Services:
 - **API Gateway** (NestJS, Port 3000) - Main entry point, JWT auth, request routing ✅ **OPERATIONAL**
 - **Users Service** (NestJS, Port 3001) - User management and authentication ✅ **OPERATIONAL** (Fixed network binding)
-- **Clients Service** (NestJS, Port 3002) - Client/customer management ⚠️ **DISABLED** (Needs restoration)
 - **Notes Service** (NestJS, Port 3003) - Notes linked to clients ✅ **OPERATIONAL**
 - **Products Service** (NestJS, Port 3004) - Product management ✅ **OPERATIONAL** (Fixed network binding, 3450+ products)
-- **Leads Service** (NestJS, Port 3005) - Lead management and qualification ✅ **OPERATIONAL** (New comprehensive service)
+- **Contacts Service** (NestJS, Port 3005) - Unified contact management (leads + clients) ✅ **OPERATIONAL** (Comprehensive Polish business context)
+- **Quotes Service** (NestJS, Port 3006) - Quote generation and management ⚠️ **PARTIALLY OPERATIONAL** (Service runs, API Gateway connection issues)
+- **Services Service** (NestJS, Port 3007) - Flooring services catalog ✅ **OPERATIONAL** (Service definitions and pricing)
 - **PDF Service** (Python/FastAPI, Port 8000) - PDF analysis with OCR ⚠️ **COMMENTED OUT**
-- **Frontend** (React + Material UI, Port 3005) - User interface ⚠️ **COMMENTED OUT** (Placeholder)
+- **Frontend** (React + Material UI, Port 3333) - User interface ⚠️ **COMMENTED OUT** (Port updated to avoid conflict)
 - **PostgreSQL** (Port 5432) - Main database with UUID primary keys ✅ **OPERATIONAL**
 - **Redis** (Port 6379) - Caching and session storage ✅ **OPERATIONAL**
 
@@ -53,9 +55,58 @@ docker-compose logs <service-name>
 # Stop all services
 docker-compose down
 
-# Rebuild and restart
-docker-compose up --build
+# Rebuild and restart (fixed Docker build issues)
+docker-compose build <service-name> --no-cache
+docker-compose up <service-name> -d
 ```
+
+### Creating New Microservices with Hot Reload in Docker
+
+**Standard workflow for developing any new microservice:**
+
+```bash
+# 1. Create new NestJS service directory
+mkdir new-service && cd new-service
+npm init -y
+npm install @nestjs/core @nestjs/common @nestjs/platform-express
+
+# 2. Set up proper TypeScript configuration
+# - Create tsconfig.json with proper outDir: "./dist"
+# - Create tsconfig.build.json extending main config
+# - Ensure no .d.ts files in src/ directory
+
+# 3. Create Dockerfile with multi-stage build
+# - Builder stage: installs deps + builds TypeScript
+# - Production stage: copies only dist/ and production deps
+# - Use 0.0.0.0 binding for Docker compatibility
+
+# 4. Add service to docker-compose.yml
+# - Expose appropriate port
+# - Add database and Redis dependencies
+# - Configure environment variables
+
+# 5. Development workflow with hot reload:
+docker-compose build new-service
+docker-compose up new-service -d
+docker-compose logs new-service --tail=20
+
+# 6. Test service health check
+curl http://localhost:PORT/health/check
+```
+
+**Key Development Patterns:**
+- Always use `0.0.0.0` binding, never `localhost` in main.ts
+- Clean dist/ directory before builds to avoid TS5055 errors
+- Use proper validation DTOs with `@IsOptional()` for optional fields
+- Include comprehensive Swagger documentation
+- Implement health check endpoint for monitoring
+
+**Common Issues and Solutions:**
+- **TS5055 Error**: Remove all .d.ts files from src/ → `find src -name "*.d.ts" -delete`
+- **Docker Build Timeout**: Use `docker system prune -f` to clean cache
+- **Module Not Found**: Ensure proper tsconfig.json with `outDir: "./dist"`
+- **Network Binding**: Always bind to `0.0.0.0:PORT` not `localhost:PORT`
+- **Validation Errors**: Use `@Transform()` and `@ValidateIf()` for complex optional fields
 
 ### Individual Services (Development)
 
@@ -69,7 +120,7 @@ npm run test          # Run tests
 npm run lint          # ESLint
 ```
 
-#### Other NestJS Services (users-service, clients-service, notes-service, products-service, leads-service)
+#### Other NestJS Services (users-service, notes-service, products-service, contacts-service, quotes-service, services-service)
 ```bash
 cd <service-directory>
 npm install
@@ -132,10 +183,11 @@ The frontend implements a **dual-mode system** for development flexibility:
 
 ### Key Tables:
 - `users` - Authentication and user profiles (admin/user roles)
-- `clients` - Customer/client information with company details
-- `notes` - Notes linked to clients and users with importance flags
+- `contacts` - Unified contact management (leads + clients) with comprehensive Polish business context
+- `notes` - Notes linked to contacts and users with importance flags
 - `products` - Complex product catalog with Polish business domain (flooring/construction)
-- `leads` - Lead management and qualification with comprehensive Polish business context
+- `quotes` - Quote generation and management with service integration
+- `services` - Flooring services catalog with pricing and descriptions
 
 ### Products Schema Details:
 - **Categories**: flooring, molding, accessory, panel, profile, other
@@ -144,18 +196,32 @@ The frontend implements a **dual-mode system** for development flexibility:
 - **Dimensions**: Thickness, width, length in millimeters with computed display strings
 - **Business Logic**: Installation allowances, stock management, profit margins
 
-### Leads Schema Details:
-- **Comprehensive Lead Tracking**: 50+ fields covering contact info, company details, project requirements
+### Contacts Schema Details:
+- **Unified Contact Model**: Single table for both leads and clients with 50+ fields covering contact info, company details, project requirements
 - **Polish Business Context**: NIP validation, voivodeship support, postal code format validation
-- **Lead Classification**: Source tracking (website, social media, referrals), status pipeline, priority levels
+- **Contact Classification**: Source tracking (website, social media, referrals), status pipeline, priority levels, lead vs client distinction
 - **Project Types**: New construction, renovation, commercial projects with specific requirements
 - **Qualification Scoring**: Intelligent scoring based on budget, interest level, buying power, decision authority
 - **Advanced Analytics**: Conversion funnel tracking, geographic analysis, budget segmentation
-- **Mock Data Service**: 5 realistic Polish business leads for development and testing
-- **Comprehensive API**: 25+ endpoints covering full lead lifecycle management
+- **Mock Data Service**: 5 realistic Polish business contacts for development and testing
+- **Comprehensive API**: 25+ endpoints covering full contact lifecycle management
+
+### Quotes Schema Details:
+- **Quote Generation**: Smart quote creation with product and service integration
+- **Service Matching**: Automatic service recommendations based on contact requirements
+- **Polish Business Format**: VAT calculations, NIP integration, Polish invoice standards
+- **Quote Status Pipeline**: Draft, sent, accepted, rejected, expired status management
+- **PDF Generation**: Professional quote documents with company branding
+- **Revision Tracking**: Quote version control and modification history
+
+### Services Schema Details:
+- **Flooring Services Catalog**: Comprehensive service definitions for Polish construction market
+- **Service Categories**: Installation, consultation, measurement, maintenance, repair services
+- **Pricing Models**: Fixed price, hourly rate, square meter pricing with cost calculations
+- **Service Descriptions**: Detailed Polish descriptions with technical specifications
 
 ### Sample Data:
-Development database comes pre-populated with realistic sample data for testing. Mock data includes 5 clients, 5 notes, 3 users with realistic relationships.
+Development database comes pre-populated with realistic sample data for testing. Mock data includes 5 contacts (unified leads/clients), 5 notes, 3 users, sample quotes, and flooring services with realistic Polish business relationships.
 
 ## Authentication & Security
 
@@ -234,10 +300,11 @@ JWT_SECRET=your-super-secret-jwt-key
 
 # Services URLs (for API Gateway)
 USERS_SERVICE_URL=http://users-service:3001
-CLIENTS_SERVICE_URL=http://clients-service:3002
 NOTES_SERVICE_URL=http://notes-service:3003
 PRODUCTS_SERVICE_URL=http://products-service:3004
-LEADS_SERVICE_URL=http://leads-service:3005
+CONTACTS_SERVICE_URL=http://contacts-service:3005
+QUOTES_SERVICE_URL=http://quotes-service:3006
+SERVICES_SERVICE_URL=http://services-service:3007
 PDF_SERVICE_URL=http://pdf-service:8000
 
 # Redis
@@ -255,13 +322,15 @@ PORT=3000
 ```
 
 ### Docker Compose Port Mapping:
-- Frontend: localhost:3005 → container:3005 (⚠️ Currently commented out)
 - API Gateway: localhost:3000 → container:3000 ✅
 - Users Service: localhost:3001 → container:3001 ✅
 - Notes Service: localhost:3003 → container:3003 ✅
 - Products Service: localhost:3004 → container:3004 ✅
-- Leads Service: localhost:3005 → container:3005 ✅
-- PDF Service: localhost:8000 → container:8000 (⚠️ Currently commented out)
+- Contacts Service: localhost:3005 → container:3005 ✅
+- Quotes Service: localhost:3006 → container:3006 ⚠️ (Service runs, API Gateway connection issues)
+- Services Service: localhost:3007 → container:3007 ✅
+- Frontend: localhost:3333 → container:3333 ⚠️ (Port updated, currently commented out)
+- PDF Service: localhost:8000 → container:8000 ⚠️ (Currently commented out)
 - PostgreSQL: localhost:5432 → container:5432 ✅
 - Redis: localhost:6379 → container:6379 ✅
 
@@ -288,24 +357,34 @@ PORT=3000
 
 ## Recent System Updates & Fixes
 
-### ✅ **Completed Improvements (2025-07-30)**
+### ✅ **Completed Improvements (2025-08-01)**
+- **Contacts Service Validation Fix**: Fixed minimal contact creation to require only firstName + lastName
+  - Email and phone fields made truly optional with proper validation
+  - Fixed enum value mismatches (businessType: 'b2c' vs 'B2C')
+  - Updated frontend Dashboard to send correct data format
+  - Implemented JWT token refresh mechanism for session management
+- **Docker Development Workflow**: Fixed TypeScript compilation errors and Docker build issues
+  - Cleaned up conflicting .d.ts files in src/ directory
+  - Updated Dockerfile for proper production builds
+  - Added hot reload development workflow documentation
 - **Authentication System**: JWT-based auth fully operational with test users
 - **Network Binding Issues**: Fixed `localhost` → `0.0.0.0` binding for Users and Products services
 - **Frontend Search**: Optimized product search with debounced filtering and smooth UX
 - **Database**: PostgreSQL operational with 3450+ products loaded
 - **Docker Services**: Core backend services containerized and running
-- **Leads Service**: Complete microservice implementation with comprehensive Polish business context
+- **Contacts Service**: Complete unified microservice implementation (formerly Leads Service)
   - Full NestJS service with 25+ API endpoints and Swagger documentation
-  - Advanced lead qualification scoring and conversion funnel tracking
-  - Mock data service with 5 realistic Polish business leads
+  - Advanced contact qualification scoring and conversion funnel tracking
+  - Mock data service with 5 realistic Polish business contacts
   - Comprehensive test suite (unit, integration, e2e, validation tests)
   - Database schema with 50+ fields and 15+ performance indexes
   - API Gateway integration and Docker containerization
 
 ### ⚠️ **Known Issues & Missing Components**
-- **Clients Service**: Currently disabled in docker-compose.yml, needs restoration
+- **Quotes Service**: Service runs but API Gateway cannot connect (503 errors)
+- **Frontend Deployment**: Currently commented out, port updated to 3333 to resolve conflicts
+- **Docker Health Checks**: Missing healthcheck configuration causing "unhealthy" status
 - **PDF Service**: Commented out, needs integration
-- **Frontend Deployment**: Currently placeholder, needs production configuration
 - **API Documentation**: Swagger integration incomplete
 - **Monitoring**: No centralized logging or health monitoring
 - **Testing**: Automated testing framework not yet implemented
@@ -333,19 +412,21 @@ This project includes comprehensive implementation planning:
 - **SuperClaude Commands**: Integrated with `/sc:workflow`, `/sc:implement`, `/sc:analyze`
 - **Auto-Activated Personas**: Backend, Frontend, DevOps, Security, QA based on task context
 
-### 🚀 **Next Priority Tasks (from workflow)**
-1. **Restore Clients Service** - Critical for client management functionality
-2. **Fix Frontend Production Deployment** - Currently placeholder configuration
-3. **Complete API Gateway Integration** - Add missing service routes
-4. **Implement Health Checks** - Basic monitoring and observability
-5. **Add Request Rate Limiting** - Basic security enhancement
+### 🚀 **Next Priority Tasks (from bmad analysis)**
+1. **Fix Quotes Service API Gateway Connection** - Resolve 503 errors for quote generation
+2. **Enable Frontend Deployment** - Uncomment and configure frontend on port 3333
+3. **Add Docker Health Checks** - Implement proper healthcheck configuration
+4. **Complete API Gateway Integration** - Ensure all services are properly routed
+5. **Update Service Discovery** - Ensure proper inter-service communication
+6. **Fix Frontend-Backend Integration** - Complete full-stack functionality
 
 ### 📈 **Development Phases**
-- **Phase 1**: Foundation Completion (Clients Service, Frontend deployment)
-- **Phase 2**: Security & Monitoring (Auth hardening, logging, observability)
-- **Phase 3**: Testing & QA (Automated testing, API documentation)
-- **Phase 4**: Performance & Scalability (Optimization, caching, indexing)
-- **Phase 5**: Production Readiness (CI/CD, deployment, backup/recovery)
+- **Phase 1**: System Stabilization (Quotes Service connection, health checks, service discovery)
+- **Phase 2**: Frontend Integration (Enable frontend on port 3333, full system integration)
+- **Phase 3**: Security & Monitoring (Auth hardening, logging, observability, health monitoring)
+- **Phase 4**: Testing & QA (Automated testing, API documentation, comprehensive test coverage)
+- **Phase 5**: Performance & Scalability (Optimization, caching, indexing, load balancing)
+- **Phase 6**: Production Readiness (CI/CD, deployment, backup/recovery, monitoring)
 
 ## Testing Strategy
 
@@ -376,7 +457,7 @@ pytest
 
 ### Mock Data Testing:
 - Use browser DevTools panel to toggle between mock and real data
-- Mock data includes 5 clients, 5 notes, 3 demo users
+- Mock data includes 5 contacts (unified leads/clients), 5 notes, 3 demo users, sample quotes, and services
 - Demo accounts: 
   - **Admin**: `a.orlowski@superparkiet.pl` / `SuperParkiet123`
   - **Sales**: `p.sowinska@superparkiet.pl` / `SuperParkiet456` 

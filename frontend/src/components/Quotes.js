@@ -40,10 +40,12 @@ import {
   Business as BusinessIcon,
   Today as DateIcon,
   Assessment as StatusIcon,
+  Assessment,
   FilterList as FilterIcon,
 } from '@mui/icons-material';
 import { apiService } from '../services/api.service';
 import LoadingErrorState from './LoadingErrorState';
+import MultiQuoteGenerator from './MultiQuoteGenerator';
 
 // Quote status constants
 const QUOTE_STATUSES = {
@@ -290,6 +292,7 @@ function Quotes() {
   const [selectedQuote, setSelectedQuote] = useState(null);
   const [showDetailsDialog, setShowDetailsDialog] = useState(false);
   const [showEmailDialog, setShowEmailDialog] = useState(false);
+  const [showMultiQuoteGenerator, setShowMultiQuoteGenerator] = useState(false);
 
   useEffect(() => {
     fetchQuotes();
@@ -297,9 +300,12 @@ function Quotes() {
   }, [currentPage, statusFilter]);
 
   useEffect(() => {
+    // Ensure quotes is an array before filtering
+    const quotesArray = Array.isArray(quotes) ? quotes : [];
+    
     // Filter quotes based on search term
     if (searchTerm) {
-      const filtered = quotes.filter(quote =>
+      const filtered = quotesArray.filter(quote =>
         quote.contactName?.toLowerCase().includes(searchTerm.toLowerCase()) ||
         quote.contactCompany?.toLowerCase().includes(searchTerm.toLowerCase()) ||
         quote.quoteNumber?.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -307,7 +313,7 @@ function Quotes() {
       );
       setFilteredQuotes(filtered);
     } else {
-      setFilteredQuotes(quotes);
+      setFilteredQuotes(quotesArray);
     }
   }, [searchTerm, quotes]);
 
@@ -326,8 +332,30 @@ function Quotes() {
       }
       
       const quotesData = await apiService.getQuotes(params);
-      setQuotes(quotesData.data || quotesData);
-      setTotalQuotes(quotesData.total || quotesData.length);
+      console.log('Raw quotes data:', quotesData);
+      
+      // Handle different response structures
+      let quotesArray = [];
+      let total = 0;
+      
+      if (Array.isArray(quotesData)) {
+        quotesArray = quotesData;
+        total = quotesData.length;
+      } else if (quotesData && typeof quotesData === 'object') {
+        quotesArray = quotesData.data || quotesData.quotes || [];
+        total = quotesData.total || quotesData.count || (Array.isArray(quotesArray) ? quotesArray.length : 0);
+      }
+      
+      // Ensure quotesArray is always an array
+      if (!Array.isArray(quotesArray)) {
+        quotesArray = [];
+      }
+      
+      console.log('Processed quotes array:', quotesArray);
+      console.log('Total quotes:', total);
+      
+      setQuotes(quotesArray);
+      setTotalQuotes(total);
     } catch (error) {
       console.error('Error fetching quotes:', error);
       setError('Błąd podczas ładowania ofert');
@@ -420,6 +448,19 @@ function Quotes() {
     setSearchTerm('');
   }, []);
 
+  const handleQuotesGenerated = useCallback((generatedQuotes) => {
+    // Refresh the quotes list to show newly generated quotes
+    fetchQuotes();
+    setShowMultiQuoteGenerator(false);
+    
+    // Show success message
+    const successCount = generatedQuotes.length;
+    if (successCount > 0) {
+      // You could show a snackbar or alert here
+      console.log(`Successfully generated ${successCount} quotes`);
+    }
+  }, [fetchQuotes]);
+
   return (
     <Container maxWidth="xl" sx={{ mt: 4, mb: 4 }}>
       {/* Header */}
@@ -491,6 +532,22 @@ function Quotes() {
           }}
         >
           Nowa Oferta
+        </Button>
+        
+        <Button
+          variant="outlined"
+          startIcon={<Assessment />}
+          onClick={() => setShowMultiQuoteGenerator(true)}
+          sx={{
+            borderColor: '#667eea',
+            color: '#667eea',
+            '&:hover': {
+              borderColor: '#764ba2',
+              backgroundColor: 'rgba(102, 126, 234, 0.04)',
+            }
+          }}
+        >
+          Generator Wielu Ofert
         </Button>
         
         <Button
@@ -574,7 +631,7 @@ function Quotes() {
         errorTitle="Błąd podczas ładowania ofert"
       >
         <Grid container spacing={3}>
-          {filteredQuotes.map((quote) => (
+          {Array.isArray(filteredQuotes) && filteredQuotes.map((quote) => (
             <Grid item xs={12} sm={6} md={4} key={quote.id}>
               <QuoteCard 
                 quote={quote}
@@ -590,7 +647,7 @@ function Quotes() {
           ))}
         </Grid>
 
-        {filteredQuotes.length === 0 && !loading && (
+        {Array.isArray(filteredQuotes) && filteredQuotes.length === 0 && !loading && (
           <Box sx={{ textAlign: 'center', py: 8 }}>
             <MoneyIcon sx={{ fontSize: 80, color: 'text.secondary', mb: 2 }} />
             <Typography variant="h5" color="text.secondary" sx={{ mb: 1 }}>
@@ -661,6 +718,13 @@ function Quotes() {
           <Button variant="contained">Wyślij</Button>
         </DialogActions>
       </Dialog>
+
+      {/* Multi Quote Generator Dialog */}
+      <MultiQuoteGenerator
+        open={showMultiQuoteGenerator}
+        onClose={() => setShowMultiQuoteGenerator(false)}
+        onQuotesGenerated={handleQuotesGenerated}
+      />
     </Container>
   );
 }

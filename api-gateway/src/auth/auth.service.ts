@@ -1,5 +1,4 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
-import { JwtService } from '@nestjs/jwt';
 import { HttpService } from '@nestjs/axios';
 import { firstValueFrom } from 'rxjs';
 
@@ -8,7 +7,6 @@ export class AuthService {
   private readonly usersServiceUrl = process.env.USERS_SERVICE_URL || 'http://users-service:3001';
 
   constructor(
-    private jwtService: JwtService,
     private httpService: HttpService,
   ) {}
 
@@ -54,6 +52,22 @@ export class AuthService {
       return (response.data as any);
     } catch (error) {
       throw new UnauthorizedException(error.response?.data?.message || 'Registration failed');
+    }
+  }
+
+  async refreshToken(authorizationHeader: string) {
+    try {
+      // Forward refresh request to users service with original token
+      const response = await firstValueFrom(
+        this.httpService.post(`${this.usersServiceUrl}/auth/refresh`, {}, {
+          headers: {
+            Authorization: authorizationHeader
+          }
+        })
+      );
+      return response.data;
+    } catch (error) {
+      throw new UnauthorizedException('Token refresh failed');
     }
   }
 } 

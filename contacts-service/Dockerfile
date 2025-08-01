@@ -35,9 +35,6 @@ RUN npm ci --only=production && npm cache clean --force
 # Copy built application from builder stage
 COPY --from=builder /app/dist ./dist
 
-# Copy any additional files needed at runtime
-COPY --from=builder /app/node_modules ./node_modules
-
 # Change ownership to non-root user
 RUN chown -R nestjs:nodejs /app
 USER nestjs

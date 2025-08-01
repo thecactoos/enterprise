@@ -29,7 +29,7 @@ services:
   api-gateway:
     build:
       context: ./api-gateway
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.dev
     ports:
       - "3000:3000"
     environment:
@@ -42,6 +42,10 @@ services:
       QUOTES_SERVICE_URL: http://quotes-service:3006
       SERVICES_SERVICE_URL: http://services-service:3007
       REDIS_URL: redis://redis:6379
+    volumes:
+      - ./api-gateway/src:/app/src
+      - ./api-gateway/package.json:/app/package.json
+      - ./api-gateway/tsconfig.json:/app/tsconfig.json
     depends_on:
       - redis
       - users-service
@@ -133,7 +137,7 @@ services:
   quotes-service:
     build:
       context: ./quotes-service
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.dev
     ports:
       - "3006:3006"
     environment:
@@ -145,6 +149,11 @@ services:
       DB_PASSWORD: crm_password
       DB_NAME: crm_db
       PORT: 3006
+    volumes:
+      - ./quotes-service/src:/app/src
+      - ./quotes-service/package.json:/app/package.json
+      - ./quotes-service/tsconfig.json:/app/tsconfig.json
+      - ./quotes-service/tsconfig.build.json:/app/tsconfig.build.json
     depends_on:
       - postgres
     networks:

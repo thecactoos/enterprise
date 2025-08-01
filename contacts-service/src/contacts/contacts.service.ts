@@ -51,13 +51,15 @@ export class ContactsService {
 
   async create(createContactDto: CreateContactDto): Promise<Contact> {
     try {
-      // Check for existing email
-      const existingContact = await this.contactRepository.findOne({
-        where: { email: createContactDto.email }
-      });
+      // Check for existing email only if email is provided
+      if (createContactDto.email) {
+        const existingContact = await this.contactRepository.findOne({
+          where: { email: createContactDto.email }
+        });
 
-      if (existingContact) {
-        throw new ConflictException(`Contact with email ${createContactDto.email} already exists`);
+        if (existingContact) {
+          throw new ConflictException(`Contact with email ${createContactDto.email} already exists`);
+        }
       }
 
       // Create contact
@@ -116,7 +118,7 @@ export class ContactsService {
   async update(id: string, updateContactDto: UpdateContactDto): Promise<Contact> {
     const contact = await this.findOne(id);
 
-    // Check for email conflicts if email is being updated
+    // Check for email conflicts if email is being updated and is not null
     if (updateContactDto.email && updateContactDto.email !== contact.email) {
       const existingContact = await this.contactRepository.findOne({
         where: { email: updateContactDto.email }

@@ -23,6 +23,7 @@ import {
 } from '@nestjs/swagger';
 import { QuotesService } from './quotes.service';
 import { CreateQuoteDto } from './dto/create-quote.dto';
+import { CreateUnifiedQuoteDto } from './dto/create-unified-quote.dto';
 import { Quote, QuoteStatus } from './entities/quote.entity';
 
 // Simple auth guard placeholder - replace with actual implementation
@@ -121,11 +122,12 @@ export class QuotesController {
   @Get('health')
   @ApiOperation({ summary: 'Health check endpoint' })
   @ApiResponse({ status: HttpStatus.OK, description: 'Service is healthy' })
-  async healthCheck(): Promise<{ status: string; timestamp: string; service: string }> {
+  async healthCheck(): Promise<{ status: string; timestamp: string; service: string; hotReload: boolean }> {
     return {
       status: 'OK',
       timestamp: new Date().toISOString(),
-      service: 'quotes-service'
+      service: 'quotes-service',
+      hotReload: true
     };
   }
 
@@ -323,6 +325,25 @@ export class QuotesController {
       quoteId,
       body.includeTransport !== false // Default to true
     );
+  }
+
+  @Post('unified')
+  @ApiOperation({ 
+    summary: 'Create unified quote with products and services in one request',
+    description: 'Intelligent quote creation that automatically matches products with appropriate services, calculates materials for rooms, and optimizes pricing'
+  })
+  @ApiResponse({ 
+    status: HttpStatus.CREATED, 
+    description: 'Unified quote created successfully with products and services',
+    type: Quote
+  })
+  @ApiResponse({ status: HttpStatus.BAD_REQUEST, description: 'Invalid input data or product/service matching failed' })
+  async createUnifiedQuote(
+    @Body() createUnifiedQuoteDto: CreateUnifiedQuoteDto,
+    @Request() req?: any
+  ): Promise<Quote> {
+    const userId = req?.user?.id;
+    return this.quotesService.createUnifiedQuote(createUnifiedQuoteDto, userId);
   }
 
   @Delete(':id/services/:serviceItemId')

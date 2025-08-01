@@ -20,10 +20,50 @@ const pdfServiceClient = axios.create({
   },
 });
 
-// Request interceptor for authentication
+// Helper function to check if token is expired
+function isTokenExpired(token) {
+  if (!token) return true;
+  
+  try {
+    const payload = JSON.parse(atob(token.split('.')[1]));
+    const currentTime = Date.now() / 1000;
+    
+    // Check if token expires within next 5 minutes (300 seconds)
+    return payload.exp < currentTime + 300;
+  } catch (error) {
+    return true; // Invalid token format
+  }
+}
+
+// Request interceptor for authentication with proactive token refresh
 apiClient.interceptors.request.use(
-  (config) => {
-    const token = localStorage.getItem('token');
+  async (config) => {
+    let token = localStorage.getItem('token');
+    
+    // Check if token is expired or will expire soon
+    if (token && isTokenExpired(token)) {
+      try {
+        console.log('Token expired, refreshing...');
+        // Create a separate axios instance for refresh to avoid circular dependency
+        const refreshClient = axios.create({ baseURL: config.api.baseURL });
+        const refreshResponse = await refreshClient.post('/auth/refresh', {}, {
+          headers: { Authorization: `Bearer ${token}` }
+        });
+        
+        token = refreshResponse.data.access_token;
+        localStorage.setItem('token', token);
+        
+        if (refreshResponse.data.user) {
+          localStorage.setItem('user', JSON.stringify(refreshResponse.data.user));
+        }
+        
+        console.log('Token refreshed successfully');
+      } catch (error) {
+        console.error('Proactive token refresh failed:', error);
+        // Don't fail the request, let the response interceptor handle it
+      }
+    }
+    
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
@@ -34,16 +74,49 @@ apiClient.interceptors.request.use(
   }
 );
 
-// Response interceptor for error handling
+// Response interceptor for error handling with token refresh
 apiClient.interceptors.response.use(
   (response) => response,
-  (error) => {
-    if (error.response?.status === 401) {
-      // Handle authentication errors
+  async (error) => {
+    const originalRequest = error.config;
+    
+    if (error.response?.status === 401 && !originalRequest._retry) {
+      originalRequest._retry = true;
+      
+      try {
+        // Try to refresh the token
+        const token = localStorage.getItem('token');
+        if (token) {
+          // Create a separate axios instance for refresh to avoid circular dependency
+          const refreshClient = axios.create({ baseURL: config.api.baseURL });
+          const refreshResponse = await refreshClient.post('/auth/refresh', {}, {
+            headers: { Authorization: `Bearer ${token}` }
+          });
+          
+          // Update token in localStorage
+          const newToken = refreshResponse.data.access_token;
+          localStorage.setItem('token', newToken);
+          
+          // Update user info if provided
+          if (refreshResponse.data.user) {
+            localStorage.setItem('user', JSON.stringify(refreshResponse.data.user));
+          }
+          
+          // Retry original request with new token
+          originalRequest.headers.Authorization = `Bearer ${newToken}`;
+          return apiClient(originalRequest);
+        }
+      } catch (refreshError) {
+        // Token refresh failed - logout user
+        console.error('Token refresh failed:', refreshError);
+      }
+      
+      // If refresh fails or no token, logout user
       localStorage.removeItem('token');
       localStorage.removeItem('user');
       window.location.href = '/login';
     }
+    
     return Promise.reject(error);
   }
 );
@@ -466,95 +539,187 @@ class ApiService {
 
   // Quote methods - API Gateway integration
   async getQuotes(params = {}) {
-    const response = await this.get('/quotes', params);
+    const response = await this.get('/api/v1/quotes', params);
     return response.data;
   }
 
   async getQuote(id) {
-    const response = await this.get(`/quotes/${id}`);
+    const response = await this.get(`/api/v1/quotes/${id}`);
     return response.data;
   }
 
   async createQuote(quoteData) {
-    const response = await this.post('/quotes', quoteData);
+    const response = await this.post('/api/v1/quotes', quoteData);
     return response.data;
   }
 
   async updateQuote(id, quoteData) {
-    const response = await this.put(`/quotes/${id}`, quoteData);
+    const response = await this.put(`/api/v1/quotes/${id}`, quoteData);
     return response.data;
   }
 
   async deleteQuote(id) {
-    const response = await this.delete(`/quotes/${id}`);
+    const response = await this.delete(`/api/v1/quotes/${id}`);
     return response.data;
   }
 
   async updateQuoteStatus(id, status) {
-    const response = await this.put(`/quotes/${id}/status`, { status });
+    const response = await this.put(`/api/v1/quotes/${id}/status`, { status });
     return response.data;
   }
 
   async getQuotesByStatus(status) {
-    const response = await this.get('/quotes', { status });
+    const response = await this.get('/api/v1/quotes', { status });
     return response.data;
   }
 
   async getQuotesByContact(contactId) {
-    const response = await this.get('/quotes', { contactId });
+    const response = await this.get('/api/v1/quotes', { contactId });
     return response.data;
   }
 
   async getQuoteStatistics() {
-    const response = await this.get('/quotes/stats');
+    const response = await this.get('/api/v1/quotes/statistics');
     return response.data;
   }
 
   async generateQuotePDF(id) {
-    const response = await this.get(`/quotes/${id}/pdf`, {}, {
+    const response = await this.get(`/api/v1/quotes/${id}/pdf`, {}, {
       responseType: 'blob'
     });
     return response.data;
   }
 
   async sendQuoteEmail(id, emailData) {
-    const response = await this.post(`/quotes/${id}/send-email`, emailData);
+    const response = await this.post(`/api/v1/quotes/${id}/send`, emailData);
     return response.data;
   }
 
   async duplicateQuote(id) {
-    const response = await this.post(`/quotes/${id}/duplicate`);
+    const response = await this.post(`/api/v1/quotes/${id}/revision`);
     return response.data;
   }
 
   async convertQuoteToOrder(id) {
-    const response = await this.post(`/quotes/${id}/convert-to-order`);
+    const response = await this.post(`/api/v1/quotes/${id}/convert-to-order`);
     return response.data;
   }
 
   async addQuoteItem(quoteId, itemData) {
-    const response = await this.post(`/quotes/${quoteId}/items`, itemData);
+    const response = await this.post(`/api/v1/quotes/${quoteId}/items`, itemData);
     return response.data;
   }
 
   async updateQuoteItem(quoteId, itemId, itemData) {
-    const response = await this.put(`/quotes/${quoteId}/items/${itemId}`, itemData);
+    const response = await this.put(`/api/v1/quotes/${quoteId}/items/${itemId}`, itemData);
     return response.data;
   }
 
   async removeQuoteItem(quoteId, itemId) {
-    const response = await this.delete(`/quotes/${quoteId}/items/${itemId}`);
+    const response = await this.delete(`/api/v1/quotes/${quoteId}/items/${itemId}`);
     return response.data;
   }
 
   async getQuoteRevisions(id) {
-    const response = await this.get(`/quotes/${id}/revisions`);
+    const response = await this.get(`/api/v1/quotes/${id}/revisions`);
     return response.data;
   }
 
   async createQuoteRevision(id, revisionData) {
-    const response = await this.post(`/quotes/${id}/revisions`, revisionData);
+    const response = await this.post(`/api/v1/quotes/${id}/revision`, revisionData);
     return response.data;
+  }
+
+  // Unified quote creation method
+  async createUnifiedQuote(unifiedQuoteData) {
+    const response = await this.post('/api/v1/quotes/unified', unifiedQuoteData);
+    return response.data;
+  }
+
+  // Multi-quote generation - create multiple quotes with different products
+  async createMultipleQuotes(baseQuoteData, products) {
+    const promises = products.map(product => {
+      const quoteData = {
+        ...baseQuoteData,
+        title: `${baseQuoteData.title || 'Oferta'} - ${product.name || product.id}`,
+        products: [{
+          productId: product.id,
+          quantity: product.quantity || baseQuoteData.totalArea || 1,
+          area: baseQuoteData.totalArea,
+          roomName: baseQuoteData.roomName || 'Główne pomieszczenie'
+        }]
+      };
+      return this.createUnifiedQuote(quoteData);
+    });
+
+    return Promise.allSettled(promises);
+  }
+
+  // Batch quote creation with progress tracking
+  async createQuotesWithProgress(baseQuoteData, products, onProgress) {
+    const results = [];
+    const total = products.length;
+    
+    for (let i = 0; i < products.length; i++) {
+      const product = products[i];
+      
+      try {
+        if (onProgress) {
+          onProgress({
+            current: i + 1,
+            total,
+            product: product.name || product.id,
+            status: 'processing'
+          });
+        }
+
+        const quoteData = {
+          ...baseQuoteData,
+          title: `${baseQuoteData.title || 'Oferta'} - ${product.name || product.id}`,
+          products: [{
+            productId: product.id,
+            quantity: product.quantity || baseQuoteData.totalArea || 1,
+            area: baseQuoteData.totalArea,
+            roomName: baseQuoteData.roomName || 'Główne pomieszczenie'
+          }]
+        };
+
+        const result = await this.createUnifiedQuote(quoteData);
+        
+        results.push({
+          status: 'fulfilled',
+          value: result,
+          product: product
+        });
+
+        if (onProgress) {
+          onProgress({
+            current: i + 1,
+            total,
+            product: product.name || product.id,
+            status: 'completed'
+          });
+        }
+      } catch (error) {
+        results.push({
+          status: 'rejected',
+          reason: error,
+          product: product
+        });
+
+        if (onProgress) {
+          onProgress({
+            current: i + 1,
+            total,
+            product: product.name || product.id,
+            status: 'error',
+            error: error.message
+          });
+        }
+      }
+    }
+
+    return results;
   }
 
   // Mock lead methods - for development

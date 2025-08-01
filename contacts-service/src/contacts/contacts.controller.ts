@@ -22,9 +22,10 @@ import {
 } from '@nestjs/swagger';
 import { ContactsService } from './contacts.service';
 import { CreateContactDto } from './dto/create-contact.dto';
+import { MinimalContactDto } from './dto/minimal-contact.dto';
 import { UpdateContactDto } from './dto/update-contact.dto';
 import { ContactQueryDto } from './dto/contact-query.dto';
-import { Contact, ContactStatus, ContactType } from './contact.entity';
+import { Contact, ContactStatus, ContactType, ContactSource, ContactPriority, BusinessType } from './contact.entity';
 
 @ApiTags('contacts')
 @Controller('contacts')
@@ -54,7 +55,23 @@ export class ContactsController {
     description: 'Invalid input data' 
   })
   async create(@Body() createContactDto: CreateContactDto): Promise<Contact> {
+    console.log('Received contact data:', JSON.stringify(createContactDto, null, 2));
     return this.contactsService.create(createContactDto);
+  }
+
+  @Post('test')
+  @ApiOperation({ summary: 'Test contact creation without validation' })
+  async createTest(@Body() body: any): Promise<any> {
+    console.log('Test received data:', JSON.stringify(body, null, 2));
+    try {
+      const contact = await this.contactsService.create({
+        firstName: body.firstName,
+        lastName: body.lastName,
+      } as any);
+      return { success: true, contact };
+    } catch (error) {
+      return { success: false, error: error.message };
+    }
   }
 
   @Get()

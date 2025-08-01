@@ -5,6 +5,7 @@ import { Quote, QuoteStatus } from './entities/quote.entity';
 import { QuoteItem, ItemType } from './entities/quote-item.entity';
 import { CreateQuoteDto } from './dto/create-quote.dto';
 import { CreateQuoteItemDto } from './dto/create-quote-item.dto';
+import { CreateUnifiedQuoteDto, ProductSelectionDto, RoomCalculationDto, QuotePreferencesDto } from './dto/create-unified-quote.dto';
 import { ServiceMatcher, ProductInfo, ServiceInfo } from './utils/service-matcher';
 
 @Injectable()
@@ -362,8 +363,6 @@ export class QuotesService {
       const serviceItem = new QuoteItem();
       serviceItem.quoteId = quote.id;
       serviceItem.itemType = ItemType.SERVICE;
-      serviceItem.serviceId = service.id;
-      serviceItem.serviceCode = service.serviceCode;
       serviceItem.position = maxPosition + i + 1;
       serviceItem.name = service.serviceName;
       serviceItem.description = `${service.serviceName} - ${area}m²`;
@@ -491,30 +490,338 @@ export class QuotesService {
     return this.findOneWithItems(quote.id);
   }
 
-  private async calculateQuoteTotals(quoteId: string): Promise<void> {
-    const quote = await this.findOneWithItems(quoteId);
+  /**
+   * Create unified quote with products and services in one intelligent operation
+   */
+  async createUnifiedQuote(
+    createUnifiedQuoteDto: CreateUnifiedQuoteDto,
+    userId?: string
+  ): Promise<Quote> {
+    this.logger.log(`Creating unified quote for contact: ${createUnifiedQuoteDto.contactId}`);
+
+    // Step 1: Fetch product details from products-service
+    const productDetails = await this.fetchProductDetails(createUnifiedQuoteDto.products);
     
-    let subtotalNet = 0;
-    let subtotalGross = 0;
-    let totalVat = 0;
+    // Step 2: Calculate areas and quantities
+    const calculatedData = this.calculateMaterialRequirements(
+      createUnifiedQuoteDto.products,
+      createUnifiedQuoteDto.rooms
+    );
 
-    for (const item of quote.items) {
-      subtotalNet += parseFloat(item.netPrice.toString());
-      subtotalGross += parseFloat(item.grossPrice.toString());
-      totalVat += parseFloat(item.vatAmount.toString());
+    // Step 3: Create base quote
+    const quote = new Quote();
+    quote.contactId = createUnifiedQuoteDto.contactId;
+    // Let database trigger generate quote number
+    quote.status = QuoteStatus.DRAFT;
+    quote.createdByUserId = userId;
+    quote.assignedUserId = userId;
+    
+    // Optional fields from DTO
+    quote.notes = createUnifiedQuoteDto.title || 'Oferta Automatyczna';
+    quote.internalNotes = createUnifiedQuoteDto.description;
+    
+    // Calculate total project area from rooms or products
+    quote.projectArea = calculatedData.totalArea;
+    
+    // Set preferences
+    const preferences = createUnifiedQuoteDto.preferences || {};
+    quote.installationIncluded = preferences.includeInstallation !== false;
+    quote.measurementIncluded = false; // Can be extended later
+    
+    const savedQuote = await this.quotesRepository.save(quote);
+
+    // Step 4: Create product items
+    const productItems = await this.createProductItems(
+      savedQuote.id,
+      productDetails,
+      calculatedData.productQuantities
+    );
+
+    // Step 5: Match and add services
+    const serviceItems = await this.createServiceItems(
+      savedQuote.id,
+      productDetails,
+      calculatedData.totalArea,
+      preferences,
+      productItems.length
+    );
+
+    // Step 6: Save all items
+    const allItems = [...productItems, ...serviceItems];
+    await this.quoteItemsRepository.save(allItems);
+
+    // Step 7: Calculate totals
+    await this.calculateQuoteTotals(savedQuote.id);
+
+    this.logger.log(`Created unified quote ${savedQuote.quoteNumber} with ${productItems.length} products and ${serviceItems.length} services`);
+    
+    return this.findOneWithItems(savedQuote.id);
+  }
+
+  /**
+   * Fetch product details from products-service (mock implementation)
+   */
+  private async fetchProductDetails(productSelections: ProductSelectionDto[]): Promise<any[]> {
+    // TODO: Replace with actual HTTP call to products-service
+    const mockProducts = productSelections.map(selection => ({
+      id: selection.productId,
+      name: `Product ${selection.productId.substring(0, 8)}`,
+      sku: `SKU-${selection.productId.substring(0, 8)}`,
+      category: 'flooring',
+      pricePerUnit: 25.00,
+      unit: 'm²',
+      coveragePerUnit: 1.0,
+      vatRate: 23
+    }));
+
+    this.logger.log(`Fetched ${mockProducts.length} product details`);
+    return mockProducts;
+  }
+
+  /**
+   * Calculate material requirements based on rooms and product specifications
+   */
+  private calculateMaterialRequirements(
+    products: ProductSelectionDto[],
+    rooms?: RoomCalculationDto[]
+  ): { totalArea: number; productQuantities: Map<string, number> } {
+    let totalArea = 0;
+    const productQuantities = new Map<string, number>();
+
+    // If rooms are provided, calculate area from room dimensions
+    if (rooms && rooms.length > 0) {
+      totalArea = rooms.reduce((sum, room) => {
+        const roomArea = room.length * room.width;
+        const wastePercent = room.wastePercent || 10;
+        const areaWithWaste = roomArea * (1 + wastePercent / 100);
+        return sum + areaWithWaste;
+      }, 0);
+
+      // Distribute area across products (simplified - equal distribution)
+      const areaPerProduct = totalArea / products.length;
+      products.forEach(product => {
+        productQuantities.set(product.productId, areaPerProduct);
+      });
+    } else {
+      // Use quantities and areas from product selections
+      products.forEach(product => {
+        const quantity = product.area || product.quantity;
+        productQuantities.set(product.productId, quantity);
+        totalArea += quantity;
+      });
     }
 
-    // Apply quote-level discount if any
-    if (quote.discountPercent > 0) {
-      quote.discountAmount = (subtotalNet * quote.discountPercent) / 100;
+    this.logger.log(`Calculated total area: ${totalArea.toFixed(2)}m²`);
+    return { totalArea, productQuantities };
+  }
+
+  /**
+   * Create quote items for products
+   */
+  private async createProductItems(
+    quoteId: string,
+    productDetails: any[],
+    productQuantities: Map<string, number>
+  ): Promise<QuoteItem[]> {
+    const items: QuoteItem[] = [];
+
+    for (let i = 0; i < productDetails.length; i++) {
+      const product = productDetails[i];
+      const quantity = productQuantities.get(product.id) || 1;
+
+      const item = new QuoteItem();
+      item.quoteId = quoteId;
+      item.itemType = ItemType.PRODUCT;
+      item.productId = product.id;
+      item.position = i + 1;
+      item.sku = product.sku;
+      item.name = product.name;
+      item.description = `${product.name} - ${quantity.toFixed(2)}${product.unit}`;
+      
+      item.quantity = quantity;
+      item.unit = product.unit;
+      item.pricePerUnit = product.pricePerUnit;
+      item.discount = 0;
+      item.vatRate = product.vatRate || 23;
+      
+      item.coveragePerUnit = product.coveragePerUnit || 1;
+      item.wastePercent = 10;
+      
+      item.calculatePrices();
+      items.push(item);
     }
 
-    quote.subtotalNet = subtotalNet;
-    quote.subtotalGross = subtotalGross;
-    quote.totalNet = subtotalNet - (quote.discountAmount || 0) + (quote.deliveryCost || 0);
-    quote.vatAmount = totalVat;
-    quote.totalGross = quote.totalNet + totalVat;
+    return items;
+  }
 
-    await this.quotesRepository.save(quote);
+  /**
+   * Create quote items for services based on products and preferences
+   */
+  private async createServiceItems(
+    quoteId: string,
+    productDetails: any[],
+    totalArea: number,
+    preferences: QuotePreferencesDto,
+    startPosition: number
+  ): Promise<QuoteItem[]> {
+    const serviceItems: QuoteItem[] = [];
+    let position = startPosition + 1;
+
+    // Add installation services if requested
+    if (preferences.includeInstallation !== false) {
+      const installationService = await this.createInstallationServiceItem(
+        quoteId,
+        totalArea,
+        position++,
+        preferences.serviceLevel || 'standard'
+      );
+      if (installationService) {
+        serviceItems.push(installationService);
+      }
+    }
+
+    // Add transport service if requested
+    if (preferences.includeTransport !== false) {
+      const transportService = await this.createTransportServiceItem(
+        quoteId,
+        totalArea,
+        position++
+      );
+      if (transportService) {
+        serviceItems.push(transportService);
+      }
+    }
+
+    // Add baseboard service if requested
+    if (preferences.includeBaseboard === true) {
+      const baseboardService = await this.createBaseboardServiceItem(
+        quoteId,
+        totalArea,
+        position++,
+        preferences.serviceLevel || 'standard'
+      );
+      if (baseboardService) {
+        serviceItems.push(baseboardService);
+      }
+    }
+
+    return serviceItems;
+  }
+
+  /**
+   * Create installation service item
+   */
+  private async createInstallationServiceItem(
+    quoteId: string,
+    area: number,
+    position: number,
+    serviceLevel: string
+  ): Promise<QuoteItem | null> {
+    // Get base price based on service level
+    const basePrices = {
+      basic: 15.00,
+      standard: 25.00,
+      premium: 40.00
+    };
+
+    const basePrice = basePrices[serviceLevel] || basePrices.standard;
+    const minimumCharge = 500; // Minimum charge for installation
+
+    const item = new QuoteItem();
+    item.quoteId = quoteId;
+    item.itemType = ItemType.SERVICE;
+    item.position = position;
+    item.name = `Montaż ${serviceLevel === 'premium' ? 'Premium' : 'Standardowy'}`;
+    item.description = `Profesjonalny montaż podłogi - ${area.toFixed(2)}m²`;
+    
+    const totalCost = Math.max(basePrice * area, minimumCharge);
+    
+    if (totalCost === minimumCharge && area > 0) {
+      // Apply minimum charge
+      item.quantity = 1;
+      item.unit = 'usługa';
+      item.pricePerUnit = minimumCharge;
+    } else {
+      item.quantity = area;
+      item.unit = 'm²';
+      item.pricePerUnit = basePrice;
+    }
+    
+    item.discount = 0;
+    item.vatRate = 23;
+    item.calculatePrices();
+
+    return item;
+  }
+
+  /**
+   * Create transport service item
+   */
+  private async createTransportServiceItem(
+    quoteId: string,
+    area: number,
+    position: number
+  ): Promise<QuoteItem | null> {
+    const item = new QuoteItem();
+    item.quoteId = quoteId;
+    item.itemType = ItemType.SERVICE;
+    item.position = position;
+    item.name = 'Transport i dostawa';
+    item.description = 'Dostawa materiałów na adres klienta';
+    
+    // Fixed transport cost based on area
+    const transportCost = area > 50 ? 200 : area > 20 ? 150 : 100;
+    
+    item.quantity = 1;
+    item.unit = 'usługa';
+    item.pricePerUnit = transportCost;
+    item.discount = 0;
+    item.vatRate = 23;
+    item.calculatePrices();
+
+    return item;
+  }
+
+  /**
+   * Create baseboard service item
+   */
+  private async createBaseboardServiceItem(
+    quoteId: string,
+    area: number,
+    position: number,
+    serviceLevel: string
+  ): Promise<QuoteItem | null> {
+    // Estimate baseboard length (perimeter) from area (rough calculation)
+    const estimatedPerimeter = Math.sqrt(area) * 4;
+    
+    const basePrices = {
+      basic: 8.00,
+      standard: 12.00,
+      premium: 18.00
+    };
+
+    const basePrice = basePrices[serviceLevel] || basePrices.standard;
+
+    const item = new QuoteItem();
+    item.quoteId = quoteId;
+    item.itemType = ItemType.SERVICE;
+    item.position = position;
+    item.name = `Montaż listew ${serviceLevel === 'premium' ? 'Premium' : 'Standardowy'}`;
+    item.description = `Montaż listew przypodłogowych - ${estimatedPerimeter.toFixed(1)}mb`;
+    
+    item.quantity = estimatedPerimeter;
+    item.unit = 'mb';
+    item.pricePerUnit = basePrice;
+    item.discount = 0;
+    item.vatRate = 23;
+    item.calculatePrices();
+
+    return item;
+  }
+
+  private async calculateQuoteTotals(quoteId: string): Promise<void> {
+    // Let the database trigger handle the calculation automatically
+    // The trigger will recalculate totals when quote_items are inserted/updated
+    this.logger.log(`Quote totals will be calculated by database trigger for quote ${quoteId}`);
   }
 }

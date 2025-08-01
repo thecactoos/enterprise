@@ -20,15 +20,12 @@ import {
 } from '@mui/material';
 import {
   Dashboard as DashboardIcon,
-  People as PeopleIcon,
-  Note as NoteIcon,
-  PictureAsPdf as PdfIcon,
-  Inventory as ProductsIcon,
-  ContactPhone as LeadsIcon,
-  RequestQuote as QuotesIcon,
   Logout as LogoutIcon,
   Menu as MenuIcon,
   Person as PersonIcon,
+  Inventory as ProductIcon,
+  Euro as EuroIcon,
+  ContactPhone as ContactIcon,
 } from '@mui/icons-material';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
@@ -59,12 +56,10 @@ function Navbar() {
 
   const navItems = [
     { label: 'Dashboard', path: '/', icon: <DashboardIcon /> },
-    { label: 'Leady', path: '/leads', icon: <LeadsIcon /> },
-    { label: 'Klienci', path: '/clients', icon: <PeopleIcon /> },
-    { label: 'Oferty', path: '/quotes', icon: <QuotesIcon /> },
-    { label: 'Produkty', path: '/products', icon: <ProductsIcon /> },
-    { label: 'Notatki', path: '/notes', icon: <NoteIcon /> },
-    { label: 'PDF Analyzer', path: '/pdf-analyzer', icon: <PdfIcon /> },
+    { label: 'Kontakty', path: '/contacts', icon: <PersonIcon /> },
+    { label: 'Produkty', path: '/products', icon: <ProductIcon /> },
+    { label: 'Oferty', path: '/quotes', icon: <EuroIcon /> },
+    { label: 'Notatki', path: '/notes', icon: <ContactIcon /> },
   ];
 
   const handleDrawerToggle = () => {
@@ -79,29 +74,58 @@ function Navbar() {
   };
 
   const drawer = (
-    <Box>
-      <Box sx={{ p: 2, display: 'flex', alignItems: 'center', gap: 2 }}>
-        <Avatar sx={{ bgcolor: 'primary.main' }}>
+    <Box sx={{ width: 250 }}>
+      <Box sx={{ p: 2, display: 'flex', alignItems: 'center', gap: 2, bgcolor: 'primary.main', color: 'white' }}>
+        <Avatar sx={{ bgcolor: 'rgba(255,255,255,0.2)' }}>
           <PersonIcon />
         </Avatar>
-        <Typography variant="subtitle1">
-          {currentUser?.name || currentUser?.email}
-        </Typography>
+        <Box sx={{ flexGrow: 1, minWidth: 0 }}>
+          <Typography variant="subtitle1" noWrap>
+            {currentUser?.name || 'Użytkownik'}
+          </Typography>
+          <Typography variant="caption" noWrap sx={{ opacity: 0.8 }}>
+            {currentUser?.email}
+          </Typography>
+        </Box>
       </Box>
       <Divider />
-      <List>
+      <List sx={{ pt: 0 }}>
         {navItems.map((item) => (
           <ListItem 
             key={item.path} 
             button 
             onClick={() => handleNavItemClick(item.path)}
             selected={location.pathname === item.path}
+            sx={{
+              '&.Mui-selected': {
+                bgcolor: 'primary.light',
+                color: 'primary.contrastText',
+                '&:hover': {
+                  bgcolor: 'primary.main',
+                }
+              }
+            }}
           >
-            <ListItemIcon>{item.icon}</ListItemIcon>
-            <ListItemText primary={item.label} />
+            <ListItemIcon sx={{ color: location.pathname === item.path ? 'primary.main' : 'inherit' }}>
+              {item.icon}
+            </ListItemIcon>
+            <ListItemText 
+              primary={item.label}
+              primaryTypographyProps={{
+                fontWeight: location.pathname === item.path ? 600 : 400
+              }}
+            />
           </ListItem>
         ))}
       </List>
+      <Box sx={{ flexGrow: 1 }} />
+      <Divider />
+      <ListItem button onClick={handleLogout}>
+        <ListItemIcon>
+          <LogoutIcon />
+        </ListItemIcon>
+        <ListItemText primary="Wyloguj" />
+      </ListItem>
     </Box>
   );
 
@@ -163,11 +187,17 @@ function Navbar() {
         open={mobileOpen}
         onClose={handleDrawerToggle}
         ModalProps={{
-          keepMounted: true,
+          keepMounted: true, // Better open performance on mobile
         }}
         sx={{
           display: { xs: 'block', md: 'none' },
-          '& .MuiDrawer-paper': { boxSizing: 'border-box', width: 240 },
+          '& .MuiDrawer-paper': { 
+            boxSizing: 'border-box', 
+            width: 280,
+            display: 'flex',
+            flexDirection: 'column',
+            height: '100%'
+          },
         }}
       >
         {drawer}

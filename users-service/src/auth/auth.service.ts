@@ -43,4 +43,25 @@ export class AuthService {
     const { passwordHash, ...result } = user;
     return result;
   }
+
+  async refreshToken(userPayload: any) {
+    // Get fresh user data from database
+    const user = await this.usersService.findOne(userPayload.sub);
+    if (!user) {
+      throw new UnauthorizedException('User not found');
+    }
+
+    // Generate new token with current user data
+    const payload = { email: user.email, sub: user.id, role: user.role };
+    return {
+      access_token: this.jwtService.sign(payload),
+      user: {
+        id: user.id,
+        email: user.email,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        role: user.role,
+      },
+    };
+  }
 } 

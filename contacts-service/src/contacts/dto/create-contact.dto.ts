@@ -1,4 +1,4 @@
-import { IsEmail, IsNotEmpty, IsOptional, IsEnum, IsNumber, Min, Max, Length, IsPhoneNumber, IsBoolean, IsUUID, IsDateString } from 'class-validator';
+import { IsEmail, IsNotEmpty, IsOptional, IsEnum, IsNumber, Min, Max, Length, IsPhoneNumber, IsBoolean, IsUUID, IsDateString, ValidateIf } from 'class-validator';
 import { ContactType, ContactSource, ContactStatus, ContactPriority, BusinessType, ProjectType } from '../contact.entity';
 import { Transform } from 'class-transformer';
 
@@ -15,8 +15,9 @@ export class CreateContactDto {
   @Length(1, 100)
   lastName: string;
 
-  @IsEmail()
-  email: string;
+  @IsOptional()
+  @Transform(({ value }) => value === '' ? undefined : value)
+  email?: string;
 
   // ========================================
   // OPTIONAL CONTACT TYPE
@@ -31,6 +32,8 @@ export class CreateContactDto {
   // ========================================
 
   @IsOptional()
+  @Transform(({ value }) => value === '' ? undefined : value)
+  @ValidateIf(o => o.phone && o.phone.trim() !== '')
   @IsPhoneNumber('PL')
   phone?: string;
 

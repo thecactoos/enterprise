@@ -4,17 +4,19 @@ import { ApiTags, ApiOperation } from '@nestjs/swagger';
 import axios from 'axios';
 
 @ApiTags('quotes')
-@Controller('quotes')
+@Controller('api/v1/quotes')
 export class QuotesController {
   private readonly quotesServiceUrl = process.env.QUOTES_SERVICE_URL || 'http://quotes-service:3006';
 
-  @All('*')
-  @ApiOperation({ summary: 'Proxy all requests to Quotes Service' })
+  @All(['', '*'])
+  @ApiOperation({ summary: 'Proxy all requests to Quotes Service - HOT RELOAD WORKING!' })
   async proxyToQuotesService(@Req() req: Request, @Res() res: Response) {
     try {
-      // Remove /quotes prefix from req.url since we're already in quotes controller
+      // Direct proxy to quotes-service - path already includes full route
       const path = req.url.startsWith('/') ? req.url : `/${req.url}`;
-      const url = `${this.quotesServiceUrl}/api/v1/quotes${path}`;
+      const url = `${this.quotesServiceUrl}${path}`;
+      
+      console.log(`[API Gateway - HOT RELOAD WORKING] Proxying ${req.method} ${path} to ${url}`);
       
       const config: any = {
         method: req.method.toLowerCase() as any,

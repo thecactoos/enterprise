@@ -157,8 +157,20 @@ function Dashboard() {
     setContactError('');
 
     try {
+      // Remove empty fields before sending
+      const cleanedForm = { ...contactForm };
+      if (!cleanedForm.email || cleanedForm.email.trim() === '') {
+        delete cleanedForm.email;
+      }
+      if (!cleanedForm.phone || cleanedForm.phone.trim() === '') {
+        delete cleanedForm.phone;
+      }
+      if (!cleanedForm.company || cleanedForm.company.trim() === '') {
+        delete cleanedForm.company;
+      }
+      
       await apiService.createContact({
-        ...contactForm,
+        ...cleanedForm,
         type: 'LEAD',
         source: 'website',
         businessType: 'b2c'

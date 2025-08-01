@@ -116,14 +116,11 @@ export class Contact {
   @Length(1, 100)
   lastName: string;
 
-  @Column({ unique: true })
-  @IsEmail()
-  email: string;
+  @Column({ unique: true, nullable: true })
+  email?: string;
 
   @Column({ nullable: true })
-  @IsOptional()
-  @IsPhoneNumber('PL') // Polish phone number validation
-  phone: string;
+  phone?: string;
 
   // ========================================
   // COMPANY/BUSINESS INFORMATION

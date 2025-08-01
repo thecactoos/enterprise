@@ -10,7 +10,6 @@ export enum ItemType {
 @Entity('quote_items')
 @Index(['quoteId'])
 @Index(['productId'])
-@Index(['serviceId'])
 export class QuoteItem {
   @PrimaryGeneratedColumn('uuid')
   @ApiProperty({ description: 'Unique identifier' })
@@ -34,13 +33,7 @@ export class QuoteItem {
   @ApiProperty({ description: 'Reference to product from products service' })
   productId?: string;
 
-  @Column({ nullable: true })
-  @ApiProperty({ description: 'Reference to service from services service' })
-  serviceId?: string;
-
-  @Column({ nullable: true })
-  @ApiProperty({ description: 'Service code for quick reference' })
-  serviceCode?: string;
+  // serviceId and serviceCode fields removed - not in current database schema
 
   // Item details
   @Column()
