@@ -39,7 +39,7 @@ log "Creating backup in $BACKUP_DIR"
 
 # Backup database
 log "Backing up PostgreSQL database..."
-docker-compose -f docker-compose.prod.yml exec -T postgres pg_dump \
+docker compose -f docker-compose.prod.yml exec -T postgres pg_dump \
     -U "${POSTGRES_USER:-postgres}" \
     -d "${POSTGRES_DB:-enterprise_crm}" \
     --clean --if-exists > "$BACKUP_DIR/database.sql"
@@ -69,7 +69,7 @@ Database: ${POSTGRES_DB:-enterprise_crm}
 Database user: ${POSTGRES_USER:-postgres}
 Application version: $(git rev-parse HEAD 2>/dev/null || echo "unknown")
 Docker images:
-$(docker-compose -f docker-compose.prod.yml images)
+$(docker compose -f docker-compose.prod.yml images)
 EOF
 
 # Compress backup

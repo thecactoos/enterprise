@@ -52,12 +52,12 @@ export $(cat .env.dev | grep -v '^#' | xargs)
 
 # Stop existing containers
 log "Stopping existing containers..."
-docker-compose -f docker-compose.dev.yml down --remove-orphans
+docker compose -f docker-compose.dev.yml down --remove-orphans
 
 # Build and start services
 log "Building and starting development services..."
-docker-compose -f docker-compose.dev.yml build --no-cache
-docker-compose -f docker-compose.dev.yml up -d
+docker compose -f docker-compose.dev.yml build --no-cache
+docker compose -f docker-compose.dev.yml up -d
 
 # Wait for services to be healthy
 log "Waiting for services to start..."
@@ -68,7 +68,7 @@ log "Checking service health..."
 services=("postgres" "services-service" "quotes-service" "ocr-service" "api-gateway")
 
 for service in "${services[@]}"; do
-    if docker-compose -f docker-compose.dev.yml ps | grep -q "$service.*Up.*healthy\|$service.*Up"; then
+    if docker compose -f docker-compose.dev.yml ps | grep -q "$service.*Up.*healthy\|$service.*Up"; then
         log "✓ $service is running"
     else
         warn "⚠ $service might be starting..."
@@ -76,7 +76,7 @@ for service in "${services[@]}"; do
 done
 
 # Check pgAdmin
-if docker-compose -f docker-compose.dev.yml ps | grep -q "pgadmin.*Up"; then
+if docker compose -f docker-compose.dev.yml ps | grep -q "pgadmin.*Up"; then
     log "✓ pgAdmin is running"
 else
     warn "⚠ pgAdmin might be starting..."
@@ -107,11 +107,11 @@ echo "⏰ Uptime Kuma:     http://localhost:3011"
 echo "🔴 Redis Insight:   http://localhost:8001"
 echo ""
 echo "=== USEFUL COMMANDS ==="
-echo "View all logs:       docker-compose -f docker-compose.dev.yml logs -f"
-echo "View service logs:   docker-compose -f docker-compose.dev.yml logs -f [service_name]"
-echo "Restart service:     docker-compose -f docker-compose.dev.yml restart [service_name]"
-echo "Stop all:           docker-compose -f docker-compose.dev.yml down"
-echo "Rebuild service:     docker-compose -f docker-compose.dev.yml build --no-cache [service_name]"
+echo "View all logs:       docker compose -f docker-compose.dev.yml logs -f"
+echo "View service logs:   docker compose -f docker-compose.dev.yml logs -f [service_name]"
+echo "Restart service:     docker compose -f docker-compose.dev.yml restart [service_name]"
+echo "Stop all:           docker compose -f docker-compose.dev.yml down"
+echo "Rebuild service:     docker compose -f docker-compose.dev.yml build --no-cache [service_name]"
 echo ""
 echo "=== FRONTEND DEVELOPMENT ==="
 echo "Run frontend locally:"
@@ -126,7 +126,7 @@ echo ""
 
 # Test database connection
 log "Testing database connection..."
-if docker-compose -f docker-compose.dev.yml exec -T postgres pg_isready -U postgres >/dev/null 2>&1; then
+if docker compose -f docker-compose.dev.yml exec -T postgres pg_isready -U postgres >/dev/null 2>&1; then
     log "✓ Database is ready"
 else
     warn "⚠ Database might still be initializing..."

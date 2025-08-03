@@ -55,11 +55,11 @@ docker --version
 #### **Instalacja Docker Compose:**
 ```bash
 # Instalacja najnowszej wersji
-sudo curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-sudo chmod +x /usr/local/bin/docker-compose
+# Docker Compose jest teraz plugin
+# Zainstalowane automatycznie z Docker
 
 # Test instalacji
-docker-compose --version
+docker compose version
 ```
 
 ### **2. Upload kodu na VPS**
@@ -105,8 +105,8 @@ cp .env.dev.example .env.dev
 
 # Build i start
 export DOCKER_BUILDKIT=0
-docker-compose -f docker-compose.dev.yml build --no-cache
-docker-compose -f docker-compose.dev.yml up -d
+docker compose -f docker-compose.dev.yml build --no-cache
+docker compose -f docker-compose.dev.yml up -d
 ```
 
 ## 🔥 **Test hot reload**
@@ -125,7 +125,7 @@ getTestHotReload() {
 # 2. Zapisz plik (Ctrl+S)
 
 # 3. Sprawdź logi w Portainer lub terminal:
-docker-compose -f docker-compose.dev.yml logs -f api-gateway
+docker compose -f docker-compose.dev.yml logs -f api-gateway
 
 # Powinno być:
 # [nodemon] restarting due to changes...
@@ -148,7 +148,7 @@ async def test_reload():
 # 2. Zapisz plik
 
 # 3. Sprawdź logi:
-docker-compose -f docker-compose.dev.yml logs -f ocr-service
+docker compose -f docker-compose.dev.yml logs -f ocr-service
 
 # Powinno być:
 # INFO: Will watch for changes in these directories: ['/app']
@@ -200,10 +200,10 @@ cat ocr-service/Dockerfile | grep uvicorn
 #### **4. Restart kontenera:**
 ```bash
 # Restart pojedynczy serwis
-docker-compose -f docker-compose.dev.yml restart api-gateway
+docker compose -f docker-compose.dev.yml restart api-gateway
 
 # Restart wszystkich
-docker-compose -f docker-compose.dev.yml restart
+docker compose -f docker-compose.dev.yml restart
 ```
 
 ### **Problem: Zmiany nie są widoczne**
@@ -211,14 +211,14 @@ docker-compose -f docker-compose.dev.yml restart
 #### **1. Force rebuild:**
 ```bash
 # Rebuild bez cache
-docker-compose -f docker-compose.dev.yml build --no-cache api-gateway
-docker-compose -f docker-compose.dev.yml up -d api-gateway
+docker compose -f docker-compose.dev.yml build --no-cache api-gateway
+docker compose -f docker-compose.dev.yml up -d api-gateway
 ```
 
 #### **2. Sprawdź logi:**
 ```bash
 # Szukaj błędów kompilacji
-docker-compose -f docker-compose.dev.yml logs api-gateway | grep -i error
+docker compose -f docker-compose.dev.yml logs api-gateway | grep -i error
 ```
 
 #### **3. Sprawdź czy plik jest w kontenerze:**
@@ -277,7 +277,7 @@ watch -n 1 'ls -la /var/www/enterprise-crm/api-gateway/src/'
 watch -n 2 'docker stats --no-stream'
 
 # Tail logs wszystkich serwisów
-docker-compose -f docker-compose.dev.yml logs -f
+docker compose -f docker-compose.dev.yml logs -f
 ```
 
 ## 🎯 **Best Practices**

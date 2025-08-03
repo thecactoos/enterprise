@@ -83,20 +83,20 @@ fi
 
 # Pull latest images (if using registry)
 log "Pulling latest Docker images..."
-# docker-compose -f docker-compose.prod.yml pull
+# docker compose -f docker-compose.prod.yml pull
 
 # Build images
 log "Building Docker images..."
 export DOCKER_BUILDKIT=0  # Use legacy builder for compatibility
-docker-compose -f docker-compose.prod.yml build --no-cache
+docker compose -f docker-compose.prod.yml build --no-cache
 
 # Stop existing containers
 log "Stopping existing containers..."
-docker-compose -f docker-compose.prod.yml down --remove-orphans
+docker compose -f docker-compose.prod.yml down --remove-orphans
 
 # Start services
 log "Starting services..."
-docker-compose -f docker-compose.prod.yml up -d
+docker compose -f docker-compose.prod.yml up -d
 
 # Wait for services to be healthy
 log "Waiting for services to be healthy..."
@@ -107,7 +107,7 @@ log "Checking service health..."
 services=("postgres" "services-service" "quotes-service" "ocr-service" "api-gateway")
 
 for service in "${services[@]}"; do
-    if docker-compose -f docker-compose.prod.yml ps | grep -q "$service.*Up.*healthy\|$service.*Up"; then
+    if docker compose -f docker-compose.prod.yml ps | grep -q "$service.*Up.*healthy\|$service.*Up"; then
         log "✓ $service is running"
     else
         error "✗ $service is not healthy"
@@ -115,7 +115,7 @@ for service in "${services[@]}"; do
 done
 
 # Check nginx
-if docker-compose -f docker-compose.prod.yml ps | grep -q "nginx.*Up"; then
+if docker compose -f docker-compose.prod.yml ps | grep -q "nginx.*Up"; then
     log "✓ Nginx is running"
 else
     error "✗ Nginx is not running"
@@ -127,17 +127,17 @@ echo ""
 echo "=== DEPLOYMENT SUMMARY ==="
 echo "Application URL: https://${DOMAIN:-your-domain.com}"
 echo "Services running:"
-docker-compose -f docker-compose.prod.yml ps --format "table {{.Name}}\t{{.Status}}\t{{.Ports}}"
+docker compose -f docker-compose.prod.yml ps --format "table {{.Name}}\t{{.Status}}\t{{.Ports}}"
 echo ""
 echo "=== USEFUL COMMANDS ==="
-echo "View logs: docker-compose -f docker-compose.prod.yml logs -f [service_name]"
-echo "Restart service: docker-compose -f docker-compose.prod.yml restart [service_name]"
-echo "Stop all: docker-compose -f docker-compose.prod.yml down"
+echo "View logs: docker compose -f docker-compose.prod.yml logs -f [service_name]"
+echo "Restart service: docker compose -f docker-compose.prod.yml restart [service_name]"
+echo "Stop all: docker compose -f docker-compose.prod.yml down"
 echo "Update app: ./deploy.sh"
 echo ""
 echo "=== MONITORING ==="
 echo "Check application health: curl -k https://${DOMAIN:-your-domain.com}/api/health"
-echo "View nginx logs: docker-compose -f docker-compose.prod.yml logs nginx"
+echo "View nginx logs: docker compose -f docker-compose.prod.yml logs nginx"
 echo ""
 
 log "Deployment completed! Your application should be available at https://${DOMAIN:-your-domain.com}"

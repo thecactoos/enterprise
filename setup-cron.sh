@@ -39,7 +39,7 @@ cat > "$CRON_FILE" << EOF
 0 2 * * * cd $APP_DIR && ./auto-backup.sh >> /var/log/enterprise-crm-cron.log 2>&1
 
 # Weekly log rotation on Sunday at 3:00 AM
-0 3 * * 0 cd $APP_DIR && docker-compose -f docker-compose.dev.yml logs --tail=1000 > logs/docker-logs-\$(date +\%Y-\%m-\%d).log 2>&1
+0 3 * * 0 cd $APP_DIR && docker compose -f docker-compose.dev.yml logs --tail=1000 > logs/docker-logs-\$(date +\%Y-\%m-\%d).log 2>&1
 
 # Monthly container cleanup on 1st day at 4:00 AM
 0 4 1 * * docker system prune -f >> /var/log/enterprise-crm-cron.log 2>&1
@@ -48,7 +48,7 @@ cat > "$CRON_FILE" << EOF
 0 6 * * * df -h >> /var/log/enterprise-crm-disk-usage.log 2>&1
 
 # Restart services if they're down (every 30 minutes)
-*/30 * * * * cd $APP_DIR && docker-compose -f docker-compose.dev.yml ps | grep -q "Exit" && docker-compose -f docker-compose.dev.yml restart >> /var/log/enterprise-crm-cron.log 2>&1 || true
+*/30 * * * * cd $APP_DIR && docker compose -f docker-compose.dev.yml ps | grep -q "Exit" && docker compose -f docker-compose.dev.yml restart >> /var/log/enterprise-crm-cron.log 2>&1 || true
 
 EOF
 

@@ -37,7 +37,7 @@ log "Starting automated backup..."
 cd "$APP_DIR" || error "Cannot access application directory: $APP_DIR"
 
 # Check if Docker Compose is running
-if ! docker-compose -f docker-compose.dev.yml ps | grep -q "Up"; then
+if ! docker compose -f docker-compose.dev.yml ps | grep -q "Up"; then
     error "Docker containers are not running"
 fi
 
@@ -57,7 +57,7 @@ fi
 
 # Backup PostgreSQL database
 log "Backing up PostgreSQL database..."
-docker-compose -f docker-compose.dev.yml exec -T postgres pg_dump \
+docker compose -f docker-compose.dev.yml exec -T postgres pg_dump \
     -U "${POSTGRES_USER:-postgres}" \
     -d "${POSTGRES_DB:-enterprise_crm}" \
     --clean --if-exists \
@@ -107,7 +107,7 @@ Database user: ${POSTGRES_USER:-postgres}
 Application directory: $APP_DIR
 Git commit: $(git rev-parse HEAD 2>/dev/null || echo "unknown")
 Docker images:
-$(docker-compose -f docker-compose.dev.yml images 2>/dev/null || echo "unknown")
+$(docker compose -f docker-compose.dev.yml images 2>/dev/null || echo "unknown")
 System info:
 $(uname -a)
 Disk usage:
