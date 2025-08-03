@@ -12,6 +12,8 @@ export function AuthProvider({ children }) {
   const [currentUser, setCurrentUser] = useState(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [loading, setLoading] = useState(true);
+  
+  const getToken = () => localStorage.getItem('token');
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -79,6 +81,7 @@ export function AuthProvider({ children }) {
     currentUser,
     isAuthenticated,
     loading,
+    token: getToken(),
     login,
     register,
     logout,

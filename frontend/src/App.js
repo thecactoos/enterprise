@@ -14,6 +14,13 @@ const Contacts = lazy(() => import('./components/Contacts'));
 const Products = lazy(() => import('./components/Products'));
 const Quotes = lazy(() => import('./components/Quotes'));
 const Notes = lazy(() => import('./components/Notes'));
+const PricingManagement = lazy(() => import('./components/PricingManagement'));
+const AdvancedQuoteBuilder = lazy(() => import('./components/AdvancedQuoteBuilder'));
+const MultipleQuoteGenerator = lazy(() => import('./components/MultipleQuoteGenerator'));
+const ProductMarginCalculator = lazy(() => import('./components/ProductMarginCalculator'));
+const InvoiceGenerator = lazy(() => import('./components/InvoiceGenerator'));
+const NipRegonValidator = lazy(() => import('./components/NipRegonValidator'));
+const OCRProcessor = lazy(() => import('./components/OCRProcessor'));
 
 
 function AppContent() {
@@ -39,6 +46,13 @@ function AppContent() {
             <Route path="/products" element={<Products />} />
             <Route path="/quotes" element={<Quotes />} />
             <Route path="/notes" element={<Notes />} />
+            <Route path="/pricing" element={<PricingManagement />} />
+            <Route path="/pricing/quote-builder" element={<AdvancedQuoteBuilder />} />
+            <Route path="/pricing/multiple-quotes" element={<MultipleQuoteGenerator />} />
+            <Route path="/pricing/margin-calculator" element={<ProductMarginCalculator />} />
+            <Route path="/pricing/invoice-generator" element={<InvoiceGenerator />} />
+            <Route path="/pricing/nip-validator" element={<NipRegonValidator />} />
+            <Route path="/ocr" element={<OCRProcessor />} />
             <Route path="*" element={<Navigate to="/" />} />
           </Routes>
         </Suspense>

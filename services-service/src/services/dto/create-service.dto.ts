@@ -7,7 +7,8 @@ import {
   Min, 
   Max,
   MinLength,
-  MaxLength 
+  MaxLength,
+  IsBoolean 
 } from 'class-validator';
 import {
   ServiceCategory,
@@ -15,7 +16,11 @@ import {
   InstallationMethod,
   FlooringForm,
   Pattern,
-  ServiceStatus
+  ServiceStatus,
+  PricingTier,
+  PricingModel,
+  VatRate,
+  RegionalZone
 } from '../service.entity';
 
 export class CreateServiceDto {
@@ -145,4 +150,139 @@ export class CreateServiceDto {
   @IsOptional()
   @IsEnum(ServiceStatus)
   status?: ServiceStatus;
+
+  // ==================== ADVANCED PRICING FIELDS ====================
+  
+  @ApiProperty({ 
+    description: 'Pricing tier level',
+    enum: PricingTier,
+    example: PricingTier.STANDARD,
+    required: false
+  })
+  @IsOptional()
+  @IsEnum(PricingTier)
+  pricingTier?: PricingTier;
+
+  @ApiProperty({ 
+    description: 'Pricing model for calculations',
+    enum: PricingModel,
+    example: PricingModel.PER_M2,
+    required: false
+  })
+  @IsOptional()
+  @IsEnum(PricingModel)
+  pricingModel?: PricingModel;
+
+  @ApiProperty({ 
+    description: 'Polish VAT rate percentage',
+    enum: VatRate,
+    example: VatRate.STANDARD,
+    required: false
+  })
+  @IsOptional()
+  @IsEnum(VatRate)
+  vatRate?: VatRate;
+
+  @ApiProperty({ 
+    description: 'Standard tier price per unit (auto-calculated if not provided)',
+    example: 52.25,
+    minimum: 0,
+    required: false
+  })
+  @IsOptional()
+  @IsNumber({ maxDecimalPlaces: 2 })
+  @Min(0)
+  standardPrice?: number;
+
+  @ApiProperty({ 
+    description: 'Premium tier price per unit (auto-calculated if not provided)',
+    example: 56.25,
+    minimum: 0,
+    required: false
+  })
+  @IsOptional()
+  @IsNumber({ maxDecimalPlaces: 2 })
+  @Min(0)
+  premiumPrice?: number;
+
+  @ApiProperty({ 
+    description: 'Hourly rate for hourly pricing model',
+    example: 80.00,
+    minimum: 0,
+    required: false
+  })
+  @IsOptional()
+  @IsNumber({ maxDecimalPlaces: 2 })
+  @Min(0)
+  hourlyRate?: number;
+
+  @ApiProperty({ 
+    description: 'Daily rate for daily pricing model',
+    example: 600.00,
+    minimum: 0,
+    required: false
+  })
+  @IsOptional()
+  @IsNumber({ maxDecimalPlaces: 2 })
+  @Min(0)
+  dailyRate?: number;
+
+  @ApiProperty({ 
+    description: 'Volume discount threshold (m² or units)',
+    example: 50,
+    minimum: 0,
+    required: false
+  })
+  @IsOptional()
+  @IsNumber({ maxDecimalPlaces: 2 })
+  @Min(0)
+  volumeThreshold?: number;
+
+  @ApiProperty({ 
+    description: 'Volume discount percentage (0-30%)',
+    example: 10,
+    minimum: 0,
+    maximum: 30,
+    required: false
+  })
+  @IsOptional()
+  @IsNumber({ maxDecimalPlaces: 2 })
+  @Min(0)
+  @Max(30)
+  volumeDiscountPercent?: number;
+
+  @ApiProperty({ 
+    description: 'Regional price multiplier',
+    example: 1.15,
+    minimum: 0.5,
+    maximum: 2.0,
+    required: false
+  })
+  @IsOptional()
+  @IsNumber({ maxDecimalPlaces: 3 })
+  @Min(0.5)
+  @Max(2.0)
+  regionalMultiplier?: number;
+
+  @ApiProperty({ 
+    description: 'Enable seasonal price adjustment',
+    example: false,
+    required: false
+  })
+  @IsOptional()
+  @IsBoolean()
+  seasonalAdjustmentActive?: boolean;
+
+  @ApiProperty({ 
+    description: 'Seasonal price multiplier (0.8-1.3)',
+    example: 1.0,
+    minimum: 0.8,
+    maximum: 1.3,
+    required: false
+  })
+  @IsOptional()
+  @IsNumber({ maxDecimalPlaces: 3 })
+  @Min(0.8)
+  @Max(1.3)
+  seasonalMultiplier?: number;
 }

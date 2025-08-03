@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
 import { QuotesModule } from './quotes/quotes.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { QuotesModule } from './quotes/quotes.module';
       synchronize: false, // Using manual migrations
       logging: process.env.NODE_ENV === 'development',
     }),
+    AuthModule,
     QuotesModule,
   ],
 })

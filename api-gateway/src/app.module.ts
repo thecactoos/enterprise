@@ -9,8 +9,12 @@ import { ProductsModule } from './products/products.module';
 import { ContactsModule } from './contacts/contacts.module';
 import { QuotesModule } from './quotes/quotes.module';
 import { ServicesModule } from './services/services.module';
+import { InvoicesModule } from './invoices/invoices.module';
 import { DashboardModule } from './dashboard/dashboard.module';
 import { RedisModule } from './redis/redis.module';
+import { HealthModule } from './health/health.module';
+import { PolishValidationModule } from './common/polish-validation.module';
+import { OcrModule } from './ocr/ocr.module';
 
 @Module({
   imports: [
@@ -23,6 +27,8 @@ import { RedisModule } from './redis/redis.module';
     }),
     PassportModule,
     RedisModule,
+    HealthModule,
+    PolishValidationModule,
     AuthModule,
     UsersModule,
     NotesModule,
@@ -30,7 +36,9 @@ import { RedisModule } from './redis/redis.module';
     ContactsModule,
     QuotesModule,
     ServicesModule,
+    InvoicesModule,
     DashboardModule,
+    OcrModule,
   ],
 })
 export class AppModule {} 

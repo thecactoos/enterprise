@@ -655,6 +655,40 @@ class ApiService {
     return Promise.allSettled(promises);
   }
 
+  // Simple quote creation method for new MVP API
+  async createSimpleQuote(quoteData) {
+    const response = await this.post('/api/v1/quotes', quoteData);
+    return response.data;
+  }
+
+  // Service Integration Methods - NEW
+  async getSuggestedServices(productId, productName, category) {
+    const response = await this.get(`/api/v1/quotes/services/suggest/${productId}/${encodeURIComponent(productName)}`, 
+      category ? { category } : {}
+    );
+    return response.data;
+  }
+
+  async addServicesToQuote(quoteId, serviceCodes, projectArea) {
+    const response = await this.post(`/api/v1/quotes/${quoteId}/services`, {
+      serviceCodes,
+      projectArea
+    });
+    return response.data;
+  }
+
+  async autoSuggestServices(quoteId, includeTransport = true) {
+    const response = await this.post(`/api/v1/quotes/${quoteId}/services/auto-suggest`, {
+      includeTransport
+    });
+    return response.data;
+  }
+
+  async removeServiceFromQuote(quoteId, serviceItemId) {
+    const response = await this.delete(`/api/v1/quotes/${quoteId}/services/${serviceItemId}`);
+    return response.data;
+  }
+
   // Batch quote creation with progress tracking
   async createQuotesWithProgress(baseQuoteData, products, onProgress) {
     const results = [];

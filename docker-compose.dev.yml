@@ -1,0 +1,304 @@
+version: '3.8'
+
+services:
+  # Database
+  postgres:
+    image: postgres:15-alpine
+    container_name: enterprise-postgres-dev
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-enterprise_crm}
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-devpassword123}
+    ports:
+      - "5432:5432"  # Expose for external access
+    volumes:
+      - postgres_dev_data:/var/lib/postgresql/data
+      - ./database/init.sql:/docker-entrypoint-initdb.d/01-init.sql:ro
+      - ./database/migrations:/docker-entrypoint-initdb.d/migrations:ro
+    networks:
+      - enterprise-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-postgres}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # pgAdmin for database management
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: enterprise-pgadmin
+    restart: unless-stopped
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_EMAIL:-admin@enterprise.local}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_PASSWORD:-devpassword123}
+      PGADMIN_CONFIG_SERVER_MODE: 'False'
+    ports:
+      - "5050:80"
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+      - ./pgadmin/servers.json:/pgadmin4/servers.json:ro
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - enterprise-network
+
+  # Portainer for Docker management
+  portainer:
+    image: portainer/portainer-ce:latest
+    container_name: enterprise-portainer
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    ports:
+      - "9443:9443"
+      - "9000:9000"
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - portainer_data:/data
+    networks:
+      - enterprise-network
+
+  # Services Service
+  services-service:
+    build:
+      context: ./services-service
+      dockerfile: Dockerfile
+    image: enterprise-services-service:dev
+    container_name: enterprise-services-service-dev
+    restart: unless-stopped
+    environment:
+      - NODE_ENV=development
+      - DATABASE_URL=postgresql://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD:-devpassword123}@postgres:5432/${POSTGRES_DB:-enterprise_crm}
+      - JWT_SECRET=${JWT_SECRET:-dev-jwt-secret-key-32-characters}
+      - PORT=3001
+    ports:
+      - "3001:3001"  # Expose for debugging
+    volumes:
+      - ./services-service:/app
+      - /app/node_modules
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - enterprise-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3001/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Quotes Service
+  quotes-service:
+    build:
+      context: ./quotes-service
+      dockerfile: Dockerfile
+    image: enterprise-quotes-service:dev
+    container_name: enterprise-quotes-service-dev
+    restart: unless-stopped
+    environment:
+      - NODE_ENV=development
+      - DATABASE_URL=postgresql://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD:-devpassword123}@postgres:5432/${POSTGRES_DB:-enterprise_crm}
+      - JWT_SECRET=${JWT_SECRET:-dev-jwt-secret-key-32-characters}
+      - PORT=3002
+    ports:
+      - "3002:3002"  # Expose for debugging
+    volumes:
+      - ./quotes-service:/app
+      - /app/node_modules
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - enterprise-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3002/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # OCR Service
+  ocr-service:
+    build:
+      context: ./ocr-service
+      dockerfile: Dockerfile
+      args:
+        DOCKER_BUILDKIT: 0
+    image: enterprise-ocr-service:dev
+    container_name: enterprise-ocr-service-dev
+    restart: unless-stopped
+    environment:
+      - JWT_SECRET=${JWT_SECRET:-dev-jwt-secret-key-32-characters}
+      - PYTHONUNBUFFERED=1
+      - DEBUG=true
+    ports:
+      - "8000:8000"  # Expose for debugging
+    volumes:
+      - ocr_dev_uploads:/app/uploads
+      - ./ocr-service:/app  # Hot reload for development
+    networks:
+      - enterprise-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # API Gateway
+  api-gateway:
+    build:
+      context: ./api-gateway
+      dockerfile: Dockerfile
+    image: enterprise-api-gateway:dev
+    container_name: enterprise-api-gateway-dev
+    restart: unless-stopped
+    environment:
+      - NODE_ENV=development
+      - JWT_SECRET=${JWT_SECRET:-dev-jwt-secret-key-32-characters}
+      - SERVICES_SERVICE_URL=http://services-service:3001
+      - QUOTES_SERVICE_URL=http://quotes-service:3002
+      - OCR_SERVICE_URL=http://ocr-service:8000
+      - PORT=3000
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./api-gateway:/app
+      - /app/node_modules
+    depends_on:
+      - services-service
+      - quotes-service
+      - ocr-service
+    networks:
+      - enterprise-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Redis for caching and sessions (optional but recommended)
+  redis:
+    image: redis:7-alpine
+    container_name: enterprise-redis-dev
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_dev_data:/data
+    networks:
+      - enterprise-network
+    command: redis-server --appendonly yes --requirepass ${REDIS_PASSWORD:-devredis123}
+
+  # Prometheus for metrics collection
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: enterprise-prometheus
+    restart: unless-stopped
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./monitoring/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - prometheus_data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/etc/prometheus/console_libraries'
+      - '--web.console.templates=/etc/prometheus/consoles'
+      - '--storage.tsdb.retention.time=200h'
+      - '--web.enable-lifecycle'
+    networks:
+      - enterprise-network
+
+  # Grafana for monitoring dashboards
+  grafana:
+    image: grafana/grafana:latest
+    container_name: enterprise-grafana
+    restart: unless-stopped
+    ports:
+      - "3010:3000"
+    environment:
+      - GF_SECURITY_ADMIN_USER=${GRAFANA_USER:-admin}
+      - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_PASSWORD:-devpassword123}
+      - GF_USERS_ALLOW_SIGN_UP=false
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./monitoring/grafana/provisioning:/etc/grafana/provisioning:ro
+      - ./monitoring/grafana/dashboards:/var/lib/grafana/dashboards:ro
+    depends_on:
+      - prometheus
+    networks:
+      - enterprise-network
+
+  # Node Exporter for system metrics
+  node-exporter:
+    image: prom/node-exporter:latest
+    container_name: enterprise-node-exporter
+    restart: unless-stopped
+    ports:
+      - "9100:9100"
+    volumes:
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /:/rootfs:ro
+    command:
+      - '--path.procfs=/host/proc'
+      - '--path.rootfs=/rootfs'
+      - '--path.sysfs=/host/sys'
+      - '--collector.filesystem.mount-points-exclude=^/(sys|proc|dev|host|etc)($$|/)'
+    networks:
+      - enterprise-network
+
+  # Uptime Kuma for service monitoring
+  uptime-kuma:
+    image: louislam/uptime-kuma:latest
+    container_name: enterprise-uptime-kuma
+    restart: unless-stopped
+    ports:
+      - "3011:3001"
+    volumes:
+      - uptime_kuma_data:/app/data
+    networks:
+      - enterprise-network
+
+  # Redis Insight for Redis management
+  redis-insight:
+    image: redislabs/redisinsight:latest
+    container_name: enterprise-redis-insight
+    restart: unless-stopped
+    ports:
+      - "8001:8001"
+    volumes:
+      - redis_insight_data:/db
+    networks:
+      - enterprise-network
+
+  # Nginx for development (optional - can run frontend locally)
+  nginx-dev:
+    image: nginx:alpine
+    container_name: enterprise-nginx-dev
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/dev.conf:/etc/nginx/conf.d/default.conf:ro
+    depends_on:
+      - api-gateway
+    networks:
+      - enterprise-network
+
+volumes:
+  postgres_dev_data:
+  pgadmin_data:
+  ocr_dev_uploads:
+  redis_dev_data:
+  portainer_data:
+  prometheus_data:
+  grafana_data:
+  uptime_kuma_data:
+  redis_insight_data:
+
+networks:
+  enterprise-network:
+    driver: bridge

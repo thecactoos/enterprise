@@ -1,0 +1,15 @@
+{
+  "Servers": {
+    "1": {
+      "Name": "Enterprise CRM Database",
+      "Group": "Servers",
+      "Host": "postgres",
+      "Port": 5432,
+      "MaintenanceDB": "enterprise_crm",
+      "Username": "postgres",
+      "Password": "devpassword123",
+      "SSLMode": "prefer",
+      "Favorite": true
+    }
+  }
+}

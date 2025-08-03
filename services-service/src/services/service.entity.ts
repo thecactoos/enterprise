@@ -72,6 +72,35 @@ export enum ServiceStatus {
   DISCONTINUED = 'discontinued'
 }
 
+export enum PricingTier {
+  BASIC = 'basic',
+  STANDARD = 'standard',
+  PREMIUM = 'premium'
+}
+
+export enum PricingModel {
+  PER_M2 = 'per_m2',
+  HOURLY = 'hourly',
+  DAILY = 'daily',
+  PROJECT = 'project',
+  PER_ROOM = 'per_room'
+}
+
+export enum VatRate {
+  STANDARD = 23, // Standard VAT rate for most services
+  REDUCED = 8,   // Reduced VAT for specific construction services
+  ZERO = 0       // Zero VAT for exports/specific cases
+}
+
+export enum RegionalZone {
+  WARSAW = 'warsaw',
+  KRAKOW = 'krakow',
+  GDANSK = 'gdansk',
+  WROCLAW = 'wroclaw',
+  POZNAN = 'poznan',
+  OTHER = 'other'
+}
+
 @Entity('services')
 @Index(['category', 'status'])
 @Index(['material', 'installationMethod'])
@@ -246,6 +275,184 @@ export class Service {
   @IsEnum(ServiceStatus)
   status: ServiceStatus;
 
+  // ==================== ADVANCED PRICING FIELDS ====================
+  
+  @ApiProperty({ 
+    description: 'Pricing tier level',
+    enum: PricingTier,
+    example: PricingTier.STANDARD
+  })
+  @Column({ 
+    name: 'pricing_tier',
+    type: 'enum', 
+    enum: PricingTier,
+    default: PricingTier.STANDARD
+  })
+  @IsEnum(PricingTier)
+  pricingTier: PricingTier;
+
+  @ApiProperty({ 
+    description: 'Pricing model for calculations',
+    enum: PricingModel,
+    example: PricingModel.PER_M2
+  })
+  @Column({ 
+    name: 'pricing_model',
+    type: 'enum', 
+    enum: PricingModel,
+    default: PricingModel.PER_M2
+  })
+  @IsEnum(PricingModel)
+  pricingModel: PricingModel;
+
+  @ApiProperty({ 
+    description: 'Polish VAT rate percentage',
+    enum: VatRate,
+    example: VatRate.STANDARD
+  })
+  @Column({ 
+    name: 'vat_rate',
+    type: 'enum', 
+    enum: VatRate,
+    default: VatRate.STANDARD
+  })
+  @IsEnum(VatRate)
+  vatRate: VatRate;
+
+  @ApiProperty({ 
+    description: 'Standard tier price per unit',
+    example: 45.50
+  })
+  @Column({ 
+    name: 'standard_price',
+    type: 'decimal', 
+    precision: 10, 
+    scale: 2,
+    default: 0
+  })
+  @IsNumber({ maxDecimalPlaces: 2 })
+  @Min(0)
+  standardPrice: number;
+
+  @ApiProperty({ 
+    description: 'Premium tier price per unit (15-25% higher)',
+    example: 52.33
+  })
+  @Column({ 
+    name: 'premium_price',
+    type: 'decimal', 
+    precision: 10, 
+    scale: 2,
+    default: 0
+  })
+  @IsNumber({ maxDecimalPlaces: 2 })
+  @Min(0)
+  premiumPrice: number;
+
+  @ApiProperty({ 
+    description: 'Hourly rate for hourly pricing model',
+    example: 80.00
+  })
+  @Column({ 
+    name: 'hourly_rate',
+    type: 'decimal', 
+    precision: 10, 
+    scale: 2,
+    default: 0
+  })
+  @IsNumber({ maxDecimalPlaces: 2 })
+  @Min(0)
+  hourlyRate: number;
+
+  @ApiProperty({ 
+    description: 'Daily rate for daily pricing model',
+    example: 600.00
+  })
+  @Column({ 
+    name: 'daily_rate',
+    type: 'decimal', 
+    precision: 10, 
+    scale: 2,
+    default: 0
+  })
+  @IsNumber({ maxDecimalPlaces: 2 })
+  @Min(0)
+  dailyRate: number;
+
+  @ApiProperty({ 
+    description: 'Volume discount threshold (m² or units)',
+    example: 50
+  })
+  @Column({ 
+    name: 'volume_threshold',
+    type: 'decimal', 
+    precision: 10, 
+    scale: 2,
+    default: 0
+  })
+  @IsNumber({ maxDecimalPlaces: 2 })
+  @Min(0)
+  volumeThreshold: number;
+
+  @ApiProperty({ 
+    description: 'Volume discount percentage (0-30%)',
+    example: 10
+  })
+  @Column({ 
+    name: 'volume_discount_percent',
+    type: 'decimal', 
+    precision: 5, 
+    scale: 2,
+    default: 0
+  })
+  @IsNumber({ maxDecimalPlaces: 2 })
+  @Min(0)
+  @Max(30)
+  volumeDiscountPercent: number;
+
+  @ApiProperty({ 
+    description: 'Regional price multiplier for different zones',
+    example: 1.15
+  })
+  @Column({ 
+    name: 'regional_multiplier',
+    type: 'decimal', 
+    precision: 5, 
+    scale: 3,
+    default: 1.0
+  })
+  @IsNumber({ maxDecimalPlaces: 3 })
+  @Min(0.5)
+  @Max(2.0)
+  regionalMultiplier: number;
+
+  @ApiProperty({ 
+    description: 'Seasonal price adjustment active',
+    example: false
+  })
+  @Column({ 
+    name: 'seasonal_adjustment_active',
+    type: 'boolean',
+    default: false
+  })
+  seasonalAdjustmentActive: boolean;
+
+  @ApiProperty({ 
+    description: 'Seasonal price multiplier (0.8-1.3)',
+    example: 1.1
+  })
+  @Column({ 
+    name: 'seasonal_multiplier',
+    type: 'decimal', 
+    precision: 5, 
+    scale: 3,
+    default: 1.0
+  })
+  @IsNumber({ maxDecimalPlaces: 3 })
+  @Min(0.8)
+  @Max(1.3)
+  seasonalMultiplier: number;
+
   @ApiProperty({ 
     description: 'Service creation date',
     example: '2024-01-15T10:30:00Z'
@@ -311,14 +518,172 @@ export class Service {
     }
   }
 
-  // Helper method to calculate total price for given area
+  // ==================== ENHANCED PRICING CALCULATIONS ====================
+  
+  /**
+   * Calculate price based on tier and quantity
+   * @param quantity - Amount (m², hours, days, rooms)
+   * @param tier - Pricing tier (basic, standard, premium)
+   * @param regionalZone - Regional zone for pricing adjustments
+   * @returns Price calculation with VAT breakdown
+   */
+  calculateAdvancedPrice(quantity: number, tier: PricingTier = this.pricingTier, regionalZone: RegionalZone = RegionalZone.OTHER): {
+    netPrice: number;
+    vatAmount: number;
+    grossPrice: number;
+    discountApplied: number;
+    effectiveRate: number;
+  } {
+    let baseRate = this.getBasePriceForTier(tier);
+    
+    // Apply regional multiplier
+    const regionalMultiplier = this.getRegionalMultiplier(regionalZone);
+    baseRate *= regionalMultiplier;
+    
+    // Apply seasonal adjustment if active
+    if (this.seasonalAdjustmentActive) {
+      baseRate *= this.seasonalMultiplier;
+    }
+    
+    let netPrice = baseRate * quantity;
+    
+    // Apply volume discount if applicable
+    let discountApplied = 0;
+    if (quantity >= this.volumeThreshold && this.volumeDiscountPercent > 0) {
+      discountApplied = (netPrice * this.volumeDiscountPercent) / 100;
+      netPrice -= discountApplied;
+    }
+    
+    // Ensure minimum charge is met
+    netPrice = Math.max(netPrice, this.minimumCharge);
+    
+    // Calculate VAT
+    const vatAmount = (netPrice * this.vatRate) / 100;
+    const grossPrice = netPrice + vatAmount;
+    
+    return {
+      netPrice: Math.round(netPrice * 100) / 100,
+      vatAmount: Math.round(vatAmount * 100) / 100,
+      grossPrice: Math.round(grossPrice * 100) / 100,
+      discountApplied: Math.round(discountApplied * 100) / 100,
+      effectiveRate: Math.round(baseRate * 100) / 100
+    };
+  }
+  
+  /**
+   * Get base price for specific tier
+   */
+  private getBasePriceForTier(tier: PricingTier): number {
+    switch (tier) {
+      case PricingTier.BASIC:
+        return this.basePricePerM2;
+      case PricingTier.STANDARD:
+        return this.standardPrice || this.basePricePerM2 * 1.15;
+      case PricingTier.PREMIUM:
+        return this.premiumPrice || this.basePricePerM2 * 1.25;
+      default:
+        return this.basePricePerM2;
+    }
+  }
+  
+  /**
+   * Get regional multiplier for different Polish cities/zones
+   */
+  private getRegionalMultiplier(zone: RegionalZone): number {
+    const regionalMultipliers = {
+      [RegionalZone.WARSAW]: 1.25,    // Highest prices
+      [RegionalZone.KRAKOW]: 1.15,    // High prices
+      [RegionalZone.GDANSK]: 1.10,    // Medium-high prices
+      [RegionalZone.WROCLAW]: 1.08,   // Medium prices
+      [RegionalZone.POZNAN]: 1.05,    // Slightly above average
+      [RegionalZone.OTHER]: 1.00      // Base price
+    };
+    
+    return regionalMultipliers[zone] || this.regionalMultiplier;
+  }
+  
+  /**
+   * Calculate price for different pricing models
+   */
+  calculateByPricingModel(quantity: number, tier: PricingTier = this.pricingTier): number {
+    switch (this.pricingModel) {
+      case PricingModel.PER_M2:
+        return this.calculateAdvancedPrice(quantity, tier).grossPrice;
+      case PricingModel.HOURLY:
+        return this.hourlyRate * quantity * (1 + this.vatRate / 100);
+      case PricingModel.DAILY:
+        return this.dailyRate * quantity * (1 + this.vatRate / 100);
+      case PricingModel.PROJECT:
+        return this.minimumCharge * (1 + this.vatRate / 100); // Flat project rate
+      case PricingModel.PER_ROOM:
+        return this.basePricePerM2 * 15 * quantity * (1 + this.vatRate / 100); // Assuming 15m² per room
+      default:
+        return this.calculateAdvancedPrice(quantity, tier).grossPrice;
+    }
+  }
+  
+  /**
+   * Legacy method - maintained for backward compatibility
+   */
   calculateTotalPrice(areaM2: number): number {
-    const baseTotal = this.basePricePerM2 * areaM2;
-    return Math.max(baseTotal, this.minimumCharge);
+    return this.calculateAdvancedPrice(areaM2).grossPrice;
   }
 
-  // Helper method to calculate total time for given area
+  /**
+   * Legacy method - maintained for backward compatibility
+   */
   calculateTotalTime(areaM2: number): number {
     return this.timePerM2Minutes * areaM2;
+  }
+  
+  /**
+   * Generate pricing summary for quotations
+   */
+  getPricingSummary(quantity: number, tier: PricingTier = this.pricingTier, regionalZone: RegionalZone = RegionalZone.OTHER): {
+    serviceName: string;
+    quantity: number;
+    unit: string;
+    tier: string;
+    netPrice: number;
+    vatRate: number;
+    vatAmount: number;
+    grossPrice: number;
+    discountApplied: number;
+    priceBreakdown: string[];
+  } {
+    const calculation = this.calculateAdvancedPrice(quantity, tier, regionalZone);
+    const unit = this.getPricingUnit();
+    
+    const priceBreakdown = [
+      `Base rate: ${calculation.effectiveRate.toFixed(2)} PLN/${unit}`,
+      `Quantity: ${quantity} ${unit}`,
+      ...(calculation.discountApplied > 0 ? [`Volume discount: -${calculation.discountApplied.toFixed(2)} PLN`] : []),
+      `Net price: ${calculation.netPrice.toFixed(2)} PLN`,
+      `VAT (${this.vatRate}%): ${calculation.vatAmount.toFixed(2)} PLN`
+    ];
+    
+    return {
+      serviceName: this.serviceName,
+      quantity,
+      unit,
+      tier: tier.charAt(0).toUpperCase() + tier.slice(1),
+      netPrice: calculation.netPrice,
+      vatRate: this.vatRate,
+      vatAmount: calculation.vatAmount,
+      grossPrice: calculation.grossPrice,
+      discountApplied: calculation.discountApplied,
+      priceBreakdown
+    };
+  }
+  
+  private getPricingUnit(): string {
+    switch (this.pricingModel) {
+      case PricingModel.PER_M2: return 'm²';
+      case PricingModel.HOURLY: return 'hour';
+      case PricingModel.DAILY: return 'day';
+      case PricingModel.PROJECT: return 'project';
+      case PricingModel.PER_ROOM: return 'room';
+      default: return 'm²';
+    }
   }
 }

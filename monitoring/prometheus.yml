@@ -1,0 +1,59 @@
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+
+rule_files:
+  # - "first_rules.yml"
+  # - "second_rules.yml"
+
+scrape_configs:
+  # The job name is added as a label `job=<job_name>` to any timeseries scraped from this config.
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['localhost:9090']
+
+  # System metrics
+  - job_name: 'node-exporter'
+    static_configs:
+      - targets: ['node-exporter:9100']
+
+  # PostgreSQL metrics (if we add postgres_exporter later)
+  - job_name: 'postgres'
+    static_configs:
+      - targets: ['postgres:5432']
+    metrics_path: '/metrics'
+    scrape_interval: 30s
+
+  # API Gateway health checks
+  - job_name: 'api-gateway'
+    static_configs:
+      - targets: ['api-gateway:3000']
+    metrics_path: '/health'
+    scrape_interval: 30s
+
+  # Services Service health checks  
+  - job_name: 'services-service'
+    static_configs:
+      - targets: ['services-service:3001']
+    metrics_path: '/health'
+    scrape_interval: 30s
+
+  # Quotes Service health checks
+  - job_name: 'quotes-service'
+    static_configs:
+      - targets: ['quotes-service:3002']
+    metrics_path: '/health'
+    scrape_interval: 30s
+
+  # OCR Service health checks
+  - job_name: 'ocr-service'
+    static_configs:
+      - targets: ['ocr-service:8000']
+    metrics_path: '/health'
+    scrape_interval: 30s
+
+  # Redis metrics (if we add redis_exporter later)
+  - job_name: 'redis'
+    static_configs:
+      - targets: ['redis:6379']
+    scrape_interval: 30s

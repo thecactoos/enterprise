@@ -26,6 +26,8 @@ import {
   Inventory as ProductIcon,
   Euro as EuroIcon,
   ContactPhone as ContactIcon,
+  Calculate as CalculateIcon,
+  TextSnippet as OCRIcon,
 } from '@mui/icons-material';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
@@ -59,7 +61,9 @@ function Navbar() {
     { label: 'Kontakty', path: '/contacts', icon: <PersonIcon /> },
     { label: 'Produkty', path: '/products', icon: <ProductIcon /> },
     { label: 'Oferty', path: '/quotes', icon: <EuroIcon /> },
+    { label: 'Ceny', path: '/pricing', icon: <CalculateIcon /> },
     { label: 'Notatki', path: '/notes', icon: <ContactIcon /> },
+    { label: 'OCR', path: '/ocr', icon: <OCRIcon /> },
   ];
 
   const handleDrawerToggle = () => {

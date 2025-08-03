@@ -24,7 +24,9 @@ import {
 import { QuotesService } from './quotes.service';
 import { CreateQuoteDto } from './dto/create-quote.dto';
 import { CreateUnifiedQuoteDto } from './dto/create-unified-quote.dto';
+import { CreateSimpleQuoteDto, SimpleQuoteResponse } from './dto/create-simple-quote.dto';
 import { Quote, QuoteStatus } from './entities/quote.entity';
+import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 
 // Simple auth guard placeholder - replace with actual implementation
 import { CanActivate, Injectable } from '@nestjs/common';
@@ -44,19 +46,46 @@ export class QuotesController {
   constructor(private readonly quotesService: QuotesService) {}
 
   @Post()
-  @ApiOperation({ summary: 'Create new quote' })
+  @UseGuards(JwtAuthGuard)
+  @ApiOperation({ summary: 'Create new quote with automatic item generation' })
   @ApiResponse({ 
     status: HttpStatus.CREATED, 
     description: 'Quote created successfully',
-    type: Quote
+    schema: {
+      type: 'object',
+      properties: {
+        id: { type: 'string', format: 'uuid' },
+        client_id: { type: 'string', format: 'uuid' },
+        product_id: { type: 'string', format: 'uuid' },
+        area: { type: 'number' },
+        with_installation: { type: 'boolean' },
+        created_by_user_id: { type: 'string', format: 'uuid' },
+        created_at: { type: 'string', format: 'date-time' },
+        items: {
+          type: 'array',
+          items: {
+            type: 'object',
+            properties: {
+              name: { type: 'string' },
+              unit: { type: 'string', enum: ['m²', 'mb', 'szt.'] },
+              quantity: { type: 'number' },
+              unit_price: { type: 'number' },
+              total_price: { type: 'number' }
+            }
+          }
+        }
+      }
+    }
   })
   @ApiResponse({ status: HttpStatus.BAD_REQUEST, description: 'Invalid input data' })
+  @ApiResponse({ status: HttpStatus.UNAUTHORIZED, description: 'Invalid or missing JWT token' })
+  @ApiResponse({ status: HttpStatus.NOT_FOUND, description: 'Product pricing not found' })
   async create(
-    @Body() createQuoteDto: CreateQuoteDto,
-    @Request() req?: any
-  ): Promise<Quote> {
-    const userId = req?.user?.id;
-    return this.quotesService.create(createQuoteDto, userId);
+    @Body() createSimpleQuoteDto: CreateSimpleQuoteDto,
+    @Request() req: any
+  ): Promise<SimpleQuoteResponse> {
+    const userId = req.user.user_id || req.user.id; // Support both possible JWT payload formats
+    return this.quotesService.createSimpleQuote(createSimpleQuoteDto, userId);
   }
 
   @Get()
@@ -325,6 +354,22 @@ export class QuotesController {
       quoteId,
       body.includeTransport !== false // Default to true
     );
+  }
+
+  @Post('complex')
+  @ApiOperation({ summary: 'Create complex quote with manual item specification' })
+  @ApiResponse({ 
+    status: HttpStatus.CREATED, 
+    description: 'Complex quote created successfully',
+    type: Quote
+  })
+  @ApiResponse({ status: HttpStatus.BAD_REQUEST, description: 'Invalid input data' })
+  async createComplex(
+    @Body() createQuoteDto: CreateQuoteDto,
+    @Request() req?: any
+  ): Promise<Quote> {
+    const userId = req?.user?.id;
+    return this.quotesService.create(createQuoteDto, userId);
   }
 
   @Post('unified')

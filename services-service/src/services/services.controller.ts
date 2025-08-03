@@ -23,7 +23,15 @@ import { ServicesService } from './services.service';
 import { CreateServiceDto } from './dto/create-service.dto';
 import { UpdateServiceDto } from './dto/update-service.dto';
 import { ServiceQueryDto } from './dto/service-query.dto';
-import { Service, ServiceStatus } from './service.entity';
+import { Service, ServiceStatus, PricingTier, RegionalZone } from './service.entity';
+import {
+  PricingCalculationDto,
+  BulkPricingUpdateDto,
+  RegionalPricingDto,
+  SeasonalAdjustmentDto,
+  PricingTierUpdateDto,
+  VolumeDiscountDto
+} from './dto/pricing-calculation.dto';
 
 @ApiTags('services')
 @Controller('services')
@@ -275,15 +283,17 @@ export class ServicesController {
 
   @Post(':id/calculate')
   @ApiOperation({
-    summary: 'Calculate service cost and time',
-    description: 'Calculate total cost and time for a service based on area'
+    summary: 'Calculate service cost and time (legacy)',
+    description: 'Calculate total cost and time for a service based on area - legacy endpoint'
   })
   @ApiParam({ name: 'id', type: String, description: 'Service UUID' })
   @ApiBody({
     schema: {
       type: 'object',
       properties: {
-        areaM2: { type: 'number', minimum: 0.01, description: 'Area in square meters' }
+        areaM2: { type: 'number', minimum: 0.01, description: 'Area in square meters' },
+        tier: { type: 'string', enum: ['basic', 'standard', 'premium'], description: 'Pricing tier' },
+        regionalZone: { type: 'string', enum: ['warsaw', 'krakow', 'gdansk', 'wroclaw', 'poznan', 'other'], description: 'Regional zone' }
       },
       required: ['areaM2']
     }
@@ -302,9 +312,35 @@ export class ServicesController {
   })
   async calculateCost(
     @Param('id', ParseUUIDPipe) id: string,
-    @Body() body: { areaM2: number }
+    @Body() body: { areaM2: number; tier?: PricingTier; regionalZone?: RegionalZone }
   ) {
-    return this.servicesService.calculateServiceCost(id, body.areaM2);
+    return this.servicesService.calculateServiceCost(
+      id, 
+      body.areaM2, 
+      body.tier || PricingTier.STANDARD, 
+      body.regionalZone || RegionalZone.OTHER
+    );
+  }
+
+  @Post(':id/calculate-advanced')
+  @ApiOperation({
+    summary: 'Advanced pricing calculation',
+    description: 'Calculate service pricing with advanced features: tiers, regional zones, volume discounts, VAT'
+  })
+  @ApiParam({ name: 'id', type: String, description: 'Service UUID' })
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: 'Advanced pricing calculated successfully'
+  })
+  @ApiResponse({
+    status: HttpStatus.NOT_FOUND,
+    description: 'Service not found'
+  })
+  async calculateAdvancedPricing(
+    @Param('id', ParseUUIDPipe) id: string,
+    @Body() calculationDto: PricingCalculationDto
+  ) {
+    return this.servicesService.calculateAdvancedPricing(id, calculationDto);
   }
 
   // ========================================
@@ -365,6 +401,149 @@ export class ServicesController {
   })
   async bulkDeactivate(@Body() body: { serviceIds: string[] }) {
     return this.servicesService.bulkDisable(body.serviceIds);
+  }
+
+  // ========================================
+  // ADVANCED PRICING MANAGEMENT
+  // ========================================
+
+  @Patch('bulk/pricing')
+  @ApiOperation({
+    summary: 'Bulk update pricing',
+    description: 'Update pricing for multiple services with percentage adjustments, VAT rates, and seasonal multipliers'
+  })
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: 'Bulk pricing update completed'
+  })
+  async bulkUpdatePricing(@Body() bulkUpdateDto: BulkPricingUpdateDto) {
+    return this.servicesService.bulkUpdatePricing(bulkUpdateDto);
+  }
+
+  @Patch('regional-pricing')
+  @ApiOperation({
+    summary: 'Update regional pricing multipliers',
+    description: 'Set regional pricing multipliers for different Polish cities/zones'
+  })
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: 'Regional pricing updated successfully'
+  })
+  async updateRegionalPricing(@Body() regionalPricingDto: RegionalPricingDto) {
+    return this.servicesService.updateRegionalPricing(regionalPricingDto);
+  }
+
+  @Patch('seasonal-adjustment')
+  @ApiOperation({
+    summary: 'Apply seasonal pricing adjustments',
+    description: 'Apply seasonal multipliers to service pricing for market conditions'
+  })
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: 'Seasonal adjustments applied successfully'
+  })
+  async applySeasonalAdjustment(@Body() seasonalDto: SeasonalAdjustmentDto) {
+    return this.servicesService.applySeasonalAdjustment(seasonalDto);
+  }
+
+  @Patch(':id/pricing-tiers')
+  @ApiOperation({
+    summary: 'Update service pricing tiers',
+    description: 'Update basic, standard, and premium pricing tiers for a specific service'
+  })
+  @ApiParam({ name: 'id', type: String, description: 'Service UUID' })
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: 'Pricing tiers updated successfully',
+    type: Service
+  })
+  @ApiResponse({
+    status: HttpStatus.NOT_FOUND,
+    description: 'Service not found'
+  })
+  async updatePricingTiers(
+    @Param('id', ParseUUIDPipe) id: string,
+    @Body() pricingTierDto: PricingTierUpdateDto
+  ) {
+    return this.servicesService.updatePricingTiers(id, pricingTierDto);
+  }
+
+  @Patch(':id/volume-discount')
+  @ApiOperation({
+    summary: 'Update volume discount settings',
+    description: 'Set volume discount thresholds and percentages for bulk orders'
+  })
+  @ApiParam({ name: 'id', type: String, description: 'Service UUID' })
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: 'Volume discount updated successfully',
+    type: Service
+  })
+  @ApiResponse({
+    status: HttpStatus.NOT_FOUND,
+    description: 'Service not found'
+  })
+  async updateVolumeDiscount(
+    @Param('id', ParseUUIDPipe) id: string,
+    @Body() volumeDiscountDto: VolumeDiscountDto
+  ) {
+    return this.servicesService.updateVolumeDiscount(id, volumeDiscountDto);
+  }
+
+  // ========================================
+  // PRICING ANALYTICS & INSIGHTS
+  // ========================================
+
+  @Get('pricing/analytics')
+  @ApiOperation({
+    summary: 'Get pricing analytics',
+    description: 'Comprehensive pricing analytics including tier usage, VAT distribution, and volume discount statistics'
+  })
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: 'Pricing analytics retrieved successfully'
+  })
+  async getPricingAnalytics() {
+    return this.servicesService.getPricingAnalytics();
+  }
+
+  @Get('pricing/volume-discounts')
+  @ApiOperation({
+    summary: 'Get services with volume discounts',
+    description: 'Retrieve services that offer volume discounts for bulk orders'
+  })
+  @ApiQuery({
+    name: 'minThreshold',
+    required: false,
+    type: Number,
+    description: 'Minimum volume threshold filter'
+  })
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: 'Services with volume discounts retrieved successfully',
+    type: [Service]
+  })
+  async getServicesWithVolumeDiscounts(@Query('minThreshold') minThreshold?: number) {
+    return this.servicesService.getServicesWithVolumeDiscounts(minThreshold);
+  }
+
+  @Get('pricing/tier/:tier')
+  @ApiOperation({
+    summary: 'Get services by pricing tier',
+    description: 'Retrieve services filtered by pricing tier (basic, standard, premium)'
+  })
+  @ApiParam({ 
+    name: 'tier', 
+    enum: PricingTier, 
+    description: 'Pricing tier to filter by' 
+  })
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: 'Services by pricing tier retrieved successfully',
+    type: [Service]
+  })
+  async getServicesByPricingTier(@Param('tier') tier: PricingTier) {
+    return this.servicesService.getServicesByPricingTier(tier);
   }
 
   // ========================================

@@ -6,7 +6,10 @@ import { QuoteItem, ItemType } from './entities/quote-item.entity';
 import { CreateQuoteDto } from './dto/create-quote.dto';
 import { CreateQuoteItemDto } from './dto/create-quote-item.dto';
 import { CreateUnifiedQuoteDto, ProductSelectionDto, RoomCalculationDto, QuotePreferencesDto } from './dto/create-unified-quote.dto';
+import { CreateSimpleQuoteDto, SimpleQuoteResponse } from './dto/create-simple-quote.dto';
 import { ServiceMatcher, ProductInfo, ServiceInfo } from './utils/service-matcher';
+import { PricingService } from './services/pricing.service';
+import { QuoteItemsGeneratorService } from './services/quote-items-generator.service';
 
 @Injectable()
 export class QuotesService {
@@ -18,6 +21,8 @@ export class QuotesService {
     @InjectRepository(QuoteItem)
     private readonly quoteItemsRepository: Repository<QuoteItem>,
     private readonly serviceMatcher: ServiceMatcher,
+    private readonly pricingService: PricingService,
+    private readonly quoteItemsGenerator: QuoteItemsGeneratorService,
   ) {}
 
   async create(createQuoteDto: CreateQuoteDto, userId?: string): Promise<Quote> {
@@ -823,5 +828,47 @@ export class QuotesService {
     // Let the database trigger handle the calculation automatically
     // The trigger will recalculate totals when quote_items are inserted/updated
     this.logger.log(`Quote totals will be calculated by database trigger for quote ${quoteId}`);
+  }
+
+  /**
+   * Create simplified quote with automatic item generation
+   */
+  async createSimpleQuote(createSimpleQuoteDto: CreateSimpleQuoteDto, userId: string): Promise<SimpleQuoteResponse> {
+    this.logger.log(`Creating simple quote for user ${userId}`, createSimpleQuoteDto);
+
+    // Get pricing for the product
+    const pricing = await this.pricingService.getPrices(createSimpleQuoteDto.product_id);
+
+    // Generate items based on pricing and installation preference
+    const items = this.quoteItemsGenerator.generateItems(
+      createSimpleQuoteDto.area,
+      pricing,
+      createSimpleQuoteDto.with_installation
+    );
+
+    // Create minimal quote record for tracking (optional - depends on requirements)
+    const quote = new Quote();
+    quote.contactId = createSimpleQuoteDto.client_id;
+    quote.quoteNumber = await this.generateQuoteNumber();
+    quote.status = QuoteStatus.DRAFT;
+    quote.createdByUserId = userId;
+    quote.assignedUserId = userId;
+    quote.projectArea = createSimpleQuoteDto.area;
+    quote.installationIncluded = createSimpleQuoteDto.with_installation;
+    quote.paymentTerms = 'Przelew 14 dni';
+
+    const savedQuote = await this.quotesRepository.save(quote);
+
+    // Return the simplified response
+    return {
+      id: savedQuote.id,
+      client_id: createSimpleQuoteDto.client_id,
+      product_id: createSimpleQuoteDto.product_id,
+      area: createSimpleQuoteDto.area,
+      with_installation: createSimpleQuoteDto.with_installation,
+      created_by_user_id: userId,
+      created_at: savedQuote.createdAt,
+      items
+    };
   }
 }

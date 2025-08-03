@@ -1,0 +1,162 @@
+version: '3.8'
+
+services:
+  # Database
+  postgres:
+    image: postgres:15-alpine
+    container_name: enterprise-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-enterprise_crm}
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./database/init.sql:/docker-entrypoint-initdb.d/01-init.sql:ro
+      - ./database/migrations:/docker-entrypoint-initdb.d/migrations:ro
+    networks:
+      - enterprise-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-postgres}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Services Service
+  services-service:
+    build:
+      context: ./services-service
+      dockerfile: Dockerfile
+    image: enterprise-services-service:prod
+    container_name: enterprise-services-service
+    restart: unless-stopped
+    environment:
+      - NODE_ENV=production
+      - DATABASE_URL=postgresql://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB:-enterprise_crm}
+      - JWT_SECRET=${JWT_SECRET}
+      - PORT=3001
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - enterprise-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3001/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Quotes Service
+  quotes-service:
+    build:
+      context: ./quotes-service
+      dockerfile: Dockerfile
+    image: enterprise-quotes-service:prod
+    container_name: enterprise-quotes-service
+    restart: unless-stopped
+    environment:
+      - NODE_ENV=production
+      - DATABASE_URL=postgresql://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB:-enterprise_crm}
+      - JWT_SECRET=${JWT_SECRET}
+      - PORT=3002
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - enterprise-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3002/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # OCR Service
+  ocr-service:
+    build:
+      context: ./ocr-service
+      dockerfile: Dockerfile
+      args:
+        DOCKER_BUILDKIT: 0
+    image: enterprise-ocr-service:prod
+    container_name: enterprise-ocr-service
+    restart: unless-stopped
+    environment:
+      - JWT_SECRET=${JWT_SECRET}
+      - PYTHONUNBUFFERED=1
+    volumes:
+      - ocr_uploads:/app/uploads
+    networks:
+      - enterprise-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # API Gateway
+  api-gateway:
+    build:
+      context: ./api-gateway
+      dockerfile: Dockerfile
+    image: enterprise-api-gateway:prod
+    container_name: enterprise-api-gateway
+    restart: unless-stopped
+    environment:
+      - NODE_ENV=production
+      - JWT_SECRET=${JWT_SECRET}
+      - SERVICES_SERVICE_URL=http://services-service:3001
+      - QUOTES_SERVICE_URL=http://quotes-service:3002
+      - OCR_SERVICE_URL=http://ocr-service:8000
+      - PORT=3000
+    depends_on:
+      - services-service
+      - quotes-service
+      - ocr-service
+    networks:
+      - enterprise-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Frontend (React App)
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      args:
+        - REACT_APP_API_BASE_URL=${REACT_APP_API_BASE_URL:-http://localhost:3000}
+    image: enterprise-frontend:prod
+    container_name: enterprise-frontend
+    restart: unless-stopped
+    networks:
+      - enterprise-network
+
+  # Nginx Reverse Proxy
+  nginx:
+    image: nginx:alpine
+    container_name: enterprise-nginx
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/conf.d:/etc/nginx/conf.d:ro
+      - ./ssl:/etc/nginx/ssl:ro
+      - nginx_logs:/var/log/nginx
+    depends_on:
+      - frontend
+      - api-gateway
+    networks:
+      - enterprise-network
+
+volumes:
+  postgres_data:
+  ocr_uploads:
+  nginx_logs:
+
+networks:
+  enterprise-network:
+    driver: bridge
