@@ -6,7 +6,7 @@ export class ProductsService {
   private readonly productsServiceUrl: string;
 
   constructor(private configService: ConfigService) {
-    this.productsServiceUrl = this.configService.get<string>('PRODUCTS_SERVICE_URL') || 'http://products-service:3004';
+    this.productsServiceUrl = this.configService.get<string>('PRODUCTS_SERVICE_URL') || 'http://products-service:3005';
   }
 
   async findAll(query: any = {}): Promise<any> {

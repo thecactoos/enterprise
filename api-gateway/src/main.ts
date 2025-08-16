@@ -33,6 +33,6 @@ async function bootstrap() {
 
   const port = process.env.PORT || 3000;
   await app.listen(port, '0.0.0.0'); // Listen on all interfaces for Docker networking
-  console.log(`API Gateway running on port ${port}`);
+  console.log(`API Gateway hot reload running on port ${port}`);
 }
-bootstrap(); 
+bootstrap(); // Hot reload test Tue Aug 12 10:39:12 PM CEST 2025

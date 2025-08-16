@@ -120,15 +120,16 @@ services:
       timeout: 10s
       retries: 3
 
-  # Frontend (React App)
+  # Frontend (Next.js App)
   frontend:
     build:
-      context: ./frontend
+      context: ./frontend-next
       dockerfile: Dockerfile
       args:
-        - REACT_APP_API_BASE_URL=${REACT_APP_API_BASE_URL:-http://localhost:3000}
-    image: enterprise-frontend:prod
-    container_name: enterprise-frontend
+        - NEXT_PUBLIC_API_BASE_URL=${NEXT_PUBLIC_API_BASE_URL:-https://cactoos.digital/api}
+        - NEXT_PUBLIC_APP_URL=${NEXT_PUBLIC_APP_URL:-https://cactoos.digital}
+    image: enterprise-frontend-next:prod
+    container_name: enterprise-frontend-next
     restart: unless-stopped
     networks:
       - enterprise-network

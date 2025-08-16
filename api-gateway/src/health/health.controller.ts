@@ -7,6 +7,8 @@ import { HealthService, OverallHealthStatus, ServiceHealthStatus } from './healt
 export class HealthController {
   constructor(private readonly healthService: HealthService) {}
 
+  
+
   @Get()
   @ApiOperation({ summary: 'Basic health check for API Gateway' })
   @ApiResponse({ status: 200, description: 'API Gateway is healthy' })
@@ -116,4 +118,19 @@ export class HealthController {
       uptime: process.uptime(),
     };
   }
+
+      @Get('test-hot-reload')
+    @ApiOperation({ summary: 'Test endpoint for hot reload functionality' })
+    @ApiResponse({ status: 200, description: 'Hot reload test endpoint' })
+    async testHotReload() {
+      return {
+        message: 'Hot reload działa świetnie! 🔥 - Test z 04.08.2025',
+        timestamp: new Date().toISOString(),
+        service: 'api-gateway',
+        version: '2.1.0',
+        hotReload: true,
+        testChange: 'Sprawdzamy czy hot reload działa automatycznie',
+        environment: process.env.NODE_ENV || 'development',
+      };
+    }
 }

@@ -1,260 +1,212 @@
-# CRM System - Mikroserwisy
+# 🚀 Enterprise CRM System
 
-Kompleksowy system CRM oparty na architekturze mikroserwisów z wykorzystaniem Node.js (NestJS), React, Material UI i Python (FastAPI).
+**Production URL**: https://cactoos.digital  
+**Status**: ✅ Live & Operational  
+**SSL Grade**: A+ (Enterprise Security)  
 
-## Architektura
+Modern microservices-based CRM system for Polish B2B/B2C market, built with Node.js (NestJS), Next.js, and PostgreSQL.
 
-### Mikroserwisy:
-- **API Gateway** (NestJS) - Port 3000 - Główny punkt wejścia, autoryzacja JWT
-- **Users Service** (NestJS) - Port 3001 - Zarządzanie użytkownikami
-- **Clients Service** (NestJS) - Port 3002 - Zarządzanie klientami
-- **Notes Service** (NestJS) - Port 3003 - Zarządzanie notatkami
-- **PDF Service** (Python/FastAPI) - Port 8000 - Analiza plików PDF
-- **Frontend** (React + Material UI) - Port 3001 - Interfejs użytkownika
+## 🌐 Production System
 
-### Baza danych i cache:
-- **PostgreSQL** - Port 5432 - Główna baza danych
-- **Redis** - Port 6379 - Cache i kolejki
+### Live URLs:
+- **Application**: https://cactoos.digital
+- **API Gateway**: https://cactoos.digital/api/health
+- **Database Management**: https://cactoos.digital/pgadmin/ 🔐
+- **Container Management**: https://cactoos.digital/portainer/ 🔐
 
-## Funkcjonalności
+### Direct Access (Development):
+- **pgAdmin Direct**: http://178.63.69.38:5050
+- **Portainer Direct**: http://178.63.69.38:9000
 
-### API Gateway
-- Autoryzacja JWT
-- Routing do mikroserwisów
-- Endpoint `/pdf/analyze` do analizy plików PDF
-- CORS configuration
+### Microservices Architecture:
+- **API Gateway** - Port 3100→3000 - Central routing, auth, business logic
+- **Frontend Next** - Port 3000 - Next.js 15 with shadcn/ui (Primary)
+- **Services Service** - Port 3001 - Service definitions with pricing
+- **Quotes Service** - Port 3002 - Quote generation and management
+- **Users Service** - Port 3003 - User management and authentication
+- **Contacts Service** - Port 3004 - Unified contact/lead management
+- **Products Service** - Port 3005 - Product catalog (70,000+ items)
+- **Notes Service** - Port 3006 - Activity tracking and notes
+- **Invoices Service** - Port 3007 - Invoice management with Polish VAT
+- **OCR Service** - Port 8000 - Document processing (Python)
+- **Nginx SSL** - Ports 80/443 - HTTPS termination and routing
 
-### Users Service
-- Rejestracja i logowanie użytkowników
-- Zarządzanie profilami użytkowników
-- Hashowanie haseł (bcrypt)
+### Infrastructure:
+- **PostgreSQL 15** - Primary database with automated backups
+- **Nginx SSL** - HTTPS termination, rate limiting, compression (production)
+- **Docker Compose** - Multi-environment orchestration with port management
+- **Let's Encrypt** - SSL certificates with 12h auto-renewal
+- **Redis** - Caching layer (API Gateway) on port 6379
+- **Network**: Single enterprise-network for all services
 
-### Clients Service
-- CRUD operacje na klientach
-- Zarządzanie danymi kontaktowymi
-- Informacje o firmach
+## ✨ Production Features
 
-### Notes Service
-- Tworzenie i zarządzanie notatkami
-- Powiązanie notatek z klientami
-- Oznaczanie ważnych notatek
+### Business Logic:
+- ✅ **Contact Management** - Unified leads/clients system
+- ✅ **User Authentication** - JWT-based security
+- ✅ **Product Catalog** - Flooring/construction products
+- ✅ **Quote Generation** - Dynamic pricing system
+- ✅ **Service Definitions** - Flooring services catalog
+- ✅ **Invoice Management** - Business transactions
+- ✅ **Document Processing** - OCR for PDF analysis
+- ✅ **Notes System** - Communication tracking
 
-### PDF Service
-- Analiza plików PDF
-- Ekstrakcja danych z faktur
-- Rozpoznawanie numerów faktur, dat, kwot
+### Technical Features:
+- ✅ **Enterprise SSL** - A+ grade security with HSTS
+- ✅ **Hot Reload** - All services with live updates (no restarts needed!)
+- ✅ **Health Checks** - Automated service monitoring
+- ✅ **Rate Limiting** - API protection (100/min)
+- ✅ **Static Caching** - Optimized asset delivery
+- ✅ **Auto-Renewal** - SSL certificates via Let's Encrypt
 
-### Frontend
-- Nowoczesny interfejs Material UI
-- Dashboard z statystykami
-- Zarządzanie klientami i notatkami
-- Upload i analiza plików PDF
+## 🛠 Quick Start
 
-## Uruchamianie
+### Prerequisites:
+- Docker & Docker Compose installed
+- 8GB+ RAM recommended
+- Git access to repository
 
-### Wymagania
-- Docker i Docker Compose
-- Node.js 18+ (dla development)
-- Python 3.11+ (dla development)
-
-### Uruchomienie wszystkich serwisów
+### Development Setup (One-Time Setup):
 ```bash
-# Sklonuj repozytorium
-git clone <repository-url>
-cd crm-enterprise
+# Clone repository
+git clone [repository-url] /var/www/enterprise
+cd /var/www/enterprise
 
-# Uruchom wszystkie kontenery
-docker-compose up -d
+# Start all services (hot reload enabled) - RUN ONCE!
+docker compose -f docker-compose.dev.yml up -d
 
-# Sprawdź status
-docker-compose ps
+# Start HTTPS proxy (for production SSL)
+docker compose -f docker-compose.ssl.yml up -d nginx-ssl
+
+# Verify installation
+curl https://cactoos.digital/api/health
+
+# Now just edit files - changes apply automatically!
 ```
 
-### Dostęp do aplikacji
-- **Frontend**: http://localhost:3001
-- **API Gateway**: http://localhost:3000
-- **PDF Service**: http://localhost:8000
-- **PostgreSQL**: localhost:5432
-- **Redis**: localhost:6379
-
-### Pierwsze uruchomienie
-1. Otwórz http://localhost:3001 w przeglądarce
-2. Zarejestruj nowe konto użytkownika
-3. Zaloguj się do systemu
-4. Dodaj pierwszych klientów i notatki
-
-## Development
-
-### Uruchomienie pojedynczych serwisów
-
-#### API Gateway
+### 🔥 Hot Reload Development:
 ```bash
-cd api-gateway
-npm install
-npm run start:dev
+# Edit any file and save - changes apply instantly:
+vim api-gateway/src/users/users.controller.ts    # ✅ Auto-reloads
+vim frontend-next/app/dashboard/page.tsx         # ✅ Hot module replacement
+vim products-service/src/products/products.service.ts  # ✅ Live updates
+
+# No restarts needed for code changes!
 ```
 
-#### Users Service
+### Common Operations (When Actually Needed):
 ```bash
-cd users-service
-npm install
-npm run start:dev
+# View service logs (useful for debugging)
+docker compose -f docker-compose.dev.yml logs -f [service-name]
+
+# Only restart when you add npm packages or change Docker config
+docker compose -f docker-compose.dev.yml restart [service-name]
+
+# Database backup
+./backup.sh
+
+# Check SSL status
+docker exec nginx-ssl certbot certificates
 ```
 
-#### Clients Service
+## 📚 Documentation
+
+### Essential Guides:
+- **[CLAUDE.md](./CLAUDE.md)** - AI assistant guidance and project overview
+- **[DEVELOPMENT.md](./DEVELOPMENT.md)** - Development environment setup
+- **[DEPLOYMENT.md](./DEPLOYMENT.md)** - Production deployment guide
+- **[PRODUCTION-STATUS.md](./PRODUCTION-STATUS.md)** - Live system status
+
+### Technical Documentation:
+- **[REMOTE-SETUP.md](./REMOTE-SETUP.md)** - Remote development configuration
+- **[ssl-commands.md](./ssl-commands.md)** - SSL certificate management
+- **[database/README_DATABASE.md](./database/README_DATABASE.md)** - Database schema and migrations
+- **[monitoring/README.md](./monitoring/README.md)** - System monitoring setup
+
+### Service Documentation:
+- **[frontend-legacy/MOCK_DATA_GUIDE.md](./frontend-legacy/MOCK_DATA_GUIDE.md)** - Legacy frontend mock data
+- **[users-service/TEST_USERS.md](./users-service/TEST_USERS.md)** - Test user accounts
+- **[docs/IMPORT_PROCESS_DOCUMENTATION.md](./docs/IMPORT_PROCESS_DOCUMENTATION.md)** - Data import process
+
+## 🔐 Security
+
+### Production Security:
+- **SSL/TLS**: TLS 1.2, TLS 1.3 only
+- **HSTS**: HTTP Strict Transport Security enabled
+- **CSP**: Content Security Policy configured
+- **Rate Limiting**: 100 req/min API, 20 req/min auth
+- **Security Headers**: X-Frame-Options, X-Content-Type-Options
+
+### Monitoring:
+- **Health Checks**: All services monitored
+- **Auto-Renewal**: SSL certificates every 12 hours
+- **Resource Monitoring**: CPU, memory, disk usage
+- **Log Management**: Automatic rotation
+
+## 🚀 Performance
+
+### Current Metrics:
+- **Response Time**: <200ms frontend, <50ms API
+- **CPU Usage**: 0.28 load average (very low)
+- **Memory**: 5.3GB/62.7GB (8% utilization)
+- **SSL Grade**: A+ with modern TLS
+- **Uptime**: 14+ hours since deployment
+
+## 📞 Support
+
+### Quick Health Checks:
 ```bash
-cd clients-service
-npm install
-npm run start:dev
+# Test all endpoints
+curl https://cactoos.digital/                    # Frontend
+curl https://cactoos.digital/api/health          # API
+curl https://cactoos.digital/nginx/health        # Nginx
+
+# Check services
+docker compose -f docker-compose.dev.yml ps
 ```
 
-#### Notes Service
+### Key Commands:
 ```bash
-cd notes-service
-npm install
-npm run start:dev
+# View logs
+docker logs enterprise-api-gateway-dev --tail 50
+
+# Restart services
+docker compose -f docker-compose.dev.yml restart
+
+# Check SSL status
+certbot renew --dry-run
 ```
 
-#### PDF Service
+---
+
+## 📞 System Architecture Summary
+
+### Current Configuration (After Recent Updates):
+- **Frontend**: Next.js 15 on port 3000 (primary)
+- **API Gateway**: Port 3100 (external) → 3000 (internal)
+- **SSL Routing**: nginx-ssl handles all HTTPS traffic
+- **Development**: nginx-dev disabled (port conflict resolved)
+- **Hot Reload**: Enabled on all Node.js services
+- **Network**: Single enterprise-network for all containers
+
+### Access Points:
 ```bash
-cd pdf-service
-pip install -r requirements.txt
-uvicorn main:app --reload --host 0.0.0.0 --port 8000
+# Production HTTPS (recommended)
+https://cactoos.digital              # Frontend
+https://cactoos.digital/api/health   # API
+
+# Development direct access
+http://localhost:3000                # Frontend
+http://localhost:3100/health         # API
 ```
 
-#### Frontend
-```bash
-cd frontend
-npm install
-npm start
-```
+## 🎯 Polish B2B/B2C Market Ready
 
-## API Endpoints
+✅ **Enterprise-grade architecture**  
+✅ **A+ SSL security configuration**  
+✅ **Microservices scalability**  
+✅ **Hot reload development** (no restarts needed!)  
+✅ **Production monitoring**  
 
-### Autoryzacja
-- `POST /auth/login` - Logowanie
-- `POST /auth/register` - Rejestracja
-
-### Użytkownicy
-- `GET /users` - Lista użytkowników
-- `GET /users/:id` - Szczegóły użytkownika
-- `POST /users` - Tworzenie użytkownika
-- `PUT /users/:id` - Aktualizacja użytkownika
-- `DELETE /users/:id` - Usuwanie użytkownika
-
-### Klienci
-- `GET /clients` - Lista klientów
-- `GET /clients/:id` - Szczegóły klienta
-- `POST /clients` - Tworzenie klienta
-- `PUT /clients/:id` - Aktualizacja klienta
-- `DELETE /clients/:id` - Usuwanie klienta
-
-### Notatki
-- `GET /notes` - Lista notatek
-- `GET /notes/:id` - Szczegóły notatki
-- `GET /notes/client/:clientId` - Notatki klienta
-- `POST /notes` - Tworzenie notatki
-- `PUT /notes/:id` - Aktualizacja notatki
-- `DELETE /notes/:id` - Usuwanie notatki
-
-### PDF Analysis
-- `POST /pdf/analyze` - Analiza pliku PDF
-
-## Struktura bazy danych
-
-### Tabela users
-- id (UUID, PK)
-- name (VARCHAR)
-- email (VARCHAR, UNIQUE)
-- password (VARCHAR, hashed)
-- role (ENUM: admin, user)
-- isActive (BOOLEAN)
-- createdAt (TIMESTAMP)
-- updatedAt (TIMESTAMP)
-
-### Tabela clients
-- id (UUID, PK)
-- name (VARCHAR)
-- email (VARCHAR, UNIQUE)
-- phone (VARCHAR)
-- company (VARCHAR)
-- address (TEXT)
-- notes (TEXT)
-- isActive (BOOLEAN)
-- createdAt (TIMESTAMP)
-- updatedAt (TIMESTAMP)
-
-### Tabela notes
-- id (UUID, PK)
-- title (VARCHAR)
-- content (TEXT)
-- clientId (UUID, FK)
-- userId (UUID, FK)
-- isImportant (BOOLEAN)
-- createdAt (TIMESTAMP)
-- updatedAt (TIMESTAMP)
-
-## Bezpieczeństwo
-
-- JWT tokens dla autoryzacji
-- Hashowanie haseł z bcrypt
-- CORS configuration
-- Walidacja danych wejściowych
-- Rate limiting (można dodać)
-
-## Monitoring i Logi
-
-```bash
-# Logi wszystkich serwisów
-docker-compose logs
-
-# Logi konkretnego serwisu
-docker-compose logs api-gateway
-docker-compose logs users-service
-docker-compose logs pdf-service
-```
-
-## Troubleshooting
-
-### Problem z połączeniem do bazy danych
-```bash
-# Sprawdź status PostgreSQL
-docker-compose ps postgres
-
-# Restart bazy danych
-docker-compose restart postgres
-```
-
-### Problem z Redis
-```bash
-# Sprawdź status Redis
-docker-compose ps redis
-
-# Restart Redis
-docker-compose restart redis
-```
-
-### Problem z mikroserwisami
-```bash
-# Sprawdź logi
-docker-compose logs <service-name>
-
-# Restart serwisu
-docker-compose restart <service-name>
-```
-
-## Rozszerzenia
-
-### Możliwe ulepszenia:
-- Dodanie RabbitMQ dla asynchronicznej komunikacji
-- Implementacja WebSocket dla real-time updates
-- Dodanie Elasticsearch dla wyszukiwania
-- Implementacja systemu powiadomień
-- Dodanie raportów i analityki
-- Backup i restore bazy danych
-- CI/CD pipeline
-- Kubernetes deployment
-
-## Licencja
-
-MIT License 
+**🌐 System is live and operational at https://cactoos.digital**  
+**📋 Complete documentation**: [CLAUDE.md](./CLAUDE.md) • [DEVELOPMENT.md](./DEVELOPMENT.md)

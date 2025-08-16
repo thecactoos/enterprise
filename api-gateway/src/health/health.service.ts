@@ -38,45 +38,51 @@ export class HealthService {
   private readonly services: ServiceConfig[] = [
     {
       name: 'users',
-      url: process.env.USERS_SERVICE_URL || 'http://users-service:3001',
+      url: process.env.USERS_SERVICE_URL || 'http://enterprise-users-service-dev:3000',
       healthEndpoint: '/health',
-      timeout: 5000,
-    },
-    {
-      name: 'notes',
-      url: process.env.NOTES_SERVICE_URL || 'http://notes-service:3003',
-      healthEndpoint: '/health',
-      timeout: 5000,
-    },
-    {
-      name: 'products',
-      url: process.env.PRODUCTS_SERVICE_URL || 'http://products-service:3004',
-      healthEndpoint: '/health',
-      timeout: 5000,
+      timeout: 2000, // Reduced timeout for faster checks
     },
     {
       name: 'contacts',
-      url: process.env.CONTACTS_SERVICE_URL || 'http://contacts-service:3005',
-      healthEndpoint: '/health',
-      timeout: 5000,
+      url: process.env.CONTACTS_SERVICE_URL || 'http://enterprise-contacts-service-dev:3000',
+      healthEndpoint: '/health', 
+      timeout: 2000,
     },
     {
-      name: 'quotes',
-      url: process.env.QUOTES_SERVICE_URL || 'http://quotes-service:3006',
+      name: 'products',
+      url: process.env.PRODUCTS_SERVICE_URL || 'http://enterprise-products-service-dev:3000',
       healthEndpoint: '/health',
-      timeout: 5000,
+      timeout: 2000,
+    },
+    {
+      name: 'notes',
+      url: process.env.NOTES_SERVICE_URL || 'http://enterprise-notes-service-dev:3000',
+      healthEndpoint: '/health',
+      timeout: 2000,
     },
     {
       name: 'services',
-      url: process.env.SERVICES_SERVICE_URL || 'http://services-service:3007',
+      url: process.env.SERVICES_SERVICE_URL || 'http://enterprise-services-service-dev:3000',
       healthEndpoint: '/health',
-      timeout: 5000,
+      timeout: 2000,
+    },
+    {
+      name: 'quotes',
+      url: process.env.QUOTES_SERVICE_URL || 'http://enterprise-quotes-service-dev:3000',
+      healthEndpoint: '/health',
+      timeout: 2000,
+    },
+    {
+      name: 'invoices',
+      url: process.env.INVOICES_SERVICE_URL || 'http://enterprise-invoices-service-dev:3000',
+      healthEndpoint: '/health',
+      timeout: 2000,
     },
     {
       name: 'ocr',
-      url: process.env.OCR_SERVICE_URL || 'http://ocr-service:8000',
+      url: process.env.OCR_SERVICE_URL || 'http://enterprise-ocr-service-dev:3000',
       healthEndpoint: '/health',
-      timeout: 5000,
+      timeout: 2000,
     },
   ];
 

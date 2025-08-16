@@ -13,7 +13,7 @@ RUN npm install
 COPY . .
 
 # Expose the port
-EXPOSE 3006
+EXPOSE 3002
 
 # Start in development mode with hot reload
-CMD ["npm", "run", "start:dev"]
+CMD ["npx", "@nestjs/cli", "start", "--watch"]

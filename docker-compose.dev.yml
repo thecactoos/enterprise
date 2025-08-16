@@ -33,6 +33,7 @@ services:
       PGADMIN_DEFAULT_EMAIL: ${PGADMIN_EMAIL:-admin@enterprise.local}
       PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_PASSWORD:-devpassword123}
       PGADMIN_CONFIG_SERVER_MODE: 'False'
+      SCRIPT_NAME: '/pgadmin'
     ports:
       - "5050:80"
     volumes:
@@ -49,6 +50,7 @@ services:
     image: portainer/portainer-ce:latest
     container_name: enterprise-portainer
     restart: unless-stopped
+    command: --base-url=/portainer
     security_opt:
       - no-new-privileges:true
     ports:
@@ -65,7 +67,7 @@ services:
   services-service:
     build:
       context: ./services-service
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.dev
     image: enterprise-services-service:dev
     container_name: enterprise-services-service-dev
     restart: unless-stopped
@@ -74,6 +76,11 @@ services:
       - DATABASE_URL=postgresql://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD:-devpassword123}@postgres:5432/${POSTGRES_DB:-enterprise_crm}
       - JWT_SECRET=${JWT_SECRET:-dev-jwt-secret-key-32-characters}
       - PORT=3001
+      - DB_HOST=postgres
+      - DB_PORT=5432
+      - DB_USERNAME=${POSTGRES_USER:-postgres}
+      - DB_PASSWORD=${POSTGRES_PASSWORD:-devpassword123}
+      - DB_NAME=${POSTGRES_DB:-enterprise_crm}
     ports:
       - "3001:3001"  # Expose for debugging
     volumes:
@@ -85,7 +92,7 @@ services:
     networks:
       - enterprise-network
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:3001/health"]
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--timeout=5", "--spider", "http://0.0.0.0:3001/services/health/check"]
       interval: 30s
       timeout: 10s
       retries: 3
@@ -94,7 +101,7 @@ services:
   quotes-service:
     build:
       context: ./quotes-service
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.dev
     image: enterprise-quotes-service:dev
     container_name: enterprise-quotes-service-dev
     restart: unless-stopped
@@ -103,6 +110,11 @@ services:
       - DATABASE_URL=postgresql://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD:-devpassword123}@postgres:5432/${POSTGRES_DB:-enterprise_crm}
       - JWT_SECRET=${JWT_SECRET:-dev-jwt-secret-key-32-characters}
       - PORT=3002
+      - DB_HOST=postgres
+      - DB_PORT=5432
+      - DB_USERNAME=${POSTGRES_USER:-postgres}
+      - DB_PASSWORD=${POSTGRES_PASSWORD:-devpassword123}
+      - DB_NAME=${POSTGRES_DB:-enterprise_crm}
     ports:
       - "3002:3002"  # Expose for debugging
     volumes:
@@ -114,7 +126,7 @@ services:
     networks:
       - enterprise-network
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:3002/health"]
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--timeout=5", "--spider", "http://0.0.0.0:3002/health"]
       interval: 30s
       timeout: 10s
       retries: 3
@@ -141,7 +153,7 @@ services:
     networks:
       - enterprise-network
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--timeout=5", "-O", "/dev/null", "http://0.0.0.0:8000/health"]
       interval: 30s
       timeout: 10s
       retries: 3
@@ -150,19 +162,27 @@ services:
   api-gateway:
     build:
       context: ./api-gateway
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.dev
     image: enterprise-api-gateway:dev
     container_name: enterprise-api-gateway-dev
     restart: unless-stopped
     environment:
       - NODE_ENV=development
       - JWT_SECRET=${JWT_SECRET:-dev-jwt-secret-key-32-characters}
-      - SERVICES_SERVICE_URL=http://services-service:3001
-      - QUOTES_SERVICE_URL=http://quotes-service:3002
-      - OCR_SERVICE_URL=http://ocr-service:8000
+      - SERVICES_SERVICE_URL=http://enterprise-services-service-dev:3001
+      - QUOTES_SERVICE_URL=http://enterprise-quotes-service-dev:3002
+      - OCR_SERVICE_URL=http://enterprise-ocr-service-dev:8000
+      - USERS_SERVICE_URL=http://enterprise-users-service-dev:3003
+      - CONTACTS_SERVICE_URL=http://enterprise-contacts-service-dev:3004
+      - PRODUCTS_SERVICE_URL=http://enterprise-products-service-dev:3005
+      - NOTES_SERVICE_URL=http://enterprise-notes-service-dev:3006
+      - INVOICES_SERVICE_URL=http://enterprise-invoices-service-dev:3007
+      - AI_SERVICE_URL=http://enterprise-ai-service-dev:3008
+      - AI_SERVICE_HOST=enterprise-ai-service-dev
+      - AI_SERVICE_PORT=3008
       - PORT=3000
     ports:
-      - "3000:3000"
+      - "3100:3000"  # API Gateway on 3100, frontend gets 3000
     volumes:
       - ./api-gateway:/app
       - /app/node_modules
@@ -170,10 +190,235 @@ services:
       - services-service
       - quotes-service
       - ocr-service
+      - ai-service
     networks:
       - enterprise-network
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:3000/health"]
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--timeout=5", "--spider", "http://0.0.0.0:3000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Users Service
+  users-service:
+    build:
+      context: ./users-service
+      dockerfile: Dockerfile.dev
+    image: enterprise-users-service:dev
+    container_name: enterprise-users-service-dev
+    restart: unless-stopped
+    environment:
+      - NODE_ENV=development
+      - DATABASE_URL=postgresql://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD:-devpassword123}@postgres:5432/${POSTGRES_DB:-enterprise_crm}
+      - JWT_SECRET=${JWT_SECRET:-dev-jwt-secret-key-32-characters}
+      - PORT=3003
+      - DB_HOST=postgres
+      - DB_PORT=5432
+      - DB_USERNAME=${POSTGRES_USER:-postgres}
+      - DB_PASSWORD=${POSTGRES_PASSWORD:-devpassword123}
+      - DB_NAME=${POSTGRES_DB:-enterprise_crm}
+    ports:
+      - "3003:3003"
+    volumes:
+      - ./users-service:/app
+      - /app/node_modules
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - enterprise-network
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--timeout=5", "--spider", "http://0.0.0.0:3003/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Contacts Service
+  contacts-service:
+    build:
+      context: ./contacts-service
+      dockerfile: Dockerfile.dev
+    image: enterprise-contacts-service:dev
+    container_name: enterprise-contacts-service-dev
+    restart: unless-stopped
+    environment:
+      - NODE_ENV=development
+      - DATABASE_URL=postgresql://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD:-devpassword123}@postgres:5432/${POSTGRES_DB:-enterprise_crm}
+      - JWT_SECRET=${JWT_SECRET:-dev-jwt-secret-key-32-characters}
+      - PORT=3004
+      - DB_HOST=postgres
+      - DB_PORT=5432
+      - DB_USERNAME=${POSTGRES_USER:-postgres}
+      - DB_PASSWORD=${POSTGRES_PASSWORD:-devpassword123}
+      - DB_NAME=${POSTGRES_DB:-enterprise_crm}
+    ports:
+      - "3004:3004"
+    volumes:
+      - ./contacts-service:/app
+      - /app/node_modules
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - enterprise-network
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--timeout=5", "-O", "/dev/null", "http://0.0.0.0:3004/api/v1/contacts/health/check"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Products Service
+  products-service:
+    build:
+      context: ./products-service
+      dockerfile: Dockerfile.dev
+    image: enterprise-products-service:dev
+    container_name: enterprise-products-service-dev
+    restart: unless-stopped
+    environment:
+      - NODE_ENV=development
+      - DATABASE_URL=postgresql://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD:-devpassword123}@postgres:5432/${POSTGRES_DB:-enterprise_crm}
+      - JWT_SECRET=${JWT_SECRET:-dev-jwt-secret-key-32-characters}
+      - PORT=3005
+      - DB_HOST=postgres
+      - DB_PORT=5432
+      - DB_USERNAME=${POSTGRES_USER:-postgres}
+      - DB_PASSWORD=${POSTGRES_PASSWORD:-devpassword123}
+      - DB_NAME=${POSTGRES_DB:-enterprise_crm}
+    ports:
+      - "3005:3005"
+    volumes:
+      - ./products-service:/app
+      - /app/node_modules
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - enterprise-network
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--timeout=5", "--spider", "http://0.0.0.0:3005/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Notes Service
+  notes-service:
+    build:
+      context: ./notes-service
+      dockerfile: Dockerfile.dev
+    image: enterprise-notes-service:dev
+    container_name: enterprise-notes-service-dev
+    restart: unless-stopped
+    environment:
+      - NODE_ENV=development
+      - DATABASE_URL=postgresql://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD:-devpassword123}@postgres:5432/${POSTGRES_DB:-enterprise_crm}
+      - JWT_SECRET=${JWT_SECRET:-dev-jwt-secret-key-32-characters}
+      - PORT=3006
+      - DB_HOST=postgres
+      - DB_PORT=5432
+      - DB_USERNAME=${POSTGRES_USER:-postgres}
+      - DB_PASSWORD=${POSTGRES_PASSWORD:-devpassword123}
+      - DB_NAME=${POSTGRES_DB:-enterprise_crm}
+    ports:
+      - "3006:3006"
+    volumes:
+      - ./notes-service:/app
+      - /app/node_modules
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - enterprise-network
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--timeout=5", "--spider", "http://0.0.0.0:3006/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Invoices Service
+  invoices-service:
+    build:
+      context: ./invoices-service
+      dockerfile: Dockerfile.dev
+    image: enterprise-invoices-service:dev
+    container_name: enterprise-invoices-service-dev
+    restart: unless-stopped
+    environment:
+      - NODE_ENV=development
+      - DATABASE_URL=postgresql://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD:-devpassword123}@postgres:5432/${POSTGRES_DB:-enterprise_crm}
+      - JWT_SECRET=${JWT_SECRET:-dev-jwt-secret-key-32-characters}
+      - PORT=3007
+      - DB_HOST=postgres
+      - DB_PORT=5432
+      - DB_USERNAME=${POSTGRES_USER:-postgres}
+      - DB_PASSWORD=${POSTGRES_PASSWORD:-devpassword123}
+      - DB_NAME=${POSTGRES_DB:-enterprise_crm}
+    ports:
+      - "3007:3007"
+    volumes:
+      - ./invoices-service:/app
+      - /app/node_modules
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - enterprise-network
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--timeout=5", "--spider", "http://0.0.0.0:3007/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # AI Service for OpenAI Integration
+  ai-service:
+    build:
+      context: ./ai-service
+      dockerfile: Dockerfile.dev
+    image: enterprise-ai-service:dev
+    container_name: enterprise-ai-service-dev
+    restart: unless-stopped
+    environment:
+      - NODE_ENV=development
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - AI_SERVICE_PORT=3008
+      - PORT=3008
+    ports:
+      - "3008:3008"
+    volumes:
+      - ./ai-service:/app
+      - /app/node_modules
+    networks:
+      - enterprise-network
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--timeout=5", "--spider", "http://0.0.0.0:3008/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Frontend Next.js App (Primary Frontend with hot reload)
+  frontend-next:
+    build:
+      context: ./frontend-next
+      dockerfile: Dockerfile.dev
+    image: enterprise-frontend-next:dev
+    container_name: enterprise-frontend-next-dev
+    restart: unless-stopped
+    environment:
+      - NODE_ENV=development
+      - NEXT_PUBLIC_API_BASE_URL=https://cactoos.digital/api
+      - NEXT_PUBLIC_APP_URL=https://cactoos.digital
+    ports:
+      - "3000:3000"  # Primary frontend port
+    volumes:
+      - ./frontend-next:/app
+      - /app/node_modules
+      - /app/.next
+    depends_on:
+      - api-gateway
+    networks:
+      - enterprise-network
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--timeout=5", "--spider", "http://0.0.0.0:3000"]
       interval: 30s
       timeout: 10s
       retries: 3
@@ -283,8 +528,18 @@ services:
       - "80:80"
     volumes:
       - ./nginx/dev.conf:/etc/nginx/conf.d/default.conf:ro
+      - /var/www/certbot:/var/www/certbot:ro
+    environment:
+      - NGINX_WORKER_PROCESSES=auto
+      - NGINX_WORKER_CONNECTIONS=1024
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--timeout=5", "--spider", "http://localhost"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
     depends_on:
       - api-gateway
+      - frontend-next
     networks:
       - enterprise-network
 

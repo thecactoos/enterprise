@@ -23,6 +23,6 @@ async function bootstrap() {
 
   const port = process.env.PORT || 3003;
   await app.listen(port);
-  console.log(`Notes Service running on port ${port}`);
+  console.log(`Notes Service hoy reload running on port ${port}`);
 }
 bootstrap(); 

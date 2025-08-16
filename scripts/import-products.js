@@ -6,9 +6,9 @@ const path = require('path');
 const dbConfig = {
   host: 'localhost',
   port: 5432,
-  database: 'crm_db',
-  user: 'crm_user',
-  password: 'crm_password',
+  database: 'enterprise_crm',
+  user: 'postgres',
+  password: 'devpassword123',
 };
 
 class ProductImporter {
@@ -67,12 +67,21 @@ class ProductImporter {
     const sellingUnit = scrapedData.jednostka_sprzedażowa || 'szt';
     const pricingUnit = this.extractPricingUnit(scrapedData);
     
+    // Map to valid constraint values
+    let validMeasureUnit = pricingUnit;
+    let validPricingUnit = pricingUnit;
+    
+    if (pricingUnit === 'szt') {
+      validMeasureUnit = 'piece';
+      validPricingUnit = 'piece';
+    }
+    
     return {
       // YOUR EXACT COLUMN NAMES
       product_code: scrapedData.kod_produktu || null,
       product_name: scrapedData.nazwa_produktu || 'Unknown Product',
-      measure_unit: sellingUnit,
-      base_unit_for_pricing: pricingUnit,
+      measure_unit: validMeasureUnit,  // Use constraint-valid value
+      base_unit_for_pricing: validPricingUnit,  // Use constraint-valid value
       selling_unit: sellingUnit,
       measurement_units_per_selling_unit: this.cleanDecimal(scrapedData['długość_sprzedażowa_[mb]']) || 1.0,
       unofficial_product_name: scrapedData.nieoficjalna_nazwa_produktu || null,

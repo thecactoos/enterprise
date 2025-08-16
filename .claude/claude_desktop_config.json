@@ -1,0 +1,38 @@
+{
+  "mcpServers": {
+    "filesystem": {
+      "command": "npx",
+      "args": [
+        "-y", 
+        "@modelcontextprotocol/server-filesystem",
+        "/var/www/enterprise"
+      ]
+    },
+    "memory": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-memory"]
+    },
+    "sequential-thinking": {
+      "command": "npx", 
+      "args": ["-y", "@modelcontextprotocol/server-sequential-thinking"]
+    },
+    "everything": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-everything"]
+    },
+    "postgres": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@henkey/postgres-mcp-server", 
+        "--connection-string",
+        "postgresql://postgres:devpassword123@localhost:5432/enterprise_crm"
+      ]
+    },
+    "enterprise-agents": {
+      "command": "node",
+      "args": ["/var/www/enterprise/.claude/agents-server.js"],
+      "description": "Enterprise development agents - Backend Architect, Frontend Developer, Code Reviewer, Test Automator"
+    }
+  }
+}

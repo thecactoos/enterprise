@@ -26,6 +26,17 @@ export class UsersController {
     return this.usersService.update(id, userData);
   }
 
+  @Get('test-hot-reload')
+  testHotReload() {
+    return {
+      message: 'Users Service hot reload działa! 🚀',
+      timestamp: new Date().toISOString(),
+      service: 'users-service',
+      version: '1.1.0',
+      hotReload: true,
+    };
+  }
+
   @Delete(':id')
   remove(@Param('id') id: string): Promise<void> {
     return this.usersService.remove(id);

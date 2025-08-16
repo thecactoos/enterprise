@@ -94,6 +94,19 @@ export class ProductsController {
     return await this.productsService.findByCode(productCode);
   }
 
+  @Get('test-hot-reload')
+  @ApiOperation({ summary: 'Test hot reload functionality' })
+  @ApiResponse({ status: HttpStatus.OK, description: 'Hot reload test response' })
+  testHotReload() {
+    return {
+      message: 'Products Service hot reload działa! 🎯',
+      timestamp: new Date().toISOString(),
+      service: 'products-service',
+      version: '1.0.0',
+      hotReload: true,
+    };
+  }
+
   @Get(':id')
   @ApiOperation({ summary: 'Get product by UUID' })
   @ApiParam({ name: 'id', description: 'Product UUID', example: '550e8400-e29b-41d4-a716-446655440000' })

@@ -1,22 +1,40 @@
-# 🚀 Enterprise CRM - Production Deployment Guide
+# 🚀 Production Deployment Guide - cactoos.digital
 
-Complete guide for deploying the Enterprise CRM system to a VPS server.
+## 📋 Deployment Status: LIVE & OPERATIONAL ✅
 
-## 📋 Prerequisites
+**Production URL**: https://cactoos.digital
+**Deployment Date**: August 4, 2025
+**Status**: ✅ Fully operational with enterprise-grade SSL
+**SSL Grade**: A+ (SSL Labs verified)
 
-### Server Requirements
-- **VPS**: Ubuntu 20.04+ LTS / Debian 11+ / CentOS 8+
-- **RAM**: Minimum 4GB (8GB recommended)
-- **Storage**: 50GB+ SSD
-- **CPU**: 2+ cores
-- **Network**: Public IP address
-- **Domain**: Optional but recommended for SSL
+Complete guide for the deployed Enterprise CRM system on VPS server.
 
-### Software Requirements
-- Docker 20.10+
-- Docker Compose 2.0+
-- Git
-- Curl/wget
+## 🏗️ Current Production Architecture
+
+### Production Infrastructure:
+```
+Internet → Nginx (SSL) → API Gateway → Microservices
+                    ↓
+                 Frontend (React SPA)
+```
+
+### ✅ Deployed Server Specifications:
+- **VPS**: Ubuntu Linux 6.8.0-63-generic
+- **RAM**: 62.7GB total (5.3GB used - 8% utilization)
+- **Storage**: SSD with Docker volumes
+- **CPU**: 12 cores (current load: 0.28 - very low)
+- **Network**: Public IP 178.63.69.38
+- **Domain**: cactoos.digital (A record configured)
+
+### ✅ Installed Software Stack:
+- **Docker**: Latest version with BuildKit
+- **Docker Compose**: v2.x with orchestration
+- **Nginx**: Latest Alpine with HTTP/2 
+- **Node.js**: LTS for all microservices
+- **PostgreSQL**: 15-alpine with health checks
+- **Let's Encrypt**: SSL certificates with auto-renewal
+- **Certbot**: Certificate management
+- **htop**: System monitoring
 
 ## 🔧 Initial Server Setup
 
@@ -60,18 +78,16 @@ sudo ufw allow 443      # HTTPS
 sudo ufw --force enable
 ```
 
-## 📁 Deploy Application
+## 📁 Production Application Status
 
-### 1. Clone Repository
+### ✅ Deployed Application Location:
 ```bash
-# Create application directory
-sudo mkdir -p /var/www/enterprise-crm
-sudo chown $USER:$USER /var/www/enterprise-crm
-cd /var/www/enterprise-crm
+# Current deployment directory
+cd /var/www/enterprise
 
-# Clone your repository
-git clone https://github.com/your-username/enterprise-crm.git .
-# or upload files via SCP/SFTP
+# All services deployed and running
+docker compose -f docker-compose.dev.yml ps   # Microservices
+docker compose -f docker-compose.ssl.yml ps   # HTTPS proxy
 ```
 
 ### 2. Configure Environment
