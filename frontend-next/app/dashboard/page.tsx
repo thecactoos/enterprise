@@ -120,11 +120,11 @@ export default function DashboardPage() {
   return (
     <div className="space-y-6">
       {/* Welcome header */}
-      <div className="bg-gradient-to-r from-primary to-accent rounded-lg shadow-sm p-6 text-white">
+      <div className="bg-gradient-to-r from-lime-600 to-lime-500 rounded-lg shadow-sm p-6 text-white">
         <h1 className="text-2xl font-bold">
           Witaj ponownie, {user?.firstName}! 👋
         </h1>
-        <p className="mt-2 text-primary-foreground/80">
+        <p className="mt-2 text-white/80">
           Oto przegląd Twojej działalności w systemie CRM
         </p>
       </div>
