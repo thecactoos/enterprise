@@ -28,8 +28,8 @@ import {
 const navigation = [
   { name: "Dashboard", href: "/dashboard", icon: Building2 },
   { name: "Kontakty", href: "/dashboard/contacts", icon: Users },
-  { name: "OCR Standard", href: "/dashboard/ocr", icon: ScanLine },
-  { name: "Intelligent OCR", href: "/dashboard/intelligent-ocr", icon: Brain },
+  { name: "📄 OCR Standard", href: "/dashboard/ocr", icon: ScanLine },
+  { name: "🤖 Intelligent OCR", href: "/dashboard/intelligent-ocr", icon: Brain },
   { name: "Oferty", href: "/dashboard/quotes", icon: FileText },
   { name: "Faktury", href: "/dashboard/invoices", icon: Receipt },
   { name: "Notatki", href: "/dashboard/notes", icon: FileText },

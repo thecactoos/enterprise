@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ProductsModule } from './products/products.module';
+import { HealthModule } from './health/health.module';
 import { Product } from './products/product.entity';
 
 @Module({
@@ -22,6 +23,7 @@ import { Product } from './products/product.entity';
       logging: process.env.NODE_ENV === 'development' ? ['query', 'error'] : ['error'],
     }),
     ProductsModule,
+    HealthModule,
   ],
 })
 export class AppModule {}

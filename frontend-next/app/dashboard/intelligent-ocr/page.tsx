@@ -61,6 +61,9 @@ interface IntelligentOCRResult {
   language?: string;
   document_type?: string;
   key_information?: Record<string, any>;
+  sentiment?: 'positive' | 'negative' | 'neutral';
+  topics?: string[];
+  action_items?: string[];
 }
 
 type ServiceStatus = 'checking' | 'ready' | 'ocr-only' | 'unavailable';
@@ -371,31 +374,43 @@ export default function IntelligentOCRPage() {
             </Alert>
           )}
 
-          {/* Intelligent Mode Toggle */}
-          <div className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
+          {/* Intelligent Mode Toggle - ENHANCED VISIBILITY */}
+          <div className="flex items-center justify-between p-6 bg-gradient-to-r from-blue-50 to-purple-50 border-2 border-blue-200 rounded-lg shadow-md">
             <div>
-              <h4 className="font-semibold flex items-center gap-2">
-                <Brain className="h-4 w-4" />
-                Tryb Inteligentny
+              <h4 className="font-bold text-lg flex items-center gap-2 text-blue-800">
+                <Brain className="h-6 w-6 text-blue-600" />
+                🤖 Tryb Inteligentny AI
               </h4>
-              <p className="text-sm text-muted-foreground">
+              <p className="text-sm text-blue-700 mt-1">
                 Włącz AI do analizy encji, streszczenia i struktury dokumentu
               </p>
             </div>
-            <Button
-              variant={intelligentMode ? "default" : "outline"}
-              onClick={() => setIntelligentMode(!intelligentMode)}
-              className={intelligentMode ? "bg-gradient-to-r from-blue-500 to-purple-600" : ""}
-            >
-              {intelligentMode ? (
-                <>
-                  <Sparkles className="mr-2 h-4 w-4" />
-                  Włączony
-                </>
-              ) : (
-                'Wyłączony'
-              )}
-            </Button>
+            <div className="flex flex-col items-center gap-2">
+              <Button
+                variant={intelligentMode ? "default" : "outline"}
+                onClick={() => setIntelligentMode(!intelligentMode)}
+                size="lg"
+                className={intelligentMode 
+                  ? "bg-gradient-to-r from-green-500 to-blue-600 hover:from-green-600 hover:to-blue-700 text-white font-bold px-6 py-3 text-lg shadow-lg" 
+                  : "border-2 border-red-400 text-red-600 hover:bg-red-50 font-bold px-6 py-3 text-lg"
+                }
+              >
+                {intelligentMode ? (
+                  <>
+                    <Sparkles className="mr-2 h-5 w-5" />
+                    ✅ WŁĄCZONY
+                  </>
+                ) : (
+                  <>
+                    <X className="mr-2 h-5 w-5" />
+                    ❌ WYŁĄCZONY
+                  </>
+                )}
+              </Button>
+              <span className="text-xs text-gray-600 text-center">
+                {intelligentMode ? "Analiza OpenAI aktywna" : "Tylko podstawowy OCR"}
+              </span>
+            </div>
           </div>
 
           {/* File Drop Zone */}
@@ -567,10 +582,14 @@ export default function IntelligentOCRPage() {
 
             {/* Enhanced Tabs */}
             <Tabs value={selectedTab} onValueChange={setSelectedTab}>
-              <TabsList className="grid w-full grid-cols-4">
+              <TabsList className="grid w-full grid-cols-5">
                 <TabsTrigger value="intelligent-analysis" className="flex items-center gap-2">
                   <Brain className="h-4 w-4" />
                   Analiza AI
+                </TabsTrigger>
+                <TabsTrigger value="openai-output" className="flex items-center gap-2">
+                  <Sparkles className="h-4 w-4" />
+                  OpenAI
                 </TabsTrigger>
                 <TabsTrigger value="full-text" className="flex items-center gap-2">
                   <Text className="h-4 w-4" />
@@ -645,6 +664,145 @@ export default function IntelligentOCRPage() {
                       </CardContent>
                     </Card>
                   </div>
+                </div>
+              </TabsContent>
+
+              <TabsContent value="openai-output" className="mt-4">
+                <div className="space-y-6">
+                  <h3 className="text-lg font-semibold flex items-center gap-2">
+                    <Sparkles className="h-5 w-5 text-purple-500" />
+                    Kompletna Analiza OpenAI
+                  </h3>
+                  
+                  {/* Topics */}
+                  {result.topics && result.topics.length > 0 && (
+                    <Card>
+                      <CardHeader>
+                        <CardTitle className="text-base">🏷️ Tematy i Kategorie</CardTitle>
+                      </CardHeader>
+                      <CardContent>
+                        <div className="flex flex-wrap gap-2">
+                          {result.topics.map((topic, index) => (
+                            <Badge key={index} variant="secondary" className="bg-blue-100 text-blue-800">
+                              {topic}
+                            </Badge>
+                          ))}
+                        </div>
+                      </CardContent>
+                    </Card>
+                  )}
+
+                  {/* Sentiment Analysis */}
+                  {result.sentiment && (
+                    <Card>
+                      <CardHeader>
+                        <CardTitle className="text-base">🎭 Analiza Sentymentu</CardTitle>
+                      </CardHeader>
+                      <CardContent>
+                        <Badge 
+                          variant="outline" 
+                          className={`text-lg ${
+                            result.sentiment === 'positive' ? 'border-green-500 text-green-700 bg-green-50' :
+                            result.sentiment === 'negative' ? 'border-red-500 text-red-700 bg-red-50' :
+                            'border-gray-500 text-gray-700 bg-gray-50'
+                          }`}
+                        >
+                          {result.sentiment === 'positive' ? '😊 Pozytywny' :
+                           result.sentiment === 'negative' ? '😞 Negatywny' :
+                           '😐 Neutralny'}
+                        </Badge>
+                      </CardContent>
+                    </Card>
+                  )}
+
+                  {/* Action Items */}
+                  {result.action_items && result.action_items.length > 0 && (
+                    <Card>
+                      <CardHeader>
+                        <CardTitle className="text-base">✅ Zalecane Działania</CardTitle>
+                      </CardHeader>
+                      <CardContent>
+                        <ul className="space-y-2">
+                          {result.action_items.map((item, index) => (
+                            <li key={index} className="flex items-start gap-2">
+                              <div className="w-2 h-2 rounded-full bg-green-500 mt-2 flex-shrink-0"></div>
+                              <span className="text-sm">{item}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </CardContent>
+                    </Card>
+                  )}
+
+                  {/* Raw OpenAI JSON Output */}
+                  <Card>
+                    <CardHeader>
+                      <CardTitle className="text-base">🤖 Surowe Dane OpenAI (JSON)</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <div className="bg-gray-50 rounded-lg p-4 overflow-auto max-h-96">
+                        <pre className="text-xs text-gray-700 whitespace-pre-wrap">
+                          {JSON.stringify({
+                            summary: result.summary,
+                            entities: result.entities,
+                            keyInformation: result.key_information,
+                            documentType: result.document_type,
+                            language: result.language,
+                            sentiment: result.sentiment,
+                            topics: result.topics,
+                            actionItems: result.action_items
+                          }, null, 2)}
+                        </pre>
+                      </div>
+                      <div className="flex gap-2 mt-4">
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={() => copyToClipboard(JSON.stringify({
+                            summary: result.summary,
+                            entities: result.entities,
+                            keyInformation: result.key_information,
+                            documentType: result.document_type,
+                            language: result.language,
+                            sentiment: result.sentiment,
+                            topics: result.topics,
+                            actionItems: result.action_items
+                          }, null, 2))}
+                        >
+                          <Copy className="h-4 w-4 mr-2" />
+                          Skopiuj JSON
+                        </Button>
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={() => {
+                            const aiData = {
+                              summary: result.summary,
+                              entities: result.entities,
+                              keyInformation: result.key_information,
+                              documentType: result.document_type,
+                              language: result.language,
+                              sentiment: result.sentiment,
+                              topics: result.topics,
+                              actionItems: result.action_items
+                            };
+                            const blob = new Blob([JSON.stringify(aiData, null, 2)], { type: 'application/json' });
+                            const url = URL.createObjectURL(blob);
+                            const a = document.createElement('a');
+                            a.href = url;
+                            a.download = `openai_analysis_${new Date().toISOString().split('T')[0]}.json`;
+                            document.body.appendChild(a);
+                            a.click();
+                            document.body.removeChild(a);
+                            URL.revokeObjectURL(url);
+                          }}
+                        >
+                          <Download className="h-4 w-4 mr-2" />
+                          Pobierz JSON
+                        </Button>
+                      </div>
+                    </CardContent>
+                  </Card>
                 </div>
               </TabsContent>
 

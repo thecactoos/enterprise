@@ -48,7 +48,6 @@ export const useAuthStore = create<AuthState>()((
       },
   
       setAuth: ({ user, accessToken, refreshToken }) => {
-        console.log('Setting auth');
         set({
           user,
           accessToken,
@@ -64,7 +63,6 @@ export const useAuthStore = create<AuthState>()((
       },
   
       logout: () => {
-        console.log('Logging out');
         set({
           user: null,
           accessToken: null,
